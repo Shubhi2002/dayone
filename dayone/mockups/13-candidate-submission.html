@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="app.css">
+<style>
+  body { display: grid; grid-template-rows: 52px 1fr; }
+  .wrap { display: grid; grid-template-columns: 1fr 400px; gap: 28px; padding: 36px 120px; align-content: start; }
+  h1 { font-size: 26px; margin: 6px 0 6px; }
+  .lede { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; max-width: 640px; }
+  .q { margin-top: 20px; }
+  .q .qq { font-family: var(--serif); font-size: 15px; margin-bottom: 8px; }
+  .q .hint { font-size: 11.5px; color: var(--muted); margin-bottom: 8px; }
+  .ta { border: 1px solid var(--line-strong); border-radius: var(--r-md); padding: 12px 14px; font-size: 13px; line-height: 1.55; color: var(--ink); background: var(--surface); }
+  .ta.empty { color: var(--faint); min-height: 74px; }
+  .cnt { text-align: right; font-family: var(--mono); font-size: 10.5px; color: var(--faint); margin-top: 4px; }
+  .art { padding: 16px 18px; }
+  .art .row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+  .art .row:last-child { border-bottom: 0; }
+  .art .row b { font-family: var(--mono); font-size: 11.5px; color: var(--ink); font-weight: 500; }
+  .chk { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--ink-2); padding: 6px 0; line-height: 1.5; }
+  .chk i { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--line-strong); flex: none; margin-top: 2px; }
+  .chk.on i { background: var(--green); border-color: var(--green); }
+  .chk.on i::after { content: '✓'; color: #fff; font-size: 10px; display: block; text-align: center; line-height: 13px; }
+  .chk.warn i { border-color: var(--amber); }
+</style></head>
+<body>
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip">Wrap-up</span>
+    <div style="font-family:var(--serif);font-size:14px;">Payments team · 3 rounds complete</div>
+    <div style="flex:1"></div>
+    <div class="timer">00:03:12 <span class="rem">/ 5:00 · not scored on speed</span></div>
+    <span class="btn sm primary">Submit assessment →</span>
+  </div>
+
+  <div class="wrap">
+    <div>
+      <span class="chip soft">Written summary · graded</span>
+      <h1>Last thing: tell the team what you did.</h1>
+      <p class="lede">Write it the way you'd write a hand-off message at the end of a day. Plain language. Your reasoning matters more than polish. These answers are read by the hiring panel and used to check understanding of your own work.</p>
+
+      <div class="q">
+        <div class="qq">1 · What did you find, and how confident are you?</div>
+        <div class="ta">The latency regression came from the v2.14.0 retry loop holding a pooled DB connection and an open transaction while sleeping in backoff. Under partial gateway degradation ~7 req/s was enough to saturate a 20-connection pool. High confidence: reproduced with the load test, confirmed pool saturation in metrics, and p95 dropped from 1.74 s to 310 ms after releasing the connection before backoff.</div>
+        <div class="cnt">78 words</div>
+      </div>
+      <div class="q">
+        <div class="qq">2 · What did you change, and what did you deliberately not change?</div>
+        <div class="ta">Changed: connection acquired per attempt and released before backoff; idempotency check kept outside the loop; regression test asserting no pooled connection is held during backoff. In round 2 I blocked PR #418 for a missed rollback of the ledger reservation on the retry path. Not changed: pool size (would move the bottleneck to Postgres) and the backoff schedule (would want to benchmark first).</div>
+        <div class="cnt">71 words</div>
+      </div>
+      <div class="q">
+        <div class="qq">3 · With another day, what would you do next?</div>
+        <div class="hint">Optional but recommended. Shows judgment about what matters.</div>
+        <div class="ta empty">Benchmark a shorter first retry, add a slow-transaction assertion to the load test so this class of bug fails CI, and write the incident note for round 3 properly instead of the two-line version I had time for…</div>
+        <div class="cnt">0 words · draft not saved yet</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel art">
+        <span class="label" style="display:block;margin-bottom:6px;">What's being submitted</span>
+        <div class="row"><span>Round 1 · Debug</span><b>2 files · 43/43 tests · p95 310 ms</b></div>
+        <div class="row"><span>Round 2 · Review</span><b>Block · 4 findings · summary 96 words</b></div>
+        <div class="row"><span>Round 3 · Operate</span><b>Mitigated 04:52 · 2 updates · note 41 words</b></div>
+        <div class="row"><span>Notes you kept</span><b>11 entries</b></div>
+        <div class="row"><span>Agent transcript</span><b>31 prompts</b></div>
+      </div>
+      <div class="panel art" style="margin-top:14px;">
+        <span class="label" style="display:block;margin-bottom:6px;">Before you submit</span>
+        <div class="chk on"><i></i><span>All three rounds submitted</span></div>
+        <div class="chk on"><i></i><span>Summary questions 1 and 2 answered</span></div>
+        <div class="chk warn"><i></i><span>Question 3 is empty. Optional, but the panel reads it.</span></div>
+        <div class="chk on"><i></i><span>Working tree saved · nothing uncommitted is lost either way</span></div>
+      </div>
+      <div class="note" style="margin-top:14px;font-size:12.5px;">After you submit, the sandbox is destroyed. Your edits, commands, prompts and these answers are kept for Northbeam's review and for your own report. You can request a copy or deletion at any time.</div>
+    </div>
+  </div>
+</body></html>

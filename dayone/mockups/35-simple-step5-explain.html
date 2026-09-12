@@ -1,0 +1,70 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="simple.css">
+<style>
+  .s-main { grid-template-columns: 340px 1fr; }
+  .explain { padding: 36px 60px; overflow: hidden; }
+  .explain h1 { font-size: 30px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .explain .lede { font-size: 15px; color: var(--ink-2); line-height: 1.6; max-width: 640px; }
+  .qs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-top: 26px; }
+  .q { display: flex; flex-direction: column; gap: 8px; }
+  .q .qq { font-size: 16px; font-family: var(--serif); }
+  .q .help { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .q .ta { border: 1.5px solid var(--line-strong); border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: var(--ink); background: var(--surface); min-height: 110px; }
+  .q .ta.empty { color: var(--faint); }
+  .q .cnt { font-size: 12px; color: var(--faint); text-align: right; }
+  .q.full { grid-column: 1 / -1; }
+  .q.full .ta { min-height: 80px; }
+  .recap { padding: 14px 16px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); }
+  .recap .r { display: flex; justify-content: space-between; font-size: 13.5px; padding: 6px 0; border-bottom: 1px dashed var(--line); color: var(--ink-2); }
+  .recap .r:last-child { border-bottom: 0; }
+  .recap .r b { font-weight: 500; color: var(--ink); }
+</style></head>
+<body>
+<div class="s-shell">
+  <div class="s-top">
+    <div class="wordmark" style="font-size:16px;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="title">Working with AI · Cart total is wrong with a discount code</span>
+    <div class="steps"><span class="s done"><i>✓</i>Understand</span><span class="sep"></span><span class="s done"><i>✓</i>Reproduce</span><span class="sep"></span><span class="s done"><i>✓</i>Fix</span><span class="sep"></span><span class="s done"><i>✓</i>Check</span><span class="sep"></span><span class="s now"><i>5</i>Explain</span></div>
+    <div class="time">About <b>45:00</b> · <b style="color:var(--muted)">31:40</b> used</div>
+  </div>
+  <div class="s-main">
+    <div class="guide">
+      <div><div class="stepno">STEP 5 OF 5</div><h2>Explain it in your own words.</h2></div>
+      <p>Imagine a teammate asks you what happened. Short, plain answers are best. There's no word minimum and spelling doesn't matter.</p>
+      <div class="recap">
+        <div class="r"><span>Your change</span><b>cart.js · 1 line moved</b></div>
+        <div class="r"><span>Tests</span><b>6 of 6 passing</b></div>
+        <div class="r"><span>Assistant suggestions</span><b>1 declined · 1 applied</b></div>
+        <div class="r"><span>Questions you asked</span><b>6</b></div>
+      </div>
+      <div class="hint"><b>Why we ask</b>These answers show whether you understood what you changed, not just whether the tests went green. They're read by a person.</div>
+      <div class="next"><span class="big-btn" style="padding:12px 22px;font-size:14px;">Finish and submit →</span></div>
+    </div>
+
+    <div class="explain">
+      <h1>Three short questions</h1>
+      <p class="lede">Answer like you're talking to a colleague. Two or three sentences each is plenty.</p>
+      <div class="qs">
+        <div class="q">
+          <div class="qq">1 · What was actually wrong, and how did you know?</div>
+          <div class="help">Say what the cause was, not just the symptom. Mention what convinced you.</div>
+          <div class="ta">Shipping was added to the total before the 10% discount was applied, so the discount was taken off shipping too. The example in the bug report matched exactly ($45 minus 10% is $40.50), the assistant pointed at the lines, and the failing test confirmed it.</div>
+          <div class="cnt">48 words</div>
+        </div>
+        <div class="q">
+          <div class="qq">2 · Which assistant suggestion did you not accept, and why?</div>
+          <div class="help">It's fine if you accepted everything, but tell us how you checked.</div>
+          <div class="ta">The first fix added the shipping discount back on after subtracting it. It made the example pass but shipping was still being discounted and then corrected, which felt fragile and hard to read. I asked for the shipping line to move below the discount instead.</div>
+          <div class="cnt">46 words</div>
+        </div>
+        <div class="q full">
+          <div class="qq">3 · If you had another hour, what would you do?</div>
+          <div class="help">Anything: more tests, questions for the product team, code cleanup. Shows what you think matters.</div>
+          <div class="ta empty">Add a test for free shipping combined with a code, and ask the product team whether "spend over $50 gets free shipping" should mean before or after the discount…</div>
+          <div class="cnt">0 words · optional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

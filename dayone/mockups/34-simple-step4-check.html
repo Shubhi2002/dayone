@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="simple.css">
+<style>
+  .work { grid-template-rows: 44px 1fr 310px; }
+  .try { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .try .card { padding: 12px 14px; }
+  .try .card .k { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .try .card .v { font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: var(--ink); }
+  .try .card .v b { color: var(--green); font-weight: 600; }
+  .celebrate { padding: 12px 14px; border-radius: 12px; background: var(--green-soft); border: 1px solid rgba(31,138,99,0.3); font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .celebrate b { color: var(--green); font-weight: 600; }
+</style></head>
+<body>
+<div class="s-shell">
+  <div class="s-top">
+    <div class="wordmark" style="font-size:16px;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="title">Working with AI · Cart total is wrong with a discount code</span>
+    <div class="steps"><span class="s done"><i>✓</i>Understand</span><span class="sep"></span><span class="s done"><i>✓</i>Reproduce</span><span class="sep"></span><span class="s done"><i>✓</i>Fix</span><span class="sep"></span><span class="s now"><i>4</i>Check</span><span class="sep"></span><span class="s"><i>5</i>Explain</span></div>
+    <div class="time">About <b>45:00</b> · <b style="color:var(--muted)">26:05</b> used</div>
+  </div>
+  <div class="s-main">
+    <div class="guide">
+      <div><div class="stepno">STEP 4 OF 5</div><h2>Check that it works. Don't take anyone's word for it, including the assistant's.</h2></div>
+      <div class="todo">
+        <div class="on"><i>✓</i><span>Run the tests again</span></div>
+        <div class="on"><i>✓</i><span>Try the example from the bug report</span></div>
+        <div><i></i><span>Try one case the tests don't cover (optional, but good)</span></div>
+      </div>
+      <div class="celebrate"><b>All 6 tests pass.</b> The example from the report now comes to $41.00. You verified it yourself rather than trusting the suggestion. That's the habit we're looking for.</div>
+      <div class="card"><h3>One more idea</h3><p>What happens with a discount code and <b>free shipping</b>? Or a code that isn't valid? You can ask the assistant to add a test for either. Not required.</p></div>
+      <div class="hint"><b>Why this step matters</b>The assistant said its second fix was "cleaner". It was right this time. Running the tests is how you'd know if it wasn't.</div>
+      <div class="next"><span class="big-btn" style="padding:12px 22px;font-size:14px;">Next: explain what you did →</span></div>
+    </div>
+
+    <div class="work">
+      <div class="files"><span class="f on">cart.js <small>edited</small></span><span class="f">discounts.js</span><span class="f">cart.test.js <small>6 passing</small></span></div>
+      <div class="code"><pre><span class="row"><span class="ln">12</span><span class="k">function</span> <span class="f">calculateTotal</span>(cart, discountCode) {</span>
+<span class="row"><span class="ln">13</span>  <span class="k">let</span> total = <span class="n">0</span>;</span>
+<span class="row"><span class="ln">14</span>  <span class="k">for</span> (<span class="k">const</span> item <span class="k">of</span> cart.items) {</span>
+<span class="row"><span class="ln">15</span>    total += item.price * item.quantity;</span>
+<span class="row"><span class="ln">16</span>  }</span>
+<span class="row"><span class="ln">17</span></span>
+<span class="row"><span class="ln">18</span>  <span class="k">if</span> (discountCode) {</span>
+<span class="row"><span class="ln">19</span>    <span class="k">const</span> pct = <span class="f">discountPercent</span>(discountCode);</span>
+<span class="row"><span class="ln">20</span>    total = total * (<span class="n">1</span> - pct / <span class="n">100</span>);</span>
+<span class="row"><span class="ln">21</span>  }</span>
+<span class="row"><span class="ln">22</span></span>
+<span class="row"><span class="ln">23</span>  total += <span class="f">shippingFor</span>(cart);            <span class="c">// shipping is never discounted</span></span>
+<span class="row"><span class="ln">24</span></span>
+<span class="row"><span class="ln">25</span>  <span class="k">return</span> <span class="f">roundToCents</span>(total);</span>
+<span class="row"><span class="ln">26</span>}</span></pre></div>
+      <div class="runbar">
+        <div class="act"><span class="big">▶ Run tests again</span><span class="big secondary">Try an example</span></div>
+        <div class="res">
+          <div class="h"><span>Last run · just now · 21 seconds</span><span style="color:var(--green);font-weight:500;">6 passed · 0 failed</span></div>
+          <div class="tres"><span class="ok">✓</span><span>applies discount to items only, not shipping</span><span class="why">was failing · now 41.00</span></div>
+          <div class="tres"><span class="ok">✓</span><span>adds up items</span></div>
+          <div class="tres"><span class="ok">✓</span><span>adds shipping</span></div>
+                    <div class="try" style="margin-top:12px;">
+            <div class="card"><div class="k">Try an example · your input</div><div class="v">items: 2 × $20.00<br>shipping: $5.00<br>code: SAVE10</div></div>
+            <div class="card"><div class="k">Result</div><div class="v">items after discount: 36.00<br>shipping: 5.00<br>total: <b>41.00</b> ✓ matches the report</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assist">
+      <div class="head"><span class="avatar" style="width:30px;height:30px;font-size:11px;background:var(--ink);color:#fff;">◆</span><div><h3>AI assistant</h3><span>Reads your files · suggests changes · sometimes wrong</span></div></div>
+      <div class="conv">
+        <div class="bub ai"><div class="who">Assistant · 16:41</div><div class="txt">Applied. All tests should pass now, but please run them yourself to confirm.</div></div>
+        <div class="bub me"><div class="who">You · 24:30</div><div class="txt">Tests pass. Is there any case where moving the shipping line could break something else? For example if shipping itself depended on the discounted total?</div></div>
+        <div class="bub ai"><div class="who">Assistant · 24:31 · read shippingFor in cart.js</div><div class="txt">Good question. <b>shippingFor(cart)</b> only looks at the item count and the delivery option, not the total, so the order doesn't affect it. If a future rule made shipping free above a certain spend, you'd need to decide whether "spend" means before or after discount. That would be a product decision, not a bug.</div></div>
+        <div class="chips"><span class="pillbtn">Add a test for free shipping + code</span><span class="pillbtn">Add a test for an invalid code</span></div>
+      </div>
+      <div class="compose"><div class="box">Add a test where shipping is free and SAVE10 is used<span class="cursor"></span></div><div class="note">Asking "what could this break?" after a fix is a senior habit. It counts.</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

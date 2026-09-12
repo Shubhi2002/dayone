@@ -1,0 +1,49 @@
+<!doctype html>
+<html data-size="1800x900"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  html, body { width: 1800px; height: 900px; }
+  .page { padding: 44px 56px; height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 26px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+  .head h1 { font-size: 28px; }
+  .head p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .flow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; align-items: stretch; position: relative; }
+  .flow::before { content: ''; position: absolute; left: 0; right: 0; top: 30px; height: 1px; background: var(--line-strong); z-index: 0; }
+  .st { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+  .st .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); margin: 19px auto 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--accent); }
+  .st .t { text-align: center; font-size: 13px; font-weight: 500; }
+  .st .t small { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .card { padding: 14px 15px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .card .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .card b { font-family: var(--serif); font-weight: 500; font-size: 14.5px; line-height: 1.3; }
+  .card p { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+  .card .sig { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+  .card .sig span { font-family: var(--mono); font-size: 9.5px; padding: 1px 6px; border-radius: 999px; background: var(--green-soft); color: var(--green); }
+  .card .sig span.ai { background: var(--accent-soft); color: var(--accent); }
+  .foot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .foot .panel { padding: 14px 16px; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+  .foot .panel b { display: block; font-family: var(--serif); font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+</style></head>
+<body>
+<div class="page">
+  <div class="head">
+    <div><h1>The single-round flow · "Working with AI"</h1><p>One task, five guided steps, about 45 minutes. Designed for early-career candidates and for teams that want one simple screen before a human conversation.</p></div>
+    <div style="display:flex;gap:8px;"><span class="chip soft">One round</span><span class="chip">Guided steps</span><span class="chip">Assistant is sometimes wrong on purpose</span></div>
+  </div>
+
+  <div class="flow">
+    <div class="st"><span class="dot">0</span><div class="t">Welcome<small>mockup 30</small></div><div class="panel card"><span class="k">Plain page</span><b>"One small, real task, done with an AI assistant."</b><p>Five steps listed. What's recorded. 3-minute warm-up offered. Accommodations one click away.</p></div></div>
+    <div class="st"><span class="dot">·</span><div class="t">Warm-up<small>mockup 31 · 3 min</small></div><div class="panel card"><span class="k">Coach marks</span><b>Three areas, three tips</b><p>Guide · code and Run button · assistant. Tiny practice task. Not assessed.</p></div></div>
+    <div class="st"><span class="dot">1</span><div class="t">Understand<small>mockup 32 · ~8 min</small></div><div class="panel card"><span class="k">Guided</span><b>Read the report, ask the assistant, write your theory</b><p>The guide asks for a one-sentence guess before any edit is allowed to count as "done".</p><div class="sig"><span>hypothesis first</span><span class="ai">asks why</span></div></div></div>
+    <div class="st"><span class="dot">2</span><div class="t">Reproduce<small>~3 min</small></div><div class="panel card"><span class="k">One button</span><b>Run tests, see the failure</b><p>Results in plain language: "got 40.50, expected 41.00". Reproduces before changing code.</p><div class="sig"><span>reproduced first</span></div></div></div>
+    <div class="st"><span class="dot">3</span><div class="t">Fix<small>mockup 33 · ~12 min</small></div><div class="panel card"><span class="k">Read before apply</span><b>Assistant's first fix only fixes the example</b><p>"Read it first" gate, a one-question check ("cause or example?"), decline with a reason, ask for a better fix, apply.</p><div class="sig"><span class="ai">declined with reason</span><span>cause not symptom</span></div></div></div>
+    <div class="st"><span class="dot">4</span><div class="t">Check<small>mockup 34 · ~6 min</small></div><div class="panel card"><span class="k">Verify</span><b>Run again, try the example, ask "what could this break?"</b><p>Green results and a matching example. Optional extra test offered, not required.</p><div class="sig"><span>verified own work</span><span class="ai">probed side effects</span></div></div></div>
+    <div class="st"><span class="dot">5</span><div class="t">Explain · Done<small>mockups 35, 36 · ~6 min</small></div><div class="panel card"><span class="k">Three questions</span><b>Cause, the suggestion you declined, what you'd do next</b><p>Read by a person. Then a finish page with plain-language feedback on four habits and what happens next.</p><div class="sig"><span>explains own change</span></div></div></div>
+  </div>
+
+  <div class="foot">
+    <div class="panel"><b>What's different from the full loop</b>One round, one file set of about 70 lines, one Run button, five fixed steps with a visible checklist, a "Read it first" gate on every assistant change, and copy written for someone who has never seen an assessment like this.</div>
+    <div class="panel"><b>What's the same underneath</b>Same sandbox, same trace, same graders and human review, same eight dimensions (only four carry primary signal here: Debugging, Testing, AI collaboration, Engineering judgment). Same fairness rules: no video, flags never change scores.</div>
+    <div class="panel"><b>Where it fits</b>New-grad and early-career loops as the only technical round before a conversation. Also a 30 to 45 minute first screen for mid-level roles, and the free practice tier's default scenario.</div>
+  </div>
+</div>
+</body></html>

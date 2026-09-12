@@ -1,0 +1,78 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-rows: 56px 1fr; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .co { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+  .co .logo { width: 26px; height: 26px; border-radius: 7px; background: #1F3A5F; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .page { display: grid; grid-template-columns: 1fr 420px; gap: 40px; padding: 44px 120px 40px; max-width: 1440px; }
+  h1 { font-size: 34px; line-height: 1.2; margin: 10px 0 12px; }
+  .lede { font-size: 15px; color: var(--ink-2); line-height: 1.6; max-width: 620px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0 8px; }
+  .step { padding: 14px 16px; }
+  .step .n { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: 0.1em; }
+  .step b { display: block; font-family: var(--serif); font-weight: 500; font-size: 16px; margin: 6px 0 4px; }
+  .step span { font-size: 12.5px; color: var(--muted); line-height: 1.5; display: block; }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-top: 24px; }
+  .fact { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .fact .ic { width: 28px; height: 28px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; flex: none; }
+  .fact b { color: var(--ink); font-weight: 500; display: block; }
+  .card { padding: 22px 24px; }
+  .card h2 { font-size: 18px; margin-bottom: 4px; }
+  .slot { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-md); margin-top: 8px; font-size: 13px; }
+  .slot.sel { border-color: var(--accent); background: var(--accent-soft); }
+  .slot .mono { font-size: 11px; color: var(--muted); }
+  .check { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; color: var(--ink-2); padding: 6px 0; line-height: 1.5; }
+  .check i { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--line-strong); flex: none; margin-top: 2px; }
+  .check.on i { background: var(--accent); border-color: var(--accent); }
+  .check.on i::after { content: '✓'; color: #fff; font-size: 10px; display: block; text-align: center; line-height: 13px; }
+  .fine { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 14px; }
+  .fine a { color: var(--accent); text-decoration: underline; }
+</style></head>
+<body>
+  <div class="top">
+    <div class="co"><span class="logo">NB</span><span><b style="color:var(--ink);font-weight:500">Northbeam</b> · Senior Backend Engineer</span></div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);">Assessment powered by <div class="wordmark" style="font-size:15px;"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div></div>
+  </div>
+
+  <div class="page">
+    <div>
+      <span class="chip soft">Your invitation</span>
+      <h1>Hi Sarah. Your next round is a day on the Payments team.</h1>
+      <p class="lede">Instead of algorithm puzzles, you'll work inside a realistic service with logs, metrics, tests and an AI coding agent, the way you would on the job. There is no trick question. We want to see how you actually engineer.</p>
+
+      <div class="steps">
+        <div class="panel step"><span class="n">ROUND 1 · 60 MIN</span><b>Debug</b><span>A latency regression after a deploy. Reproduce it, find the cause, fix it, prove it.</span></div>
+        <div class="panel step"><span class="n">ROUND 2 · 30 MIN</span><b>Review</b><span>A teammate's AI-generated pull request lands overnight. Would you ship it?</span></div>
+        <div class="panel step"><span class="n">ROUND 3 · 30 MIN</span><b>Operate</b><span>You're on call. Something is happening in production. Triage and communicate.</span></div>
+      </div>
+      <div class="mono" style="font-size:11px;color:var(--muted);">About 2 hours in total, with a 10-minute break offered between rounds. You can also split rounds across two days.</div>
+
+      <div class="facts">
+        <div class="fact"><span class="ic">◆</span><div><b>AI is expected, not banned.</b>A coding agent is built into the workspace. How you direct and verify it is part of what we look at.</div></div>
+        <div class="fact"><span class="ic">◉</span><div><b>What is recorded.</b>Your edits, commands, test runs, and prompts inside the workspace. No webcam, no screen recording, no keystroke biometrics.</div></div>
+        <div class="fact"><span class="ic">▤</span><div><b>How you're assessed.</b>On process as much as outcome: how you investigate, what you verify, the decisions you write down. Running out of time with a clear diagnosis is fine.</div></div>
+        <div class="fact"><span class="ic">☺</span><div><b>You get a report too.</b>After Northbeam shares their decision, you'll receive your own breakdown with the key moments from your session.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel card">
+        <h2>Pick a start time</h2>
+        <div class="mono" style="font-size:11px;color:var(--muted);">Your environment is prepared 5 minutes before. Window closes 19 Sep.</div>
+        <div class="slot"><span>Tomorrow, Sat 13 Sep · 10:00</span><span class="mono">Europe/London</span></div>
+        <div class="slot sel"><span>Sun 14 Sep · 14:00</span><span class="mono">Europe/London</span></div>
+        <div class="slot"><span>Mon 15 Sep · 19:30</span><span class="mono">Europe/London</span></div>
+        <div class="slot" style="justify-content:center;color:var(--muted);">More times…</div>
+
+        <div style="margin:20px 0 6px;" class="label">Before you start</div>
+        <div class="check on"><i></i><span>Try the <b style="font-weight:500;color:var(--ink)">10-minute practice scenario</b> so the workspace isn't a surprise. <span style="color:var(--green)">Done, 00:08:40</span></span></div>
+        <div class="check on"><i></i><span>Confirm you can use a desktop browser (Chrome, Edge, Firefox, Safari). No installs.</span></div>
+        <div class="check"><i></i><span>Need extended time, a screen-reader mode, or a different theme? <span style="color:var(--accent)">Request it here</span>. No justification needed.</span></div>
+
+        <div style="display:flex;gap:10px;margin-top:22px;"><span class="btn primary" style="flex:1;justify-content:center;">Confirm Sun 14 Sep, 14:00</span><span class="btn ghost">Replay practice</span></div>
+        <p class="fine">By confirming you agree to the <a>candidate notice</a>: what is collected, how it is used by Northbeam, how long it is kept, and how to request your data or its deletion. Questions? <a>talent@northbeam.example</a>.</p>
+      </div>
+    </div>
+  </div>
+</body></html>

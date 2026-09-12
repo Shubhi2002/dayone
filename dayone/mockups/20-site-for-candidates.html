@@ -1,0 +1,92 @@
+<!doctype html>
+<html data-size="1440x2500"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="site.css">
+<style>
+  .hero2 { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .prac { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .pc { padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+  .pc .top { display: flex; justify-content: space-between; align-items: center; }
+  .pc h3 { font-size: 17px; line-height: 1.3; }
+  .pc p { font-size: 13px; color: var(--ink-2); line-height: 1.5; flex: 1; }
+  .pc .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pc .foot { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+  .expect { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 40px; margin-top: 30px; }
+  .ex { display: flex; gap: 14px; align-items: flex-start; }
+  .ex .ic { width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .ex b { display: block; font-weight: 500; font-size: 14.5px; margin-bottom: 3px; }
+  .ex p { font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+  .report-side { padding: 22px 24px; }
+  .dim { display: grid; grid-template-columns: 130px 1fr 34px; align-items: center; gap: 12px; padding: 5px 0; font-size: 13px; }
+  .dim .sc { font-family: var(--mono); font-size: 12px; text-align: right; }
+  .learn { margin-top: 14px; padding: 12px 14px; border-radius: var(--r-md); background: var(--accent-soft); font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+  .learn b { color: var(--accent); font-weight: 500; }
+</style></head>
+<body class="site">
+  <div class="nav">
+    <div class="wordmark" style="font-size:20px;"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="links"><span>Product</span><span>Scenarios</span><span>How scoring works</span><span>Pricing</span><span class="on">For candidates</span></div>
+    <div class="cta"><span class="btn ghost">Sign in</span><span class="btn primary">Start practising →</span></div>
+  </div>
+
+  <section class="section wash">
+    <div class="hero2">
+      <div>
+        <span class="eyebrow">For engineers</span>
+        <h1 class="display" style="font-size:54px;">Practise the job, not the puzzle.</h1>
+        <p class="lede">Dayone scenarios put you on a real team with a real problem: a latency regression, a suspicious PR, a page at 2 a.m. You get the codebase, the telemetry and an AI coding agent. Afterwards you get the full answer key and a breakdown of how you worked.</p>
+        <div class="row" style="margin-top:26px;"><span class="btn primary lg">Try a free scenario</span><span class="btn lg">What to expect in an interview</span></div>
+        <div class="mono" style="font-size:11px;color:var(--muted);margin-top:14px;">Free tier: 3 practice scenarios a month. No credit card. No leaderboard.</div>
+      </div>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="mono" style="font-size:10.5px;color:var(--muted);margin-left:8px;">practice · Review · your report</span></div><img src="png/04-ai-pr-review.png" alt=""></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <span class="eyebrow">Practice scenarios</span>
+    <h2 class="title">Same families companies use for hiring. Different variants, full answer key.</h2>
+    <div class="prac">
+      <div class="panel pc"><div class="top"><span class="chip soft">Debug</span><span class="chip amber">Hard · 60 min</span></div><h3>Latency regression in payment-service after deploy</h3><p>p95 jumped from 250 ms to 1.8 s with a flat error rate. You have logs, metrics, a load test and a Java monolith.</p><div class="tags"><span class="tag">java</span><span class="tag">postgres</span><span class="tag">pooling</span></div><div class="foot"><span>2,140 practised · 62% found the cause</span><span class="btn sm primary">Practise</span></div></div>
+      <div class="panel pc"><div class="top"><span class="chip soft">Review</span><span class="chip green">Medium · 30 min</span></div><h3>Would you ship this AI-generated PR?</h3><p>A coding agent added money transfers. Tests pass. Find what's wrong, rank it, decide.</p><div class="tags"><span class="tag">python</span><span class="tag">concurrency</span><span class="tag">authz</span></div><div class="foot"><span>5,380 practised · avg 3.1 of 8 issues</span><span class="btn sm primary">Practise</span></div></div>
+      <div class="panel pc"><div class="top"><span class="chip soft">Investigate</span><span class="chip amber">Hard · 45 min</span></div><h3>Checkout conversion dropped 12% yesterday</h3><p>No deploys, no incidents. A warehouse, flag history, and three chat threads, one of them wrong.</p><div class="tags"><span class="tag">sql</span><span class="tag">analytics</span></div><div class="foot"><span>1,020 practised · 41% found the flag</span><span class="btn sm primary">Practise</span></div></div>
+      <div class="panel pc"><div class="top"><span class="chip soft">Operate</span><span class="chip red">Senior · 30 min</span></div><h3>You're on call: 5xx at 3% and climbing</h3><p>A page, a dashboard, a stale runbook, a stakeholder asking for an update. Mitigate first.</p><div class="tags"><span class="tag">incident</span><span class="tag">flags</span></div><div class="foot"><span>760 practised · median mitigation 9 min</span><span class="btn sm primary">Practise</span></div></div>
+      <div class="panel pc"><div class="top"><span class="chip soft">Test</span><span class="chip green">Medium · 45 min</span></div><h3>Discounts sometimes stack wrong</h3><p>Coverage is 70% and CI is green. Harden the suite so it would have caught the bug, then find it.</p><div class="tags"><span class="tag">python</span><span class="tag">pytest</span></div><div class="foot"><span>1,890 practised · avg mutation 61%</span><span class="btn sm primary">Practise</span></div></div>
+      <div class="panel pc" style="border-style:dashed;background:transparent;"><div class="top"><span class="chip">Coming soon</span></div><h3>Frontend Debug · rendering performance</h3><p>A React dashboard that janks on scroll. Profiler, flame charts, and a fix that has to survive a design review.</p><div class="tags"><span class="tag">react</span><span class="tag">profiling</span></div><div class="foot"><span>Notify me</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid2" style="align-items:start;">
+      <div>
+        <span class="eyebrow">If a company invites you</span>
+        <h2 class="title" style="font-size:32px;">What to expect, and what we promise.</h2>
+        <div class="expect" style="grid-template-columns:1fr;">
+          <div class="ex"><span class="ic">◆</span><div><b>AI is expected.</b><p>A coding agent is built in. Using it well is part of the assessment; not using it is not penalised, but you'll be working harder than you need to.</p></div></div>
+          <div class="ex"><span class="ic">◉</span><div><b>We record your work, not you.</b><p>Edits, commands, test runs and prompts inside the workspace. No webcam, no screen capture, no keystroke biometrics. Ever.</p></div></div>
+          <div class="ex"><span class="ic">▤</span><div><b>Process counts as much as outcome.</b><p>Reproducing before editing, stating a hypothesis, rejecting a wrong AI fix with a reason, verifying your change: these are scored. Running out of time with a clear diagnosis is a fine result.</p></div></div>
+          <div class="ex"><span class="ic">☺</span><div><b>You get your report.</b><p>After the company shares its decision, you receive the same dimensions and key moments they saw, plus what to work on. You can dispute a score. You can delete your data.</p></div></div>
+          <div class="ex"><span class="ic">≡</span><div><b>Accommodations, no questions asked.</b><p>Extended time, screen-reader mode, alternative theme, split sittings across days. Request from the invitation page.</p></div></div>
+        </div>
+      </div>
+      <div class="panel report-side">
+        <span class="label" style="display:block;margin-bottom:10px;">Your practice report · Review · today</span>
+        <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:var(--serif);font-size:44px;letter-spacing:-0.02em;line-height:1;">7.4</span><span class="muted">/ 10 · 68th percentile among 5,380 practice sessions</span></div>
+        <div style="margin-top:16px;">
+          <div class="dim"><span>Judgment</span><div class="bar" style="height:8px;"><i style="width:82%"></i></div><span class="sc">8.2</span></div>
+          <div class="dim"><span>Security</span><div class="bar" style="height:8px;"><i style="width:61%;background:var(--amber)"></i></div><span class="sc">6.1</span></div>
+          <div class="dim"><span>Code quality</span><div class="bar" style="height:8px;"><i style="width:78%"></i></div><span class="sc">7.8</span></div>
+          <div class="dim"><span>Testing</span><div class="bar" style="height:8px;"><i style="width:70%"></i></div><span class="sc">7.0</span></div>
+          <div class="dim"><span>AI collaboration</span><div class="bar" style="height:8px;"><i style="width:79%"></i></div><span class="sc">7.9</span></div>
+        </div>
+        <div class="learn"><b>What you missed.</b> The transfer endpoint had no ownership check on the source account. You found the race and the missing balance guard but approved with "request changes" where a block was warranted. Read: IDOR patterns in money-movement APIs.</div>
+        <div class="learn" style="background:var(--green-soft);"><b style="color:var(--green)">What you did well.</b> You ran the concurrent-transfer case in the sandbox instead of reasoning about it. 22% of practitioners verify before commenting.</div>
+        <div style="display:flex;gap:8px;margin-top:14px;"><span class="btn sm">Watch your replay</span><span class="btn sm ghost">Try a variant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="col"><div class="wordmark" style="font-size:18px;margin-bottom:12px;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div><span style="color:var(--muted);max-width:300px;line-height:1.5;">Interviews that feel like the job.</span></div>
+    <div class="col"><b>Product</b><span>Scenario library</span><span>How scoring works</span><span>Pricing</span></div>
+    <div class="col"><b>Candidates</b><span>Practice scenarios</span><span>What to expect</span><span>Your data and rights</span><span>Accommodations</span></div>
+    <div class="col"><b>Company</b><span>About</span><span>Research</span><span>Fairness and compliance</span><span>Contact</span></div>
+  </div>
+</body></html>

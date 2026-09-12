@@ -1,0 +1,134 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-columns: 220px 1fr; }
+  .side { border-right: 1px solid var(--line); background: var(--surface); padding: 16px 12px; display: flex; flex-direction: column; }
+  .nav a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: var(--ink-2); font-size: 13px; }
+  .nav a.on { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .nav .ic { width: 16px; text-align: center; font-family: var(--mono); font-size: 12px; }
+  .content { padding: 22px 32px; display: grid; grid-template-rows: auto 1fr; gap: 16px; overflow: hidden; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; }
+  .head h1 { font-size: 24px; }
+  .crumb { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .grid { display: grid; grid-template-columns: 1fr 380px; gap: 16px; min-height: 0; }
+  .col { display: flex; flex-direction: column; gap: 14px; min-height: 0; overflow: hidden; }
+  .rounds { display: flex; flex-direction: column; gap: 8px; }
+  .rnd { display: grid; grid-template-columns: 22px 120px 1fr auto auto; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  .rnd .grip { color: var(--faint); font-size: 14px; }
+  .rnd .mode { display: flex; flex-direction: column; gap: 4px; }
+  .rnd .nm { font-family: var(--serif); font-size: 14px; }
+  .rnd .d { font-size: 11.5px; color: var(--muted); }
+  .rnd .time { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; }
+  .rnd .time i { width: 60px; height: 26px; border: 1px solid var(--line-strong); border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; }
+  .rnd.add { border-style: dashed; grid-template-columns: 1fr; text-align: center; color: var(--muted); font-size: 12.5px; background: transparent; }
+  .rnd.event { border-color: var(--accent-mid); background: var(--accent-soft); }
+  .w { display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 12px; padding: 6px 0; font-size: 12.5px; }
+  .w .track { height: 6px; border-radius: 3px; background: var(--surface-2); position: relative; }
+  .w .track i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 3px; }
+  .w .track b { position: absolute; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--accent); transform: translateX(-50%); }
+  .w .v { font-family: var(--mono); font-size: 12px; text-align: right; }
+  .band { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .band .r { display: flex; height: 22px; border-radius: 6px; overflow: hidden; font-family: var(--mono); font-size: 9.5px; color: #fff; white-space: nowrap; }
+  .band .r i { display: flex; align-items: center; justify-content: center; }
+  .opt { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; }
+  .opt:last-child { border-bottom: 0; }
+  .opt .d { color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+  .toggle { display: inline-flex; align-items: center; }
+  .toggle i { width: 30px; height: 17px; border-radius: 9px; background: var(--line-strong); position: relative; display: inline-block; }
+  .toggle i::after { content: ''; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; }
+  .toggle.on i { background: var(--accent); } .toggle.on i::after { left: 15px; }
+  .cov { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .cov div { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 11.5px; }
+  .cov div b { display: block; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; }
+  .cov .ok { border-color: rgba(31,138,99,0.35); background: var(--green-soft); }
+  .cov .weak { border-color: rgba(184,114,26,0.35); background: var(--amber-soft); }
+</style></head>
+<body>
+  <div class="side">
+    <div class="wordmark" style="padding:4px 10px 18px;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="nav">
+      <a><span class="ic">◫</span>Overview</a>
+      <a><span class="ic">▤</span>Scenario library</a>
+      <a class="on"><span class="ic">◉</span>Assessments</a>
+      <a><span class="ic">☺</span>Candidates</a>
+      <a><span class="ic">◔</span>Reports</a>
+      <a><span class="ic">⇄</span>Integrations</a>
+      <a><span class="ic">⚙</span>Settings</a>
+    </div>
+    <div style="margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;border-top:1px solid var(--line);font-size:12px;"><span class="avatar" style="width:26px;height:26px;font-size:10px;">NB</span><div><div style="font-weight:500">Northbeam</div><div class="muted" style="font-size:11px;">Growth plan · 11 seats</div></div></div>
+  </div>
+
+  <div class="content">
+    <div class="head">
+      <div><div class="crumb">Assessments / New</div><h1>Senior Backend Engineer · Q4 loop</h1></div>
+      <div style="display:flex;gap:8px;align-items:center;"><span class="chip">Draft · autosaved</span><span class="btn sm ghost">Preview as candidate</span><span class="btn sm primary">Publish loop</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <div class="panel">
+          <div class="panel-head"><span class="label">Rounds · drag to reorder</span><div style="display:flex;gap:8px;align-items:center;"><span class="mono" style="font-size:11px;color:var(--muted)">Family:</span><span class="chip soft">Payments team · Java / Postgres</span><span class="btn sm ghost">Change</span></div></div>
+          <div class="panel-body" style="padding-top:12px;">
+            <div class="rounds">
+              <div class="rnd"><span class="grip">⋮⋮</span><div class="mode"><span class="nm">Debug</span><span class="d">D1 · latency regression</span></div><div class="d">Reproduce, root-cause, fix, verify. Carries Debugging, Testing, Performance.</div><div class="time"><i>60</i> min</div><span class="btn sm ghost">⋯</span></div>
+              <div class="rnd"><span class="grip">⋮⋮</span><div class="mode"><span class="nm">Review</span><span class="d">R1 · agent PR #418</span></div><div class="d">Findings, severity, verdict, review text. Carries Judgment, Security, Code quality.</div><div class="time"><i>30</i> min</div><span class="btn sm ghost">⋯</span></div>
+              <div class="rnd event"><span class="grip">⋮⋮</span><div class="mode"><span class="nm">Operate</span><span class="d">O1 · paged, SEV-2</span></div><div class="d">Event injected 2 min in. Mitigate, communicate, root-cause. Carries Judgment, Debugging.</div><div class="time"><i>30</i> min</div><span class="btn sm ghost">⋯</span></div>
+              <div class="rnd add">+ Add a round from this family (Scale · 45 min available) or a standalone scenario</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:12px;color:var(--muted);"><span>Total 2 h 00 m + 5 min wrap-up · candidates may split across two days</span><span class="mono" style="font-size:11px;">Billed as 4 round-units</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span class="label">Dimension coverage from these rounds</span><span class="mono" style="font-size:10.5px;color:var(--muted)">primary signal · secondary · none</span></div>
+          <div class="panel-body" style="padding-top:12px;">
+            <div class="cov">
+              <div class="ok"><b>Debugging</b>Debug, Operate</div>
+              <div class="ok"><b>Testing</b>Debug</div>
+              <div class="ok"><b>Judgment</b>Review, Operate</div>
+              <div class="ok"><b>Security</b>Review</div>
+              <div class="ok"><b>Code quality</b>Review · secondary in Debug</div>
+              <div class="ok"><b>Performance</b>Debug</div>
+              <div class="ok"><b>AI collaboration</b>All rounds</div>
+              <div class="weak"><b>System design</b>Secondary only · add Scale round?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="panel">
+          <div class="panel-head"><span class="label">Role profile · weights</span><span class="chip">Senior backend ▾</span></div>
+          <div class="panel-body" style="padding-top:8px;">
+            <div class="w"><span>Debugging</span><div class="track"><i style="width:72%"></i><b style="left:72%"></b></div><span class="v">18</span></div>
+            <div class="w"><span>System design</span><div class="track"><i style="width:72%"></i><b style="left:72%"></b></div><span class="v">18</span></div>
+            <div class="w"><span>Code quality</span><div class="track"><i style="width:48%"></i><b style="left:48%"></b></div><span class="v">12</span></div>
+            <div class="w"><span>Testing</span><div class="track"><i style="width:48%"></i><b style="left:48%"></b></div><span class="v">12</span></div>
+            <div class="w"><span>Performance</span><div class="track"><i style="width:40%"></i><b style="left:40%"></b></div><span class="v">10</span></div>
+            <div class="w"><span>Security</span><div class="track"><i style="width:40%"></i><b style="left:40%"></b></div><span class="v">10</span></div>
+            <div class="w"><span>AI collaboration</span><div class="track"><i style="width:40%"></i><b style="left:40%"></b></div><span class="v">10</span></div>
+            <div class="w"><span>Engineering judgment</span><div class="track"><i style="width:40%"></i><b style="left:40%"></b></div><span class="v">10</span></div>
+            <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.5;">Sums to 100 · System design will show as "not assessed" unless a Scale round is added.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="label">Recommendation bands</span></div>
+          <div class="panel-body" style="padding-top:8px;">
+            <div class="band"><span>Overall</span><div class="r"><i style="flex:6;background:#C9B8DB;">&lt; 6.0 · not rec</i><i style="flex:1.5;background:#8A6BB0;">6.0+</i><i style="flex:2.5;background:var(--accent);">7.5+ · rec</i></div></div>
+            <div class="band"><span>Floor</span><div style="font-size:12px;color:var(--ink-2);">Any primary dimension below <span class="mono">5.0</span> moves the band to Consider and names the debrief focus.</div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="label">Candidate-facing options</span></div>
+          <div class="panel-body" style="padding-top:4px;">
+            <div class="opt"><div>Show rubric themes before the session<div class="d">"You'll be assessed on reproduction, verification…"</div></div><span class="toggle on"><i></i></span></div>
+            <div class="opt"><div>Allow splitting rounds across days<div class="d">Link valid 7 days</div></div><span class="toggle on"><i></i></span></div>
+            <div class="opt"><div>ID verification at start<div class="d">Third-party provider · recommended for final rounds only</div></div><span class="toggle"><i></i></span></div>
+            <div class="opt"><div>Notice period before use<div class="d">10 business days · required for NYC candidates</div></div><span class="mono" style="font-size:12px;">10 d</span></div>
+            <div class="opt"><div>Report recipients<div class="d">Hiring manager, 2 panel engineers, recruiter (summary only)</div></div><span class="btn sm ghost">Edit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body></html>

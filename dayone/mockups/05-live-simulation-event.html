@@ -1,0 +1,147 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-rows: 52px 1fr 30px; position: relative; }
+  .main { display: grid; grid-template-columns: 300px 1fr 380px; min-height: 0; filter: blur(0); }
+  .dimmed { position: absolute; inset: 52px 0 30px; background: rgba(23,23,23,0.28); backdrop-filter: blur(1.5px); }
+
+  .rail { border-right: 1px solid var(--line); background: var(--surface); padding: 16px; }
+  .rounds { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .rnd { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding: 10px 0; position: relative; }
+  .rnd .ic { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; background: var(--surface); z-index: 1; }
+  .rnd.done .ic { background: var(--green); border-color: var(--green); color: #fff; }
+  .rnd.now .ic { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .rnd::before { content: ''; position: absolute; left: 10.5px; top: 32px; bottom: -10px; width: 1px; background: var(--line-strong); }
+  .rnd:last-child::before { display: none; }
+  .rnd .t { font-size: 13px; font-weight: 500; }
+  .rnd .d { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .rnd.locked .t, .rnd.locked .d { color: var(--faint); }
+
+  .dash { padding: 16px 20px; display: grid; grid-template-rows: auto 1fr 1fr; gap: 12px; min-height: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .kpi { padding: 10px 12px; }
+  .kpi .v { font-family: var(--serif); font-size: 22px; }
+  .kpi .v.bad { color: var(--red); } .kpi .v.warn { color: var(--amber); }
+  .kpi .l { margin-top: 2px; }
+  .chart { padding: 12px 14px; }
+  .chart .h { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+  .right { border-left: 1px solid var(--line); background: var(--surface); padding: 14px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); line-height: 1.8; }
+  .right .t { color: var(--faint); } .right .e { color: var(--red); } .right .w { color: var(--amber); }
+
+  .modal { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 640px; background: var(--surface); border-radius: 18px; border: 1px solid var(--line-strong); box-shadow: 0 30px 80px rgba(23,23,23,0.25); overflow: hidden; }
+  .modal .head { padding: 18px 24px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px; }
+  .pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 5px var(--red-soft); }
+  .modal h1 { font-size: 24px; margin-top: 10px; line-height: 1.25; }
+  .modal .body { padding: 16px 24px 20px; }
+  .modal p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .pager { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface-2); padding: 10px 14px; font-family: var(--mono); font-size: 11.5px; line-height: 1.7; color: var(--ink-2); }
+  .objectives { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .obj { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-md); font-size: 12.5px; }
+  .obj .label { margin-bottom: 3px; }
+  .modal .foot { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-top: 1px solid var(--line); background: var(--bg); }
+  .status { display: flex; align-items: center; gap: 18px; padding: 0 16px; border-top: 1px solid var(--line); background: var(--surface); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+</style></head>
+<body>
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip soft">Scale</span>
+    <div style="font-family:var(--serif);font-size:14px;">notif-service · Simulation · Round 2 of 4</div>
+    <div style="flex:1"></div>
+    <div class="mono" style="font-size:13px;">00:47:03 <span class="muted" style="font-size:11px">/ 120:00</span></div>
+    <span class="btn sm ghost">Architecture</span>
+    <span class="btn sm ghost">Runbook</span>
+    <span class="btn sm primary">Submit round →</span>
+  </div>
+
+  <div class="main">
+    <div class="rail">
+      <div class="label">Simulation timeline</div>
+      <div class="rounds">
+        <div class="rnd done"><span class="ic">✓</span><div><div class="t">Round 1 · Fix the duplicate-send bug</div><div class="d">Completed 00:41 · regression test added</div></div></div>
+        <div class="rnd now"><span class="ic">2</span><div><div class="t">Round 2 · Survive a 20× traffic spike</div><div class="d">Event injected 00:46 · in progress</div></div></div>
+        <div class="rnd locked"><span class="ic">3</span><div><div class="t">Round 3 · Second region comes online</div><div class="d">Unlocks after round 2</div></div></div>
+        <div class="rnd locked"><span class="ic">4</span><div><div class="t">Round 4 · 99.99% availability target</div><div class="d">Unlocks after round 3</div></div></div>
+      </div>
+      <div class="label" style="margin-top:22px;">Current architecture</div>
+      <svg width="268" height="190" viewBox="0 0 268 190" style="margin-top:8px;">
+        <rect x="8" y="14" width="80" height="34" rx="8" fill="#FDFCFA" stroke="rgba(0,0,0,0.14)"/><text x="48" y="35" text-anchor="middle" font-family="Geist Mono, Menlo" font-size="10" fill="#171717">api</text>
+        <rect x="8" y="78" width="80" height="34" rx="8" fill="#FDFCFA" stroke="rgba(0,0,0,0.14)"/><text x="48" y="99" text-anchor="middle" font-family="Geist Mono, Menlo" font-size="10" fill="#171717">postgres</text>
+        <rect x="104" y="46" width="80" height="34" rx="8" fill="rgba(179,67,47,0.08)" stroke="#B3432F"/><text x="144" y="67" text-anchor="middle" font-family="Geist Mono, Menlo" font-size="10" fill="#B3432F">worker ×2</text>
+        <rect x="104" y="110" width="80" height="34" rx="8" fill="#FDFCFA" stroke="rgba(0,0,0,0.14)"/><text x="144" y="131" text-anchor="middle" font-family="Geist Mono, Menlo" font-size="10" fill="#171717">redis queue</text>
+        <rect x="192" y="46" width="68" height="34" rx="8" fill="#FDFCFA" stroke="rgba(0,0,0,0.14)"/><text x="226" y="67" text-anchor="middle" font-family="Geist Mono, Menlo" font-size="10" fill="#171717">ses / fcm</text>
+        <path d="M88 31 L104 55" stroke="rgba(0,0,0,0.3)"/><path d="M88 95 L104 70" stroke="rgba(0,0,0,0.3)"/><path d="M144 110 L144 80" stroke="rgba(0,0,0,0.3)"/><path d="M184 63 L192 63" stroke="rgba(0,0,0,0.3)"/><path d="M88 40 L104 118" stroke="rgba(0,0,0,0.3)"/>
+        <text x="8" y="178" font-family="Geist Mono, Menlo" font-size="9.5" fill="#B3432F">● worker: cpu 98% · queue depth 41k</text>
+      </svg>
+    </div>
+
+    <div class="dash">
+      <div class="kpis">
+        <div class="panel kpi"><div class="v bad">3.2%</div><div class="l label">error rate</div></div>
+        <div class="panel kpi"><div class="v bad">41,208</div><div class="l label">queue depth</div></div>
+        <div class="panel kpi"><div class="v warn">8.4 s</div><div class="l label">delivery p99</div></div>
+        <div class="panel kpi"><div class="v">18,400</div><div class="l label">req / min</div></div>
+        <div class="panel kpi"><div class="v">2 / 2</div><div class="l label">workers alive</div></div>
+      </div>
+      <div class="panel chart">
+        <div class="h"><span class="label">Requests per minute</span><span class="mono muted" style="font-size:10.5px">last 30 min</span></div>
+        <svg width="100%" height="120" viewBox="0 0 700 120" preserveAspectRatio="none">
+          <path d="M0 100 L60 99 L120 101 L180 98 L240 100 L300 99 L360 100 L400 96 L430 80 L460 55 L490 34 L520 22 L550 18 L580 20 L610 15 L640 17 L670 14 L700 16" fill="none" stroke="#46206F" stroke-width="2"/>
+          <line x1="402" y1="0" x2="402" y2="120" stroke="#B3432F" stroke-dasharray="3 3"/>
+          <text x="408" y="12" font-family="Geist Mono, Menlo" font-size="9.5" fill="#B3432F">campaign launch · 00:46</text>
+        </svg>
+      </div>
+      <div class="panel chart">
+        <div class="h"><span class="label">Queue depth vs. worker throughput</span><span class="mono muted" style="font-size:10.5px">last 30 min</span></div>
+        <svg width="100%" height="120" viewBox="0 0 700 120" preserveAspectRatio="none">
+          <path d="M0 108 L400 106 L430 90 L460 66 L490 44 L520 30 L550 22 L580 16 L610 12 L640 9 L670 7 L700 6" fill="none" stroke="#B3432F" stroke-width="2"/>
+          <path d="M0 96 L400 95 L430 90 L460 88 L490 87 L520 87 L550 88 L580 87 L610 87 L640 88 L670 87 L700 87" fill="none" stroke="#1F8A63" stroke-width="2" stroke-dasharray="5 3"/>
+          <text x="560" y="100" font-family="Geist Mono, Menlo" font-size="9.5" fill="#1F8A63">throughput (flat: cpu-bound)</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="right">
+      <div><span class="t">00:46:02</span> <span class="e">ALERT</span> notif-worker cpu &gt; 95% for 2m</div>
+      <div><span class="t">00:46:05</span> <span class="w">WARN</span> redis: queue notif:send depth 12,044</div>
+      <div><span class="t">00:46:31</span> <span class="w">WARN</span> ses: rate limited (429) · 14 in 60s</div>
+      <div><span class="t">00:46:40</span> INFO  autoscaler: no policy for notif-worker</div>
+      <div><span class="t">00:46:58</span> <span class="e">ERROR</span> worker-1: render template timeout 5000ms</div>
+      <div><span class="t">00:47:01</span> <span class="w">WARN</span> redis: queue depth 41,208</div>
+    </div>
+  </div>
+
+  <div class="dimmed"></div>
+
+  <div class="modal">
+    <div class="head">
+      <span class="pulse"></span>
+      <span class="label" style="color:var(--red)">New event · Round 2 · 00:46</span>
+      <div style="flex:1"></div>
+      <span class="chip">Requirements changed</span>
+    </div>
+    <div class="body">
+      <h1 style="margin-top:0">Marketing just launched a campaign. Traffic is 20× normal and climbing.</h1>
+      <p style="margin-top:8px;">Your Round 1 fix is holding, but the notification workers are CPU-bound and the queue is growing faster than it drains. Downstream email provider has started rate-limiting. Product says the campaign cannot be paused.</p>
+      <div class="pager">
+        <div><span class="t">from:</span> pagerduty · notif-service · SEV-2</div>
+        <div><span class="t">note:</span> "customers reporting order confirmations arriving 10+ minutes late" · support</div>
+        <div><span class="t">constraint:</span> budget approves at most 3× current infra spend this quarter</div>
+      </div>
+      <div class="objectives">
+        <div class="obj"><div class="label">Mitigate now</div>Bring delivery p99 under 60 s within the round without dropping messages.</div>
+        <div class="obj"><div class="label">Then redesign</div>Propose and implement changes so the service absorbs the next 20× without paging anyone.</div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--muted);">You will be scored on triage order, what you chose to measure first, the trade-offs you write down, and whether the mitigation is safe to roll back. Using the agent is expected.</p>
+    </div>
+    <div class="foot">
+      <span class="mono muted" style="font-size:11px;">Round clock starts on acknowledge · 45 min</span>
+      <div style="display:flex;gap:8px;"><span class="btn sm ghost">Read runbook first</span><span class="btn sm primary">Acknowledge & start →</span></div>
+    </div>
+  </div>
+
+  <div class="status">
+    <span>main · round-1 fix merged</span><span style="color:var(--green)">✓ 52/52 tests</span><span>sandbox: 2 workers · 1 redis · 1 postgres</span>
+    <div style="flex:1"></div><span>Traffic generator: 20× · live</span>
+  </div>
+</body></html>

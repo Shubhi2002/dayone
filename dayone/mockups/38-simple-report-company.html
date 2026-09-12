@@ -1,0 +1,81 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-rows: 52px 1fr; }
+  .page { padding: 20px 40px; display: grid; grid-template-columns: 1fr 400px; gap: 24px; align-content: start; }
+  .hero { display: flex; align-items: center; justify-content: space-between; grid-column: 1 / -1; }
+  .cand { display: flex; align-items: center; gap: 14px; }
+  .cand h1 { font-size: 24px; }
+  .cand .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .score { display: flex; align-items: center; gap: 20px; padding: 12px 20px; }
+  .big { font-family: var(--serif); font-size: 44px; line-height: 1; letter-spacing: -0.03em; }
+  .big small { font-size: 18px; color: var(--faint); }
+  .habit { display: grid; grid-template-columns: 30px 1fr auto; gap: 14px; align-items: start; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+  .habit:last-child { border-bottom: 0; }
+  .habit i { width: 30px; height: 30px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+  .habit i.g { background: var(--green-soft); color: var(--green); }
+  .habit i.a { background: var(--amber-soft); color: var(--amber); }
+  .habit b { display: block; font-weight: 500; font-size: 14px; }
+  .habit span { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+  .habit .t { font-family: var(--mono); font-size: 10.5px; color: var(--faint); white-space: nowrap; }
+  .dim { display: grid; grid-template-columns: 130px 1fr 34px; align-items: center; gap: 12px; padding: 6px 0; font-size: 13px; }
+  .dim .sc { font-family: var(--mono); font-size: 12px; text-align: right; }
+  .dim.na { color: var(--faint); }
+  .ans { padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+  .ans .q { font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+  .ans .a { font-size: 13px; line-height: 1.5; }
+  .ans .v { font-size: 11.5px; color: var(--green); margin-top: 4px; }
+  .verdict { padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); border: 1px solid var(--accent-mid); }
+  .verdict p { font-family: var(--serif); font-size: 14px; line-height: 1.5; }
+</style></head>
+<body>
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="mono muted" style="font-size:11.5px">Candidates / SWE early career / Priya Lakshman / Working with AI</span>
+    <div style="flex:1"></div>
+    <span class="btn sm ghost">Watch replay · 34 min</span>
+    <span class="btn sm ghost">Read her answers</span>
+    <span class="btn sm primary">Schedule team conversation →</span>
+  </div>
+
+  <div class="page">
+    <div class="hero">
+      <div class="cand"><span class="avatar lg">PL</span><div><h1>Priya Lakshman</h1><div class="sub">Software Engineer, early career · Working with AI round · Cart discount bug · 34 min of 45 · 12 Sep 2026</div><div style="display:flex;gap:6px;margin-top:8px;"><span class="chip green">Recommended</span><span class="chip">Top 20% of 1,204 early-career sessions</span><span class="chip">Human-reviewed</span></div></div></div>
+      <div class="panel score"><div><div class="label">Score</div><div class="big">7.8<small> / 10</small></div></div><div style="border-left:1px solid var(--line);padding-left:20px;"><div class="label">Outcome</div><div style="font-family:var(--serif);font-size:14px;margin-top:4px;">Cause fixed · 6/6 tests · example verified</div><div class="muted" style="font-size:12px;margin-top:2px;">1 assistant fix declined with a correct reason</div></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><span class="label">How she worked with the assistant · the four habits this round measures</span><span class="mono muted" style="font-size:10.5px">click a time to jump to the replay</span></div>
+      <div class="panel-body" style="padding-top:4px;">
+        <div class="habit"><i class="g">✓</i><div><b>Understood before changing anything</b><span>Asked where the total was calculated, then wrote her own theory ("discount applied after shipping is added") before requesting a fix. Theory was correct.</span></div><span class="t">03:10 · 05:40</span></div>
+        <div class="habit"><i class="g">✓</i><div><b>Reproduced the bug first</b><span>Ran the tests and read the failing assertion (got 40.50, expected 41.00) before touching code.</span></div><span class="t">07:15</span></div>
+        <div class="habit"><i class="g">✓</i><div><b>Declined a symptom-only fix, with a reason</b><span>The assistant's first suggestion added the shipping discount back on. She said it "gets the right number but shipping is still being discounted" and asked for the shipping line to move. This is the planted wrong answer; about 1 in 3 early-career candidates decline it.</span></div><span class="t">15:02</span></div>
+        <div class="habit"><i class="g">✓</i><div><b>Verified her own work and probed side effects</b><span>Re-ran tests, tried the report's example, then asked whether moving the line could break anything else. Understood the assistant's answer about free-shipping rules being a product decision.</span></div><span class="t">23:50 · 24:30</span></div>
+        <div class="habit"><i class="a">→</i><div><b>Didn't turn the side-effect question into a test</b><span>Started the optional extra test and ran out of time. Not expected at this level; worth a gentle question in the conversation.</span></div><span class="t">29:10</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="panel">
+        <div class="panel-head"><span class="label">Dimensions · early-career profile</span></div>
+        <div class="panel-body" style="padding-top:8px;">
+          <div class="dim"><span>AI collaboration</span><div class="bar" style="height:8px;"><i style="width:86%"></i></div><span class="sc">8.6</span></div>
+          <div class="dim"><span>Debugging</span><div class="bar" style="height:8px;"><i style="width:80%"></i></div><span class="sc">8.0</span></div>
+          <div class="dim"><span>Judgment</span><div class="bar" style="height:8px;"><i style="width:78%"></i></div><span class="sc">7.8</span></div>
+          <div class="dim"><span>Testing</span><div class="bar" style="height:8px;"><i style="width:66%;background:var(--amber)"></i></div><span class="sc">6.6</span></div>
+          <div class="dim na"><span>Code quality</span><div class="bar" style="height:8px;"></div><span class="sc">n/a</span></div>
+          <div class="dim na"><span>System design, Performance, Security</span><div class="bar" style="height:8px;"></div><span class="sc">n/a</span></div>
+          <div class="mono" style="font-size:10.5px;color:var(--faint);margin-top:6px;">Only four dimensions carry signal in this round. Others show "not assessed", never imputed.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span class="label">Her answers · read by a reviewer</span><span class="chip soft">3 / 3 consistent with trace</span></div>
+        <div class="panel-body" style="padding-top:10px;">
+          <div class="ans"><div class="q">What was wrong, and how did you know?</div><div class="a">"Shipping was added before the 10% discount, so the discount was taken off shipping too…"</div><div class="v">✓ Names the cause, cites the example and the failing test</div></div>
+          
+        </div>
+      </div>
+      <div class="verdict"><div class="label" style="color:var(--accent);margin-bottom:6px;">For the conversation</div><p>Strong instincts for someone early in their career: understands first, checks, and disagrees with the assistant when it's right to. Ask how she would have tested the free-shipping case, and what she'd do if the tests had been wrong too.</p></div>
+    </div>
+  </div>
+</body></html>

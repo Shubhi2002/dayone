@@ -1,0 +1,146 @@
+<!doctype html>
+<html data-size="1440x5750"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="site.css">
+<style>
+  .hero { padding: 64px 72px 0; position: relative; }
+  .hero-inner { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  .hero .shot { margin-top: 48px; }
+  .modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+  .mode { padding: 20px 20px; }
+  .mode .k { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .mode h3 { font-size: 19px; margin: 8px 0 6px; }
+  .mode p { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .mode .who { margin-top: 12px; font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .step .shot { margin-bottom: 18px; box-shadow: none; }
+  .step h3 { font-size: 20px; margin: 6px 0 8px; }
+  .step p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .signals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 22px; }
+  .signal { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); font-size: 13px; background: var(--surface); }
+  .signal b { display: block; font-weight: 500; }
+  .signal span { color: var(--muted); font-size: 12px; }
+  .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+  .trust .panel { padding: 22px; }
+  .trust h3 { font-size: 17px; margin-bottom: 8px; }
+  .trust p { font-size: 13px; line-height: 1.55; }
+  .cta-box { padding: 56px 60px; border-radius: 24px; background: var(--accent); color: #fff; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+  .cta-box h2 { font-size: 34px; letter-spacing: -0.02em; font-weight: 500; }
+  .cta-box p { color: rgba(255,255,255,0.75); margin-top: 10px; font-size: 15px; max-width: 560px; }
+  .cta-box .btn { background: #fff; color: var(--accent); border-color: #fff; }
+  .cta-box .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+</style></head>
+<body class="site">
+  <div class="nav">
+    <div class="wordmark" style="font-size:20px;"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="links"><span class="on">Product</span><span>Scenarios</span><span>How scoring works</span><span>Pricing</span><span>For candidates</span></div>
+    <div class="cta"><span class="btn ghost">Sign in</span><span class="btn primary">Book a demo →</span></div>
+  </div>
+
+  <section class="hero wash">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Engineering assessments for the AI era</span>
+        <h1 class="display">Interviews that feel like the job.</h1>
+        <p class="lede">Drop a candidate into a realistic production scenario, with an AI coding agent, and see how they actually engineer: how they debug, what they verify, which AI suggestions they reject, and how they decide under pressure.</p>
+        <div class="row" style="margin-top:28px;"><span class="btn primary lg">Book a demo →</span><span class="btn lg">Try a 10-minute scenario</span><span class="mono" style="font-size:11px;color:var(--muted);margin-left:8px;">No webcam. No LeetCode. No sign-up to try.</span></div>
+      </div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="mono" style="font-size:10.5px;color:var(--muted);margin-left:8px;">payment-service · Debug · candidate view</span></div><img src="png/01-candidate-workspace.png" alt=""></div>
+    <div class="logos" style="margin:36px 0 0;justify-content:center;"><span style="font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;">Design partners</span><span><i></i>Northbeam</span><span><i></i>Lumen Labs</span><span><i></i>Fathom</span><span><i></i>Kestrel AI</span><span><i></i>Orbit Health</span></div>
+  </section>
+
+  <section class="section">
+    <span class="eyebrow">The problem</span>
+    <h2 class="title">Your engineers ship with AI every day. Your interview still pretends they don't.</h2>
+    <div class="grid3" style="margin-top:40px;">
+      <div class="panel stat"><div class="v">75%</div><div class="d">of new code at Google is AI-generated and human-approved. The scarce skill is steering, verifying and deciding.</div><div class="s">Sundar Pichai, April 2026</div></div>
+      <div class="panel stat"><div class="v">38%</div><div class="d">of candidates in 19,000 AI-proctored interviews triggered cheating signals. LeetCode screens no longer measure the candidate.</div><div class="s">Fabric, Jul 2025 to Jan 2026</div></div>
+      <div class="panel stat"><div class="v">71%</div><div class="d">of engineering leaders say AI has made technical skill harder to assess. Fewer than 30% have changed how they assess it.</div><div class="s">Karat, 400 leaders, Dec 2025</div></div>
+    </div>
+    <p class="body" style="margin-top:28px;max-width:760px;">The big platforms answered by adding a chat panel to the same old puzzle. That tells you whether someone can prompt. It does not tell you whether you can trust them with production.</p>
+  </section>
+
+  <section class="section alt">
+    <span class="eyebrow">Eight modes, one simulator</span>
+    <h2 class="title">Real situations, not isolated tasks. The AI agent is in every one of them.</h2>
+    <div class="modes">
+      <div class="panel mode"><span class="k">Debug</span><h3>Something is broken or slow</h3><p>Logs, metrics, a deploy marker, a ticket written by a non-expert. Reproduce, find the cause, fix it, prove it.</p><div class="who">Mid · Senior</div></div>
+      <div class="panel mode"><span class="k">Investigate</span><h3>A number moved. Why?</h3><p>Warehouse, event stream, flag history, three chat threads. One is a red herring. Explain it with confidence levels.</p><div class="who">Mid · Senior · Staff</div></div>
+      <div class="panel mode"><span class="k">Review</span><h3>Would you ship this PR?</h3><p>An AI-generated pull request. Tests pass. Find what's wrong, rank it, decide: ship, request changes, or block.</p><div class="who">All levels</div></div>
+      <div class="panel mode"><span class="k">Operate</span><h3>You're on call</h3><p>A page, a dashboard, a stale runbook, a stakeholder asking for an update. Mitigate first, then root-cause.</p><div class="who">Senior · Staff</div></div>
+      <div class="panel mode"><span class="k">Build</span><h3>Add a feature without breaking anything</h3><p>An unfamiliar codebase with conventions and an ambiguous ticket. Read first, follow the patterns, test both paths.</p><div class="who">New grad · Mid</div></div>
+      <div class="panel mode"><span class="k">Scale</span><h3>Traffic is 20× and climbing</h3><p>Requirements change every round. Measure before redesigning, write down trade-offs, implement the first step.</p><div class="who">Senior · Staff</div></div>
+      <div class="panel mode"><span class="k">Secure</span><h3>Audit before launch</h3><p>Eight planted weaknesses from obvious to subtle. Find, prioritise by exploitability, fix the top three.</p><div class="who">Mid · Senior</div></div>
+      <div class="panel mode"><span class="k">Test</span><h3>The tests are green and wrong</h3><p>Weak suite, latent bug. Find the gaps by reading the code; mutation score, not line coverage, is what counts.</p><div class="who">New grad · Mid</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="eyebrow">How it works</span>
+    <h2 class="title">Configure a loop in minutes. Get a report your panel can act on.</h2>
+    <div class="steps">
+      <div class="step"><div class="shot"><img src="png/16-loop-builder.png" alt=""></div><span class="step-n">01 · CONFIGURE</span><h3>Pick a scenario family and rounds</h3><p>Choose from the library or fork onto your own repo. Set the role profile, time budgets and recommendation bands. Invite from your ATS.</p></div>
+      <div class="step"><div class="shot"><img src="png/06-mode-investigate.png" alt=""></div><span class="step-n">02 · THE CANDIDATE WORKS A DAY</span><h3>A realistic environment, with AI</h3><p>Ticket, codebase, telemetry, database, tests, and a coding agent. Multi-round scenarios inject events. Every decision is recorded, no video.</p></div>
+      <div class="step"><div class="shot"><img src="png/02-engineering-score-report.png" alt=""></div><span class="step-n">03 · READ THE REPORT</span><h3>Score, key moments, replay, debrief questions</h3><p>Eight dimensions, each traceable to moments in the replay. Grader agreement shown. Human review on a sample and on every dispute.</p></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="grid2">
+      <div>
+        <span class="eyebrow">Process is the signal</span>
+        <h2 class="title" style="font-size:34px;">Two candidates can submit the same diff and be completely different engineers.</h2>
+        <p class="body" style="margin-top:16px;">We score how the work was done, not only whether it was done. Every signal below is computed from the session trace, never self-reported.</p>
+        <div class="signals">
+          <div class="signal"><b>Reproduced before editing</b><span>Ran the failing case before touching code</span></div>
+          <div class="signal"><b>Rejected a wrong AI fix, with a reason</b><span>Declined a plausible suggestion and said why</span></div>
+          <div class="signal"><b>Verified AI claims</b><span>Checked the agent's assertions against metrics or tests</span></div>
+          <div class="signal"><b>Blind accepts</b><span>AI changes applied without being read or run</span></div>
+          <div class="signal"><b>Mitigated before root-causing</b><span>Protected users first when paged</span></div>
+          <div class="signal"><b>Line-level attribution</b><span>Human, AI-generated, or AI-generated and human-modified</span></div>
+        </div>
+      </div>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="mono" style="font-size:10.5px;color:var(--muted);margin-left:8px;">session replay · key moment 00:14</span></div><img src="png/17-session-replay.png" alt=""></div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <span class="eyebrow">Trust, without surveillance</span>
+    <h2 class="title" style="color:#F6F3EE;">Integrity comes from scenario design and evidence, not from a webcam.</h2>
+    <div class="trust">
+      <div class="panel"><h3>No video, ever</h3><p>We record edits, commands, tests and prompts inside the sandbox. No webcam, no gaze tracking, no keystroke biometrics.</p></div>
+      <div class="panel"><h3>Variants, not question banks</h3><p>Every session is a materially different instance of the scenario. A leaked solution does not transfer, and the rubric scores the process anyway.</p></div>
+      <div class="panel"><h3>Humans stay in the loop</h3><p>Five independent graders per rubric item, a human review on a sample and on every disagreement, and a dispute path open to companies and candidates.</p></div>
+      <div class="panel"><h3>Built for fairness law</h3><p>Job-related work samples, candidate notice, adverse-impact monitoring, accommodations without justification. Designed for EEOC, NYC LL144 and the EU AI Act.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid2" style="align-items:start;">
+      <div>
+        <span class="eyebrow">From a design partner</span>
+        <p class="quote">"We replaced the algorithm screen and one technical round with a single Dayone loop. The debrief went from arguing about the interviewer to talking about the candidate."</p>
+        <div class="quote-by"><b style="color:var(--ink);font-weight:500;">Head of Engineering</b> · Series B fintech · 40 engineers · design partner since pilot</div>
+      </div>
+      <div class="grid2" style="gap:14px;grid-template-columns:1fr 1fr;">
+        <div class="panel stat"><div class="v">88%</div><div class="d">senior candidates complete a two-hour loop</div></div>
+        <div class="panel stat"><div class="v">4.7<span style="font-size:20px;color:var(--faint)"> / 5</span></div><div class="d">candidate experience, "felt like real work"</div></div>
+        <div class="panel stat"><div class="v">0</div><div class="d">interviewer hours before the debrief</div></div>
+        <div class="panel stat"><div class="v">±1.0</div><div class="d">grader vs. human agreement on 9 in 10 rubric items</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="cta-box">
+      <div><h2>Interview your next engineer on the job you're actually hiring for.</h2><p>Pilots include two scenarios matched to your stack, hand-reviewed reports, and a weekly call with the team. Plans from $490 a month.</p></div>
+      <div class="row"><span class="btn lg">Book a demo →</span><span class="btn lg ghost">See pricing</span></div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="col"><div class="wordmark" style="font-size:18px;margin-bottom:12px;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div><span style="color:var(--muted);max-width:300px;line-height:1.5;">Interviews that feel like the job. Engineering assessments in realistic, sandboxed production scenarios, with AI.</span></div>
+    <div class="col"><b>Product</b><span>Scenario library</span><span>How scoring works</span><span>Integrations</span><span>Security</span><span>Pricing</span></div>
+    <div class="col"><b>Candidates</b><span>Practice scenarios</span><span>What to expect</span><span>Your data and rights</span><span>Accommodations</span></div>
+    <div class="col"><b>Company</b><span>About</span><span>Research</span><span>Fairness and compliance</span><span>Careers</span><span>Contact</span></div>
+  </div>
+</body></html>

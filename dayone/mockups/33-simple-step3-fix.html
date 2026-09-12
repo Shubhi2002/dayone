@@ -1,0 +1,82 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="simple.css">
+<style>
+  .qbox { padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1.5px solid var(--accent-mid); }
+  .qbox .q { font-size: 14px; color: var(--ink); font-weight: 500; margin-bottom: 8px; }
+  .qbox .opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .qbox .opts span { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line-strong); font-size: 13px; }
+  .qbox .opts span.sel { background: var(--accent); color: #fff; border-color: var(--accent); }
+</style></head>
+<body>
+<div class="s-shell">
+  <div class="s-top">
+    <div class="wordmark" style="font-size:16px;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="title">Working with AI · Cart total is wrong with a discount code</span>
+    <div class="steps"><span class="s done"><i>✓</i>Understand</span><span class="sep"></span><span class="s done"><i>✓</i>Reproduce</span><span class="sep"></span><span class="s now"><i>3</i>Fix</span><span class="sep"></span><span class="s"><i>4</i>Check</span><span class="sep"></span><span class="s"><i>5</i>Explain</span></div>
+    <div class="time">About <b>45:00</b> · <b style="color:var(--muted)">19:48</b> used</div>
+  </div>
+  <div class="s-main">
+    <div class="guide">
+      <div><div class="stepno">STEP 3 OF 5</div><h2>Fix it with the assistant. Read before you apply.</h2></div>
+      <p>Ask the assistant for a fix. When it suggests one, read it and decide: does this fix the <b>cause</b> you wrote down in step 1, or just make the number come out right?</p>
+      <div class="todo">
+        <div class="on"><i>✓</i><span>Ask for a fix</span></div>
+        <div class="on"><i>✓</i><span>Read the suggestion and answer the question below</span></div>
+        <div><i></i><span>Apply a fix you agree with (or write your own)</span></div>
+      </div>
+      <div class="qbox">
+        <div class="q">Before you apply: what does the first suggestion actually do?</div>
+        <div class="opts"><span>Fixes the cause</span><span class="sel">Only fixes this example</span><span>Not sure</span></div>
+      </div>
+      <div class="hint"><b>Your note from step 1</b>"The discount is applied after shipping is added, so it takes 10% off shipping too." Does the suggestion change <i>when</i> shipping is added?</div>
+      <div class="next"><span class="big-btn" style="padding:12px 22px;font-size:14px;">Next: check it works →</span></div>
+    </div>
+
+    <div class="work">
+      <div class="files"><span class="f on">cart.js <small>edited</small></span><span class="f">discounts.js</span><span class="f">cart.test.js <small>1 failing</small></span></div>
+      <div class="code"><pre><span class="row"><span class="ln">12</span><span class="k">function</span> <span class="f">calculateTotal</span>(cart, discountCode) {</span>
+<span class="row"><span class="ln">13</span>  <span class="k">let</span> total = <span class="n">0</span>;</span>
+<span class="row"><span class="ln">14</span>  <span class="k">for</span> (<span class="k">const</span> item <span class="k">of</span> cart.items) {</span>
+<span class="row"><span class="ln">15</span>    total += item.price * item.quantity;</span>
+<span class="row"><span class="ln">16</span>  }</span>
+<span class="row"><span class="ln">17</span></span>
+<span class="row hl-ok mark"><span class="ln">18</span>  <span class="k">if</span> (discountCode) {                       <span class="c">// your change: discount items first</span></span>
+<span class="row hl-ok mark"><span class="ln">19</span>    <span class="k">const</span> pct = <span class="f">discountPercent</span>(discountCode);</span>
+<span class="row hl-ok mark"><span class="ln">20</span>    total = total * (<span class="n">1</span> - pct / <span class="n">100</span>);</span>
+<span class="row hl-ok mark"><span class="ln">21</span>  }</span>
+<span class="row"><span class="ln">22</span></span>
+<span class="row hl-ok mark"><span class="ln">23</span>  total += <span class="f">shippingFor</span>(cart);            <span class="c">// then add shipping</span></span>
+<span class="row"><span class="ln">24</span></span>
+<span class="row"><span class="ln">25</span>  <span class="k">return</span> <span class="f">roundToCents</span>(total);</span>
+<span class="row"><span class="ln">26</span>}</span></pre></div>
+      <div class="runbar">
+        <div class="act"><span class="big">▶ Run tests</span><span class="big secondary">Undo my change</span></div>
+        <div class="res"><div class="h"><span>Last run · step 2 · 23 seconds</span><span>5 passed · 1 failed</span></div>
+          <div class="tres"><span class="bad">✗</span><span>applies discount to items only, not shipping</span><span class="why">got 40.50, expected 41.00</span></div>
+          <div class="tres"><span class="ok">✓</span><span>adds up items</span></div>
+          <div class="tres"><span class="ok">✓</span><span>adds shipping</span></div>
+          <div class="tres" style="color:var(--muted)"><span></span><span>+ 3 more passing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assist">
+      <div class="head"><span class="avatar" style="width:30px;height:30px;font-size:11px;background:var(--ink);color:#fff;">◆</span><div><h3>AI assistant</h3><span>Reads your files · suggests changes · sometimes wrong</span></div></div>
+      <div class="conv">
+        <div class="bub me"><div class="who">You · 14:20</div><div class="txt">Suggest a fix so the discount doesn't apply to shipping.</div></div>
+        <div class="bub ai"><div class="who">Assistant · 14:21</div><div class="txt">Here's a change that makes the example come out to $41.00:</div>
+          <div class="code-box"><pre><span class="hl">- total = total * (1 - pct / 100);</span>
+<span class="hl-ok">+ total = total * (1 - pct / 100) + shippingFor(cart) * (pct / 100);</span></pre>
+            <div class="acts"><span class="pillbtn warn">Declined ✓</span><span style="font-size:12px;color:var(--muted)">with a reason, 15:02</span></div></div></div>
+        <div class="bub me"><div class="who">You · 15:02</div><div class="txt">That adds the shipping discount back on afterwards. Right number, but shipping is still discounted and then un-discounted. Can you move the shipping line so it's added after the discount instead?</div></div>
+        <div class="bub ai"><div class="who">Assistant · 15:03</div><div class="txt">Good catch. That fixes the cause, not just the result. Move line 18 below the discount block:</div>
+          <div class="code-box"><pre><span class="hl">- total += shippingFor(cart);  // before discount</span>
+<span class="hl-ok">+ total += shippingFor(cart);  // after discount</span></pre>
+            <div class="acts"><span class="pillbtn primary">Applied ✓</span><span style="font-size:12px;color:var(--muted)">16:40 · undo available</span></div></div></div>
+        <div class="nudge"><b>Nice.</b> You declined a fix that only made the example pass and asked for one that changes the cause.</div>
+      </div>
+      <div class="compose"><div class="box" style="min-height:44px;"><span style="color:var(--faint)">Ask a follow-up…</span></div></div>
+    </div>
+  </div>
+</div>
+</body></html>

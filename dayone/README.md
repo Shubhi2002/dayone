@@ -1,0 +1,89 @@
+# Dayone
+
+Working name for an engineering assessment platform: candidates operate inside
+realistic, sandboxed engineering environments (with AI tools enabled) and are
+scored on how they think, debug, build, validate and decide, not just on whether
+the final code is correct. Positioning: a flight simulator for software
+engineers, not a harder LeetCode.
+
+Status: research, product ideation and finalisation. Not building yet.
+
+## Folder layout
+
+```
+dayone/
+├── README.md            this file
+├── render.sh            renders any HTML in mockups/ or brand/ to 2x PNGs (headless Chrome)
+├── docs/                product and strategy documents (markdown), one topic per file
+├── mockups/             UI mockups as static HTML + shared tokens.css
+│   └── png/             rendered screens, 2880x1800
+└── brand/               logo concepts and lockups as HTML + brand.css
+    └── png/             rendered logos
+```
+
+## Mockups
+
+| File | Screen |
+| --- | --- |
+| `01-candidate-workspace` | Candidate view, Debug mode: ticket, editor, metrics/logs, AI agent panel |
+| `02-engineering-score-report` | Recruiter view of one candidate's Engineering Score and process signals |
+| `03-scenario-library` | Recruiter scenario library with mode filters and candidate pipeline |
+| `04-ai-pr-review` | Review mode: "would you ship this AI-generated PR?" |
+| `05-live-simulation-event` | Multi-round simulation with an injected production event |
+| `06-mode-investigate` | Investigate mode: SQL, dashboards, team threads, hypotheses, conclusion |
+| `07-mode-operate` | Operate mode: on-call page, dashboard, mitigation actions, status update, stale runbook |
+| `08-mode-secure` | Secure mode: findings, prioritisation, fixes with tests, scanner triage |
+| `09-mode-test` | Test mode: spec, coverage, mutation score, parametrised tests, planted bug |
+| `10-mode-build` | Build mode: ambiguous ticket, simulated PM, conventions detected, checks |
+| `11-candidate-invitation` | Candidate pre-session page: format, what's recorded, scheduling, accommodations |
+| `12-round-handoff` | Between rounds: recap without scores, canonical reset, next-round brief |
+| `13-candidate-submission` | Wrap-up: three graded written questions, submission checklist |
+| `14-candidate-thanks` | Post-submission: timeline, locked report, two-question survey |
+| `15-e2e-journey` | Storyboard of one end-to-end loop, candidate and company lanes (1800×1000) |
+| `16-loop-builder` | Recruiter: configure rounds, role weights, bands, candidate-facing options |
+| `17-session-replay` | Recruiter: replay with key moments, evidence per rubric item, annotations |
+| `18-site-landing` | Website landing page (tall) |
+| `19-site-pricing` | Website pricing page (tall) |
+| `20-site-for-candidates` | Website page for engineers and practice mode (tall) |
+| `21-site-how-scoring-works` | Website page explaining the scoring pipeline (tall) |
+
+**Simplified single-round flow · "Working with AI"** (30-series). One task, five guided steps, about 45 minutes, written for early-career candidates. Same sandbox and scoring underneath; larger type, fewer panels, a visible checklist, and a "Read it first" gate on every assistant change.
+
+| File | Screen |
+| --- | --- |
+| `30-simple-welcome` | Plain welcome page: the five steps, what's recorded, warm-up offer |
+| `31-simple-warmup` | 3-minute warm-up with three coach marks over a tiny practice task |
+| `32-simple-step1-understand` | Step 1: bug report, ask the assistant, write your own theory |
+| `33-simple-step3-fix` | Step 3: assistant's first fix only fixes the example; decline with a reason, apply the better one |
+| `34-simple-step4-check` | Step 4: run tests again, try the example, ask what could break |
+| `35-simple-step5-explain` | Step 5: three short written questions |
+| `36-simple-done` | Finish page with plain-language feedback on four habits and next steps |
+| `37-simple-journey` | Storyboard of the single-round flow (1800×900) |
+| `38-simple-report-company` | Compact hiring-team report for this round |
+
+Shared stylesheets: `tokens.css` (palette, type, primitives), `app.css` (candidate workspace shell, 06+), `site.css` (marketing pages, 18+), `simple.css` (single-round guided interface, 30+). Tall pages declare their canvas with `data-size` on the `<html>` tag.
+
+Design language: Saffron-style palette (warm off-white, near-black ink, deep
+purple accent, Lora serif + Geist Mono labels) with OpenRound-style components
+(embedded workspace, ticket cards, score card with dimension bars, terminal strip).
+
+## Brand
+
+`brand/dayone-*` is the chosen name. `brand/crucible-*` is the runner-up, kept
+for comparison. Each has a concept sheet (three marks), light and dark lockups,
+and an app icon. The sunrise half-disc (concept A) is the mark used across the
+mockups and site pages.
+
+`brand/dayone-options-sheet` and `brand/dayone-opt-01` to `-08` are eight
+further Dayone mark concepts, generated by `brand/gen-options.py` (edit the
+`CONCEPTS` list and re-run, then `./render.sh brand dayone-opt`).
+
+## Rendering
+
+```bash
+./render.sh mockups        # all mockups
+./render.sh brand          # all brand assets
+./render.sh brand dayone   # only files whose name contains "dayone"
+```
+
+Headless Chrome must run outside the Claude Code sandbox on macOS.

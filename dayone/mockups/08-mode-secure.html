@@ -1,0 +1,116 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="app.css">
+<style>
+  .main { grid-template-columns: 330px 1fr 380px; }
+  .center { grid-template-rows: 1fr 240px; }
+  .find { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 9px 14px; border-bottom: 1px dashed var(--line); }
+  .find.sel { background: var(--accent-soft); }
+  .find .tt { font-size: 12.5px; color: var(--ink); }
+  .find .ln { font-family: var(--mono); font-size: 10.5px; color: var(--faint); margin-top: 2px; }
+  .find .st { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .find .st.fixed { color: var(--green); }
+  .slot { padding: 9px 14px; border-bottom: 1px dashed var(--line); font-family: var(--mono); font-size: 11px; color: var(--faint); display: flex; justify-content: space-between; }
+  .inline { margin: 6px 18px 8px 54px; padding: 10px 14px; border: 1px solid var(--accent-mid); border-left: 3px solid var(--accent); border-radius: var(--r-md); background: var(--surface); }
+  .inline .h { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .inline .h b { font-size: 12px; }
+  .inline p { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; font-family: var(--sans); }
+  .inline .ex { margin-top: 6px; font-family: var(--mono); font-size: 11px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: var(--ink-2); }
+  .rank { display: flex; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; }
+  .rank:last-child { border-bottom: 0; }
+  .rank .n { font-family: var(--mono); font-size: 11px; color: var(--faint); width: 14px; }
+  .rank .g { color: var(--faint); margin-left: auto; }
+  .fix { padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--r-md); margin-bottom: 8px; font-size: 12.5px; }
+  .fix .h { display: flex; justify-content: space-between; align-items: center; }
+  .fix .d { color: var(--muted); font-size: 11.5px; margin-top: 3px; }
+</style></head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip soft">Secure</span>
+    <div style="font-family:var(--serif);font-size:14px;">upload-service · Security review before Friday's launch</div>
+    <div class="round" style="margin-left:14px;"><span class="step done">1 · Find</span><span class="step now">2 · Prioritise & fix top 3</span><span class="step">3 · Report</span></div>
+    <div style="flex:1"></div>
+    <div class="timer">00:38:12 <span class="rem">/ 60:00</span></div>
+    <span class="btn sm ghost">Scanner output</span>
+    <span class="btn sm primary">Submit review →</span>
+  </div>
+
+  <div class="main">
+    <div class="rail">
+      <div class="side-head"><span class="mono" style="font-size:12px;font-weight:600;">Findings · 5</span><span class="mono" style="font-size:10.5px;color:var(--muted)">click to open in code</span></div>
+      <div class="find sel"><span class="sev crit">Crit</span><div><div class="tt">Path traversal in stored filename</div><div class="ln">src/handlers/upload.ts:41</div></div><span class="st fixed">✓ fixed</span></div>
+      <div class="find"><span class="sev crit">Crit</span><div><div class="tt">IDOR: download by sequential numeric id, no owner check</div><div class="ln">src/handlers/download.ts:18</div></div><span class="st">fix in progress</span></div>
+      <div class="find"><span class="sev high">High</span><div><div class="tt">Signed URLs valid 7 days, not bound to user or IP</div><div class="ln">src/lib/signing.ts:9</div></div><span class="st">to fix</span></div>
+      <div class="find"><span class="sev high">High</span><div><div class="tt">SSRF via "import from URL" (no allow-list, follows redirects)</div><div class="ln">src/handlers/import.ts:27</div></div><span class="st">report only</span></div>
+      <div class="find"><span class="sev med">Med</span><div><div class="tt">Content-Type trusted from client; no size limit</div><div class="ln">src/handlers/upload.ts:22</div></div><span class="st">report only</span></div>
+      <div class="slot"><span>— not yet found —</span><span>3 remaining</span></div>
+      <div class="slot"><span>— not yet found —</span></div>
+      <div class="slot"><span>— not yet found —</span></div>
+      <div style="padding:12px 14px;margin-top:auto;">
+        <div class="note" style="font-size:12px;"><b>Scanner flagged</b> <span class="mono">tar@6.1.11</span> (CVE-2024-28863). You noted: "not reachable, tar is only used in the build step." Good call. Over-claiming is scored too.</div>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="editor">
+        <div class="tabs" style="background:var(--surface)"><span class="tab active">upload.ts <span style="color:var(--amber)">●</span></span><span class="tab">download.ts <span style="color:var(--amber)">●</span></span><span class="tab">signing.ts</span><span class="tab">import.ts</span><span class="tab">upload.test.ts <span style="color:var(--green)">+</span></span></div>
+<pre><span class="row"><span class="ln">36</span><span class="k">export async function</span> <span class="f">handleUpload</span>(req: Request, user: User) {</span>
+<span class="row"><span class="ln">37</span>  <span class="k">const</span> file = <span class="k">await</span> req.<span class="f">formData</span>().<span class="f">get</span>(<span class="s">"file"</span>) <span class="k">as</span> File;</span>
+<span class="row"><span class="ln">38</span>  <span class="k">const</span> original = file.name;</span>
+<span class="row"><span class="ln">39</span></span>
+<span class="row mark hl"><span class="ln">40</span><span style="color:var(--red)">-</span> <span class="k">const</span> key = <span class="s">`${user.id}/${original}`</span>;                       <span class="c">// "../../other-user/x" → traversal</span></span>
+<span class="row mark hl-ok"><span class="ln">40</span><span style="color:var(--green)">+</span> <span class="k">const</span> safeName = <span class="f">sanitizeFilename</span>(path.<span class="f">basename</span>(original));</span>
+<span class="row mark hl-ok"><span class="ln">41</span><span style="color:var(--green)">+</span> <span class="k">const</span> key = <span class="s">`${user.id}/${<span class="f">randomUUID</span>()}-${safeName}`</span>;</span>
+<span class="row"><span class="ln">42</span>  <span class="k">await</span> storage.<span class="f">put</span>(key, file.<span class="f">stream</span>(), {</span>
+<span class="row hl"><span class="ln">43</span>    contentType: file.type,                                  <span class="c">// trusted from client (finding #5)</span></span>
+<span class="row"><span class="ln">44</span>  });</span>
+<span class="row"><span class="ln">45</span>  <span class="k">return</span> db.files.<span class="f">create</span>({ ownerId: user.id, key, name: safeName });</span>
+<span class="row"><span class="ln">46</span>}</span></pre>
+        <div class="inline">
+          <div class="h"><span class="avatar av-you">DO</span><b>Finding #1 · Path traversal</b><span class="sev crit">Crit</span><span class="mono" style="font-size:10.5px;color:var(--faint)">00:09 · fixed 00:31</span></div>
+          <p>Filename is used verbatim in the storage key. A name like <span class="mono">../../&lt;victim-id&gt;/avatar.png</span> overwrites another user's object. Fixed with basename + sanitisation + a random prefix so names can't collide either. Regression test added.</p>
+          <div class="ex">PoC: curl -F 'file=@x.png;filename=../../u_1042/avatar.png' /upload → 201 (before) · 400 (after)</div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="tabs"><span class="tab">Terminal</span><span class="tab active">Tests <span class="count" style="color:var(--green)">88/88</span></span><span class="tab">HTTP client</span><span class="tab">Storage browser</span><span class="tab">Scanner <span class="count">1</span></span></div>
+        <div class="logs">
+          <div><span class="ok">PASS</span> upload.test.ts › rejects traversal in filename <span class="t">(new)</span></div>
+          <div><span class="ok">PASS</span> upload.test.ts › rejects null byte in filename <span class="t">(new)</span></div>
+          <div><span class="ok">PASS</span> upload.test.ts › stores under owner prefix with random name <span class="t">(new)</span></div>
+          <div><span class="ok">PASS</span> upload.test.ts › existing 12 tests unchanged</div>
+          <div><span class="t">$</span> curl -s -o /dev/null -w "%{http_code}" -F 'file=@x.png;filename=../../u_1042/a.png' localhost:3000/upload → <span class="ok">400</span></div>
+          <div><span class="t">$</span> curl -s localhost:3000/files/1043/download -H "Authorization: Bearer $USER_A" → <span class="e">200</span> <span class="w"># still IDOR, fix in progress</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="sec">
+        <span class="label">Priority order · drag to rank</span>
+        <div class="rank"><span class="n">1</span><span class="sev crit">Crit</span><span>IDOR on download</span><span class="g">⋮</span></div>
+        <div class="rank"><span class="n">2</span><span class="sev crit">Crit</span><span>Path traversal</span><span class="g">⋮</span></div>
+        <div class="rank"><span class="n">3</span><span class="sev high">High</span><span>Signed URL binding</span><span class="g">⋮</span></div>
+        <div class="rank"><span class="n">4</span><span class="sev high">High</span><span>SSRF on import</span><span class="g">⋮</span></div>
+        <div class="rank"><span class="n">5</span><span class="sev med">Med</span><span>Client content-type / no size limit</span><span class="g">⋮</span></div>
+        <div class="mono" style="font-size:10.5px;color:var(--faint);margin-top:8px;">Ranked by exploitability × impact. Your reasoning is scored, not just the order.</div>
+      </div>
+      <div class="sec" style="flex:1;">
+        <span class="label">Fix plan · top 3</span>
+        <div class="fix"><div class="h"><span>Path traversal</span><span class="chip green">Fixed · tested</span></div><div class="d">basename + sanitise + UUID prefix. 3 tests.</div></div>
+        <div class="fix"><div class="h"><span>IDOR on download</span><span class="chip amber">In progress</span></div><div class="d">Add ownership check; switch public ids to UUIDs; keep numeric ids internal.</div></div>
+        <div class="fix"><div class="h"><span>Signed URL binding</span><span class="chip">Planned</span></div><div class="d">TTL 15 min, bind to user id in signature, single-use for downloads.</div></div>
+        <div class="msg" style="margin-top:14px;"><div class="who"><span class="avatar av-you">DO</span><span class="name">You</span><span class="time">00:36</span></div><div class="body">For the IDOR fix, is there an existing authorisation helper in this codebase I should reuse rather than adding an inline check?</div></div>
+        <div class="msg" style="margin-top:10px;"><div class="who"><span class="avatar av-agent">◆</span><span class="name">agent</span><span class="time">00:36</span></div><div class="tool">grep <b>assertOwner</b> · read <b>src/lib/authz.ts</b></div><div class="body" style="margin-top:6px;"><span class="mono">assertOwner(user, resource)</span> exists and is used by the delete handler. Reusing it keeps the policy in one place.</div></div>
+      </div>
+      <div class="input"><div class="box">Draft the assertOwner call in download.ts and a test where user A requests user B's file<span class="cursor"></span></div><div class="hint"><span>⌘↵ send</span><span>$1.40 of $5.00</span></div></div>
+    </div>
+  </div>
+
+  <div class="status">
+    <span>5 findings logged · 1 fixed · 1 in progress</span><span class="ok">✓ 88/88 tests</span><span>1 scanner result dismissed with reason</span>
+    <div style="flex:1"></div><span>Hidden findings remaining: revealed after submission</span>
+  </div>
+</div>
+</body></html>

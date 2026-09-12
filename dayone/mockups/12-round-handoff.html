@@ -1,0 +1,84 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="app.css">
+<style>
+  body { display: grid; grid-template-rows: 52px 1fr; }
+  .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 40px 140px; align-content: start; }
+  .col h2 { font-size: 22px; margin: 6px 0 14px; }
+  .sum { padding: 18px 20px; }
+  .sum .row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 13px; color: var(--ink-2); }
+  .sum .row:last-child { border-bottom: 0; }
+  .sum .row b { font-weight: 500; color: var(--ink); font-family: var(--mono); font-size: 12px; }
+  .brief { padding: 20px 22px; border-color: var(--accent-mid); }
+  .brief .from { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
+  .brief p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-top: 12px; }
+  .pr { margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface-2); }
+  .pr .t { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+  .pr .m { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .obj { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .obj div { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-md); font-size: 12.5px; color: var(--ink-2); }
+  .obj .label { margin-bottom: 3px; display: block; }
+  .stepper { display: flex; align-items: center; gap: 0; margin-bottom: 26px; grid-column: 1 / -1; }
+  .st { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .st .c { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-strong); display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; background: var(--surface); }
+  .st.done .c { background: var(--green); border-color: var(--green); color: #fff; }
+  .st.now .c { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .st .d { color: var(--muted); font-size: 11.5px; }
+  .line { flex: 1; height: 1px; background: var(--line-strong); margin: 0 14px; }
+</style></head>
+<body>
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip">Between rounds</span>
+    <div style="font-family:var(--serif);font-size:14px;">Payments team · Northbeam · Senior Backend</div>
+    <div style="flex:1"></div>
+    <span class="mono" style="font-size:12px;color:var(--muted)">Round clock paused · break available 10:00</span>
+  </div>
+
+  <div class="wrap">
+    <div class="stepper">
+      <div class="st done"><span class="c">✓</span><div>Round 1 · Debug<div class="d">Submitted 00:58 of 60:00</div></div></div>
+      <span class="line"></span>
+      <div class="st now"><span class="c">2</span><div>Round 2 · Review<div class="d">30 min · starts when you're ready</div></div></div>
+      <span class="line"></span>
+      <div class="st"><span class="c">3</span><div>Round 3 · Operate<div class="d">30 min</div></div></div>
+      <span class="line"></span>
+      <div class="st"><span class="c">✎</span><div>Wrap-up<div class="d">Written summary · 5 min</div></div></div>
+    </div>
+
+    <div class="col">
+      <span class="chip green">Round 1 submitted</span>
+      <h2>Nice work. Here's what you handed in.</h2>
+      <div class="panel sum">
+        <div class="row"><span>Root cause you identified</span><b>connection held during backoff</b></div>
+        <div class="row"><span>Files changed</span><b>2 · +38 −11</b></div>
+        <div class="row"><span>Tests</span><b>43 / 43 · 1 regression test added</b></div>
+        <div class="row"><span>Load test after fix</span><b>p95 310 ms (target &lt; 500)</b></div>
+        <div class="row"><span>Agent suggestions</span><b>6 accepted · 8 rejected</b></div>
+        <div class="row"><span>Your summary</span><b>142 words</b></div>
+      </div>
+      <div class="note" style="margin-top:14px;font-size:12.5px;">Scores aren't shown between rounds, so each round gets a fresh start. Round 2 begins from the team's canonical fix, not from your diff, so nothing you did or didn't finish carries over.</div>
+    </div>
+
+    <div class="col">
+      <span class="chip soft">Round 2 · Review · 30 min</span>
+      <h2>The next morning.</h2>
+      <div class="panel brief">
+        <div class="from"><span class="avatar" style="width:26px;height:26px;font-size:10px;">AK</span><span><b style="color:var(--ink);font-weight:500">Arjun (tech lead)</b> · 09:12 · #payments</span></div>
+        <p>Morning! Thanks for the diagnosis yesterday. I had the agent finish the connection-release fix overnight so we could ship before the weekend. CI's green. Can you review before I merge? Especially the retry path, I only skimmed it.</p>
+        <div class="pr">
+          <div class="t"><span><b style="font-weight:500">#418</b> Release pooled connection before retry backoff</span><span class="chip green">Checks passing</span></div>
+          <div class="m">opened by coding-agent · +61 −19 · 3 files · linked INC-2291</div>
+        </div>
+        <div class="obj">
+          <div><span class="label">Your task</span>Log findings with severity, decide ship / request changes / block, and write a review Arjun can act on.</div>
+          <div><span class="label">You have</span>The diff, the full sandbox to run anything, the agent, and 30 minutes.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;align-items:center;">
+        <span class="btn primary">Start round 2 →</span>
+        <span class="btn ghost">Take a 10-minute break first</span>
+        <span class="mono" style="font-size:11px;color:var(--faint);margin-left:auto;">Or resume tomorrow · link stays valid until 19 Sep</span>
+      </div>
+    </div>
+  </div>
+</body></html>

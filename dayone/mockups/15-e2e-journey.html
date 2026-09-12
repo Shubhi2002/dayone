@@ -1,0 +1,85 @@
+<!doctype html>
+<html data-size="1800x1000"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  html, body { width: 1800px; height: 1000px; }
+  .page { padding: 40px 56px; height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 24px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+  .head h1 { font-size: 28px; }
+  .head p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .lanes { display: grid; grid-template-rows: auto 1fr 1fr; gap: 14px; min-height: 0; }
+  .cols { display: grid; grid-template-columns: 110px repeat(8, 1fr); gap: 12px; align-items: stretch; }
+  .lane-l { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
+  .t { font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-align: center; letter-spacing: 0.04em; }
+  .t b { display: block; color: var(--ink); font-weight: 500; font-size: 12px; letter-spacing: 0; font-family: var(--sans); margin-bottom: 2px; }
+  .card { padding: 12px 13px; display: flex; flex-direction: column; gap: 6px; }
+  .card .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .card b { font-family: var(--serif); font-weight: 500; font-size: 14px; line-height: 1.3; }
+  .card p { font-size: 11.5px; color: var(--ink-2); line-height: 1.45; }
+  .card .mini { margin-top: auto; height: 56px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line); position: relative; overflow: hidden; }
+  .card .mini i { position: absolute; background: var(--accent-mid); border-radius: 2px; }
+  .card.dim { background: transparent; border-style: dashed; }
+  .card.dim p, .card.dim b { color: var(--muted); }
+  .card .sig { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+  .card .sig span { font-family: var(--mono); font-size: 9.5px; padding: 1px 6px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  .card.co .sig span { background: var(--surface-2); color: var(--ink-2); }
+  .arrow { grid-column: 2 / -1; height: 18px; position: relative; }
+  .arrow::before { content: ''; position: absolute; left: 0; right: 0; top: 8px; height: 1px; background: var(--line-strong); }
+  .arrow i { position: absolute; top: 3px; width: 11px; height: 11px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+  .foot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .foot .panel { padding: 12px 14px; font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+  .foot .panel b { display: block; font-family: var(--serif); font-weight: 500; font-size: 14px; color: var(--ink); margin-bottom: 3px; }
+</style></head>
+<body>
+<div class="page">
+  <div class="head">
+    <div><h1>One end-to-end scenario · the Payments team loop</h1><p>Senior backend · one scenario family · three rounds in a shared world · about two hours, splittable across days. Candidate lane above, company lane below.</p></div>
+    <div style="display:flex;gap:8px;"><span class="chip soft">Debug → Review → Operate</span><span class="chip">Independent rounds, canonical resets</span></div>
+  </div>
+
+  <div class="lanes">
+    <div class="cols">
+      <div></div>
+      <div class="t"><b>Invite</b>day −3</div>
+      <div class="t"><b>Practice</b>10 min · optional</div>
+      <div class="t"><b>Round 1 · Debug</b>60 min</div>
+      <div class="t"><b>Handoff</b>reset · break</div>
+      <div class="t"><b>Round 2 · Review</b>30 min</div>
+      <div class="t"><b>Round 3 · Operate</b>30 min · event</div>
+      <div class="t"><b>Wrap-up</b>5 min</div>
+      <div class="t"><b>After</b>days 1 to 5</div>
+      <div class="arrow"><i style="left:6%"></i><i style="left:18.5%"></i><i style="left:31%"></i><i style="left:43.5%"></i><i style="left:56%"></i><i style="left:68.5%"></i><i style="left:81%"></i><i style="left:93.5%"></i></div>
+    </div>
+
+    <div class="cols">
+      <div class="lane-l">Candidate</div>
+      <div class="panel card"><span class="k">Email + page</span><b>"Your next round is a day on the Payments team."</b><p>Format, AI expected, what's recorded, accommodations, time slot.</p><div class="mini"><i style="left:8px;top:8px;width:60%;height:6px"></i><i style="left:8px;top:20px;width:80%;height:4px;opacity:.5"></i><i style="left:8px;top:34px;width:40%;height:12px;background:var(--accent)"></i></div></div>
+      <div class="panel card"><span class="k">Sandbox</span><b>Tiny warm-up scenario</b><p>Learn the workspace: editor, terminal, metrics, the agent. Answer key shown at the end.</p><div class="mini"><i style="left:6px;top:6px;width:22%;height:44px;opacity:.5"></i><i style="left:32%;top:6px;width:40%;height:44px;opacity:.3"></i><i style="left:76%;top:6px;width:20%;height:44px"></i></div></div>
+      <div class="panel card"><span class="k">Workspace · mockup 01</span><b>Fix the latency regression</b><p>Ticket, code, logs, metrics, load test, agent. Reproduce, hypothesise, fix, verify, submit with a summary.</p><div class="sig"><span>reproduced first</span><span>AI fix rejected</span><span>regression test</span></div></div>
+      <div class="panel card dim"><span class="k">Screen · mockup 12</span><b>"Arjun had the agent finish the fix overnight."</b><p>Round 1 recap without scores. Repo resets to the canonical fix. Break offered.</p></div>
+      <div class="panel card"><span class="k">Workspace · mockup 04</span><b>Review PR #418</b><p>Diff, sandbox, agent. Log findings with severity, decide ship / changes / block, write the review.</p><div class="sig"><span>recall vs key</span><span>severity ranking</span><span>tone</span></div></div>
+      <div class="panel card"><span class="k">Workspace · mockups 05, 07</span><b>You're paged: 5xx climbing</b><p>Event modal, dashboard, runbook, flags, stakeholder asking for updates. Mitigate, communicate, then root-cause.</p><div class="sig"><span>mitigate before RCA</span><span>reversible</span><span>update timing</span></div></div>
+      <div class="panel card dim"><span class="k">Screen · mockup 13</span><b>Three written questions</b><p>What you found, what you changed and didn't, what you'd do next. Graded for understanding of own work.</p></div>
+      <div class="panel card dim"><span class="k">Screen · mockup 14</span><b>Thanks, timeline, 2-question survey</b><p>Report unlocks after the company's decision. Data access and deletion available.</p></div>
+    </div>
+
+    <div class="cols">
+      <div class="lane-l">Company</div>
+      <div class="panel card co"><span class="k">Console · mockups 03, 16</span><b>Configure the loop, invite</b><p>Pick the Payments family, three rounds, senior profile weights, notice period. Invite from ATS or CSV.</p><div class="sig"><span>loop template</span><span>role weights</span></div></div>
+      <div class="panel card co dim"><span class="k">Automatic</span><b>Warm sandbox, variant assigned</b><p>Variant pool picks a materially different instance. Telemetry synthesised to match its hidden truth.</p></div>
+      <div class="panel card co dim"><span class="k">Automatic</span><b>Trace recorded</b><p>Edits, commands, test runs, prompts, apply/reject events. No video. Integrity flags computed, never shown as verdicts.</p></div>
+      <div class="panel card co dim"><span class="k">Automatic</span><b>Round 1 graded in background</b><p>Signals extracted, five rubric agents per item, reconciler. Nothing surfaced yet.</p></div>
+      <div class="panel card co dim"><span class="k">Automatic</span><b>Round 2 graded</b><p>Findings matched against the planted-issue key; summary quality scored.</p></div>
+      <div class="panel card co dim"><span class="k">Automatic</span><b>Round 3 graded</b><p>Time to mitigation, reversibility, communication timing. Event scheduler log attached.</p></div>
+      <div class="panel card co"><span class="k">Calibration queue</span><b>Human review if flagged or sampled</b><p>Low grader agreement, band boundary, integrity flag, or the 10% sample. Blind to the automated score.</p><div class="sig"><span>agreement ±1.0</span><span>override noted</span></div></div>
+      <div class="panel card co"><span class="k">Report · mockups 02, 17</span><b>Score, moments, replay, debrief Qs</b><p>Panel reads the report in the debrief, watches key moments, decides. Dispute path open to both sides.</p><div class="sig"><span>8.6 · Recommended</span><span>3 debrief Qs</span></div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="panel"><b>Why a shared world</b>The candidate learns one codebase once. Rounds 2 and 3 reuse it, so orientation cost is paid a single time and transitions between modes become part of the signal.</div>
+    <div class="panel"><b>Why independent rounds</b>Each round starts from a canonical state ("the team finished it overnight"), so a weak round 1 cannot sink rounds 2 and 3, and each mode's score stays attributable.</div>
+    <div class="panel"><b>Where AI collaboration is scored</b>Everywhere. Every round has the agent; prompts, rejections, verifications and blind accepts are extracted per round and rolled up.</div>
+    <div class="panel"><b>What the company never sees</b>Video, keystroke biometrics, demographic data, or an integrity verdict. They see evidence, agreement rates and a recommendation they can dispute.</div>
+  </div>
+</div>
+</body></html>

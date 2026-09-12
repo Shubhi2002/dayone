@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="app.css">
+<style>
+  .shell { grid-template-rows: 52px 40px 1fr 30px; }
+  .alert { display: flex; align-items: center; gap: 14px; padding: 0 20px; background: var(--red-soft); border-bottom: 1px solid rgba(179,67,47,0.25); font-size: 12.5px; color: var(--ink); }
+  .alert .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px rgba(179,67,47,0.15); }
+  .alert .mono { color: var(--red); }
+  .main { grid-template-columns: 300px 1fr 360px; }
+  .center { grid-template-rows: auto 1fr 1fr; padding: 14px 18px; gap: 12px; overflow: hidden; }
+  .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .kpi { padding: 10px 12px; }
+  .kpi .v { font-family: var(--serif); font-size: 22px; } .kpi .v.bad { color: var(--red); } .kpi .v.warn { color: var(--amber); }
+  .chart { padding: 12px 14px; }
+  .chart .h { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .tl { padding: 12px 14px; overflow: hidden; }
+  .ev { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 12px; color: var(--ink-2); }
+  .ev .t { font-family: var(--mono); font-size: 10.5px; color: var(--faint); width: 44px; flex: none; padding-top: 2px; }
+  .ev b { color: var(--ink); font-weight: 500; }
+  .stake { padding: 12px 14px; border-top: 1px solid var(--line); }
+  .bubble { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 12px; color: var(--ink-2); margin-top: 6px; }
+  .bubble .h { font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-bottom: 3px; display: flex; justify-content: space-between; }
+  .act { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; }
+  .act:last-child { border-bottom: 0; }
+  .act .d { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ta { border: 1px solid var(--line-strong); border-radius: var(--r-md); padding: 10px 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink); min-height: 82px; background: var(--surface); }
+  .runbook { font-size: 12px; color: var(--ink-2); line-height: 1.55; }
+  .runbook .stale { text-decoration: line-through; color: var(--faint); }
+</style></head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip soft">Operate</span>
+    <div style="font-family:var(--serif);font-size:14px;">orders-api · You are on call</div>
+    <div class="round" style="margin-left:14px;"><span class="step now">1 · Triage & mitigate</span><span class="step">2 · Root cause</span><span class="step">3 · Incident note</span></div>
+    <div style="flex:1"></div>
+    <div class="timer">00:06:41 <span class="rem">since page · 45:00 round</span></div>
+    <span class="btn sm ghost">Runbook</span>
+    <span class="btn sm primary">Declare mitigated →</span>
+  </div>
+  <div class="alert">
+    <span class="pulse"></span>
+    <span class="mono" style="font-size:11px;letter-spacing:0.08em;">SEV-2 · ORDERS-API · 5XX RATE 3.2% AND RISING</span>
+    <span>Paged 02:14 · users cannot complete checkout · stakeholder update requested by 02:24</span>
+    <div style="flex:1"></div>
+    <span class="chip red">Customer impact</span>
+  </div>
+
+  <div class="main">
+    <div class="rail">
+      <div class="tl" style="flex:1;">
+        <span class="label" style="display:block;margin-bottom:6px;">Incident timeline</span>
+        <div class="ev"><span class="t">02:14</span><span><b>Page received.</b> 5xx 1.8% on orders-api, threshold 1%.</span></div>
+        <div class="ev"><span class="t">02:15</span><span>Opened dashboard. Error rate rising ~0.3 pt/min. Latency normal. Traffic normal.</span></div>
+        <div class="ev"><span class="t">02:16</span><span><b>Checked recent changes across services.</b> No orders-api deploy. <b>profile-api deployed v3.9.0 at 01:54.</b></span></div>
+        <div class="ev"><span class="t">02:18</span><span>Runbook step 1 (restart pods) skipped: symptoms don't match a stuck process.</span></div>
+        <div class="ev"><span class="t">02:19</span><span>Errors correlate 1:1 with calls to profile-api. Response schema changed: <span class="mono">address.postcode</span> → <span class="mono">address.postal_code</span>.</span></div>
+        <div class="ev"><span class="t">02:20</span><span class="mono" style="color:var(--accent)">▍ deciding on mitigation</span></div>
+      </div>
+      <div class="stake">
+        <span class="label" style="display:block;">Stakeholder · #incident-orders</span>
+        <div class="bubble"><div class="h"><span>Jordan · Support lead</span><span>02:17</span></div>We're getting "something went wrong" at checkout from a lot of customers. Do we know what's going on? Can I tell them anything?</div>
+        <div class="bubble"><div class="h"><span>Jordan</span><span>02:21</span></div>Any update? Sales is asking too.</div>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="kpis">
+        <div class="panel kpi"><div class="v bad">3.2%</div><div class="label">5xx rate</div></div>
+        <div class="panel kpi"><div class="v warn">↑ 0.3 / min</div><div class="label">trend</div></div>
+        <div class="panel kpi"><div class="v">212 ms</div><div class="label">p95 latency</div></div>
+        <div class="panel kpi"><div class="v">9,140</div><div class="label">req / min</div></div>
+        <div class="panel kpi"><div class="v bad">~290</div><div class="label">failed checkouts</div></div>
+      </div>
+      <div class="panel chart">
+        <div class="h"><span class="label">5xx rate · orders-api · last 60 min</span><span class="mono" style="font-size:10.5px;color:var(--muted)">by upstream dependency</span></div>
+        <svg width="100%" height="150" viewBox="0 0 760 150" preserveAspectRatio="none">
+          <line x1="0" y1="40" x2="760" y2="40" stroke="rgba(0,0,0,0.06)"/><line x1="0" y1="80" x2="760" y2="80" stroke="rgba(0,0,0,0.06)"/><line x1="0" y1="120" x2="760" y2="120" stroke="rgba(0,0,0,0.06)"/>
+          <path d="M0 138 L200 137 L400 138 L470 137 L500 128 L540 112 L580 96 L620 82 L660 66 L700 52 L740 40 L760 34" fill="none" stroke="#B3432F" stroke-width="2.4"/>
+          <text x="600" y="30" font-family="Geist Mono, Menlo" font-size="9.5" fill="#B3432F">● errors from profile-api calls</text>
+          <path d="M0 140 L760 139" fill="none" stroke="#999" stroke-width="1.5"/>
+          <text x="600" y="134" font-family="Geist Mono, Menlo" font-size="9.5" fill="#999">● all other errors</text>
+          <line x1="482" y1="0" x2="482" y2="150" stroke="#46206F" stroke-dasharray="3 3"/>
+          <text x="488" y="12" font-family="Geist Mono, Menlo" font-size="9.5" fill="#46206F">profile-api v3.9.0 · 01:54</text>
+          <text x="4" y="146" font-family="Geist Mono, Menlo" font-size="9" fill="#999">01:20</text><text x="728" y="146" font-family="Geist Mono, Menlo" font-size="9" fill="#999">02:20</text>
+        </svg>
+      </div>
+      <div class="panel" style="overflow:hidden;">
+        <div class="panel-head"><span class="label">Recent changes · all services · last 3 h</span><span class="mono" style="font-size:10.5px;color:var(--muted)">deploys · flags · config</span></div>
+        <table class="data">
+          <tr><th>time</th><th>service</th><th>change</th><th>by</th><th>status</th></tr>
+          <tr class="hot"><td>01:54</td><td>profile-api</td><td>deploy v3.9.0 · "normalise address fields"</td><td>ci · team-identity</td><td>live</td></tr>
+          <tr><td>01:30</td><td>orders-api</td><td>flag <span class="mono">use_profile_address</span> = on (100%)</td><td>priya</td><td>live</td></tr>
+          <tr><td>00:12</td><td>search</td><td>deploy v12.1.3 · index tuning</td><td>ci · team-discovery</td><td>live</td></tr>
+          <tr><td>23:40</td><td>gateway</td><td>config · rate limit 1200 → 1500</td><td>tom</td><td>live</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="sec">
+        <span class="label">Mitigation actions</span>
+        <div class="act"><div><div>Flag <span class="mono">use_profile_address</span> → off</div><div class="d">Falls back to address stored on the order. Reversible. Affects 100% of users.</div></div><span class="toggle on"><i></i></span></div>
+        <div class="act"><div><div>Roll back profile-api to v3.8.4</div><div class="d">Owned by team-identity. Needs their approval at this hour. ~6 min.</div></div><span class="btn sm">Request</span></div>
+        <div class="act"><div><div>Restart orders-api pods</div><div class="d">Runbook step 1. Symptoms don't match. Skipped.</div></div><span class="mono" style="font-size:10.5px;color:var(--faint)">skipped</span></div>
+        <div class="act"><div><div>Scale orders-api ×2</div><div class="d">Not a capacity problem.</div></div><span class="mono" style="font-size:10.5px;color:var(--faint)">no</span></div>
+      </div>
+      <div class="sec">
+        <span class="label">Status update · to #incident-orders</span>
+        <div class="ta">02:21 · Investigating. Checkout errors (~3%) started 01:55, caused by an upstream address service change. Mitigating now by switching to stored addresses; expect recovery within 5 min. Customers can retry. Next update 02:35.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;"><span class="mono" style="font-size:10.5px;color:var(--faint)">Timeliness and clarity are scored</span><span class="btn sm primary">Post update</span></div>
+      </div>
+      <div class="sec" style="flex:1;">
+        <span class="label">Runbook · orders-api · last edited 7 months ago</span>
+        <div class="runbook">
+          <div><span class="stale">1. Restart pods: <span class="mono">kubectl rollout restart deploy/orders-api</span></span> <span class="chip amber" style="font-size:9px;padding:1px 6px;">stale</span></div>
+          <div style="margin-top:4px;">2. Check upstreams: profile-api, inventory, payments.</div>
+          <div style="margin-top:4px;">3. Feature flags that isolate upstreams: <span class="mono">use_profile_address</span>, <span class="mono">inventory_soft_reserve</span>.</div>
+          <div style="margin-top:4px;">4. Escalate to owning team via #oncall-&lt;team&gt;.</div>
+        </div>
+        <div class="note warn" style="margin-top:10px;font-size:12px;">Agent suggested hot-patching the response parser in production. Declined: not reversible, no test path at 02:20.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status">
+    <span class="bad">● SEV-2 open · 6 m 41 s</span><span>1 mitigation applied · reversible</span><span>1 update posted</span>
+    <div style="flex:1"></div><span>Root-cause round unlocks when 5xx &lt; 1% for 3 min</span>
+  </div>
+</div>
+</body></html>

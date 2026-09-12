@@ -1,0 +1,157 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-columns: 220px 1fr; }
+  .side { border-right: 1px solid var(--line); background: var(--surface); padding: 16px 12px; display: flex; flex-direction: column; }
+  .nav a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: var(--ink-2); font-size: 13px; text-decoration: none; }
+  .nav a.on { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .nav .ic { width: 16px; text-align: center; font-family: var(--mono); font-size: 12px; }
+  .org { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px; border-top: 1px solid var(--line); font-size: 12px; }
+
+  .content { padding: 24px 32px; overflow: hidden; }
+  .head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 18px; }
+  .head h1 { font-size: 26px; }
+  .head p { color: var(--muted); margin-top: 4px; font-size: 13px; }
+  .filters { display: flex; gap: 8px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+  .filters .sep { width: 1px; height: 18px; background: var(--line-strong); margin: 0 4px; }
+  .search { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); width: 280px; color: var(--faint); font-size: 12.5px; background: var(--surface); }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .card .top { display: flex; justify-content: space-between; align-items: center; }
+  .card h3 { font-size: 16px; line-height: 1.3; }
+  .card p { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; flex: 1; }
+  .card .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .card .foot { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--line); }
+  .card .facts { display: flex; gap: 12px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+  .card .signals { display: flex; gap: 4px; }
+  .card .signals i { width: 14px; height: 4px; border-radius: 2px; background: var(--surface-2); }
+  .card .signals i.on { background: var(--accent); }
+
+  .strip { margin-top: 18px; display: grid; grid-template-columns: 1fr 340px; gap: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  td .nm { display: flex; align-items: center; gap: 8px; }
+  td .sc { font-family: var(--mono); }
+  .mini { padding: 14px 16px; }
+  .mini .row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+  .mini .row:last-child { border-bottom: 0; }
+</style></head>
+<body>
+  <div class="side">
+    <div class="wordmark" style="padding:4px 10px 18px;"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="nav">
+      <a><span class="ic">◫</span>Overview</a>
+      <a class="on"><span class="ic">▤</span>Scenario library</a>
+      <a><span class="ic">◉</span>Assessments <span class="chip" style="margin-left:auto">4 live</span></a>
+      <a><span class="ic">☺</span>Candidates</a>
+      <a><span class="ic">◔</span>Reports</a>
+      <a><span class="ic">⇄</span>Integrations</a>
+      <a><span class="ic">⚙</span>Settings</a>
+    </div>
+    <div class="label" style="padding:18px 10px 6px;">Your codebases</div>
+    <div class="nav">
+      <a><span class="ic">⌥</span>payments-core</a>
+      <a><span class="ic">⌥</span>notif-service</a>
+      <a><span class="ic">+</span><span class="muted">Connect repo</span></a>
+    </div>
+    <div class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px;">NB</span><div><div style="font-weight:500">Northbeam</div><div class="muted" style="font-size:11px;">Growth plan · 11 seats</div></div></div>
+  </div>
+
+  <div class="content">
+    <div class="head">
+      <div>
+        <h1>Scenario library</h1>
+        <p>Realistic engineering situations, each with a working sandbox, seeded data, logs, metrics and a rubric. Assign as-is or fork onto your own codebase.</p>
+      </div>
+      <div style="display:flex;gap:8px;"><span class="btn sm ghost">Fork onto my repo</span><span class="btn sm primary">+ New scenario</span></div>
+    </div>
+
+    <div class="filters">
+      <div class="search">⌕ &nbsp;Search scenarios, stacks, skills…</div>
+      <span class="sep"></span>
+      <span class="chip accent">All modes</span>
+      <span class="chip">🐛 Debug</span>
+      <span class="chip">🔎 Investigate</span>
+      <span class="chip">👀 Review</span>
+      <span class="chip">🔨 Build</span>
+      <span class="chip">🏗 Scale</span>
+      <span class="chip">🔐 Secure</span>
+            <span class="sep"></span>
+      <span class="chip">Senior ▾</span><span class="chip">Any stack ▾</span><span class="chip">≤ 90 min ▾</span>
+    </div>
+
+    <div class="cards">
+      <div class="panel card">
+        <div class="top"><span class="chip soft">Debug</span><span class="chip amber">Hard</span></div>
+        <h3>Latency regression in payment-service after deploy</h3>
+        <p>p95 jumped from 250 ms to 1.8 s with a flat error rate. Candidate has logs, metrics, a load test and a Java monolith. The retry change looks innocent.</p>
+        <div class="tags"><span class="tag">java</span><span class="tag">postgres</span><span class="tag">connection pooling</span></div>
+        <div class="foot"><div class="facts"><span>90 min</span><span>412 sessions</span><span>3 rounds</span></div><div class="signals" title="Primary signals"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+      </div>
+
+      <div class="panel card">
+        <div class="top"><span class="chip soft">Investigate</span><span class="chip amber">Hard</span></div>
+        <h3>Checkout conversion dropped 12% yesterday</h3>
+        <p>No deploys, no incidents. Candidate gets the warehouse, event stream, feature flag history and three team Slack threads. One of them is a red herring.</p>
+        <div class="tags"><span class="tag">sql</span><span class="tag">analytics</span><span class="tag">feature flags</span></div>
+        <div class="foot"><div class="facts"><span>60 min</span><span>188 sessions</span><span>1 round</span></div><div class="signals"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+      </div>
+
+      <div class="panel card">
+        <div class="top"><span class="chip soft">Review</span><span class="chip green">Medium</span></div>
+        <h3>Would you ship this AI-generated PR?</h3>
+        <p>A coding agent opened a 184-line PR adding money transfers. Tests pass. Candidate must find what is wrong, rank it, and decide: ship, request changes or block.</p>
+        <div class="tags"><span class="tag">python</span><span class="tag">concurrency</span><span class="tag">idempotency</span></div>
+        <div class="foot"><div class="facts"><span>45 min</span><span>631 sessions</span><span>1 round</span></div><div class="signals"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      </div>
+
+      <div class="panel card">
+        <div class="top"><span class="chip soft">Scale</span><span class="chip red">Very hard</span></div>
+        <h3>Notification service must survive a 20× traffic spike</h3>
+        <p>Starts as a bug fix. Then marketing launches. Then a second region comes online. Requirements change every round and the architecture has to evolve with them.</p>
+        <div class="tags"><span class="tag">go</span><span class="tag">kafka</span><span class="tag">multi-region</span></div>
+        <div class="foot"><div class="facts"><span>120 min</span><span>96 sessions</span><span>4 rounds</span></div><div class="signals"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+      </div>
+
+      <div class="panel card">
+        <div class="top"><span class="chip soft">Secure</span><span class="chip green">Medium</span></div>
+        <h3>Audit the file-upload service before launch</h3>
+        <p>A working Node service with eight planted weaknesses of varying subtlety, from path traversal to a signed-URL flaw. Report, prioritise, and fix the top three.</p>
+        <div class="tags"><span class="tag">node</span><span class="tag">s3</span><span class="tag">authz</span></div>
+        <div class="foot"><div class="facts"><span>60 min</span><span>240 sessions</span><span>1 round</span></div><div class="signals"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+      </div>
+
+      <div class="panel card" style="border-style:dashed;background:transparent;">
+        <div class="top"><span class="chip">Build</span><span class="chip">Your repo</span></div>
+        <h3>Add rate limiting to <span class="mono" style="font-size:14px">payments-core</span></h3>
+        <p>Forked from the library onto your connected repository. The rubric was adapted to your conventions and the sandbox built from your Dockerfile in 4 m 12 s.</p>
+        <div class="tags"><span class="tag">java</span><span class="tag">redis</span><span class="tag">api gateway</span></div>
+        <div class="foot"><div class="facts"><span>75 min</span><span>draft</span><span>2 rounds</span></div><span class="btn sm">Finish setup</span></div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="panel">
+        <div class="panel-head"><span class="label">Recent candidates</span><span class="mono muted" style="font-size:10.5px">Backend SWE II · 7 this week</span></div>
+        <table>
+          <tr><th>Candidate</th><th>Scenario</th><th>Score</th><th>Strongest</th><th>Status</th></tr>
+          <tr><td><span class="nm"><span class="avatar" style="width:22px;height:22px;font-size:9px">SM</span>Sarah Marshall</span></td><td>Latency regression</td><td class="sc">8.6</td><td>Testing 9.4</td><td><span class="chip green">Recommended</span></td></tr>
+          <tr><td><span class="nm"><span class="avatar" style="width:22px;height:22px;font-size:9px">DO</span>Daniel Okafor</span></td><td>AI-generated PR</td><td class="sc">7.4</td><td>Security 8.9</td><td><span class="chip">Debrief booked</span></td></tr>
+          <tr><td><span class="nm"><span class="avatar" style="width:22px;height:22px;font-size:9px">PL</span>Priya Lakshman</span></td><td>Conversion drop</td><td class="sc">—</td><td class="muted">in progress · 00:38</td><td><span class="chip soft">Live</span></td></tr>
+          <tr><td><span class="nm"><span class="avatar" style="width:22px;height:22px;font-size:9px">JK</span>Jonas Keller</span></td><td>Latency regression</td><td class="sc">5.1</td><td>Code quality 7.0</td><td><span class="chip amber">Not recommended</span></td></tr>
+        </table>
+      </div>
+      <div class="panel mini">
+        <div class="label" style="margin-bottom:8px;">Library health</div>
+        <div class="row"><span>Scenarios available</span><b class="mono">64</b></div>
+        <div class="row"><span>Retired this month (leak detected)</span><b class="mono" style="color:var(--amber)">2</b></div>
+        <div class="row"><span>Avg. candidate rating</span><b class="mono">4.7 / 5</b></div>
+        <div class="row"><span>Senior completion rate</span><b class="mono">88%</b></div>
+        <div class="row"><span>Variant pool per scenario</span><b class="mono">6–12</b></div>
+      </div>
+    </div>
+  </div>
+</body></html>

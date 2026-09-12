@@ -1,0 +1,107 @@
+<!doctype html>
+<html data-size="1440x3950"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="site.css">
+<style>
+  .pipe { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 40px; align-items: stretch; }
+  .pp { padding: 16px 16px; position: relative; }
+  .pp .n { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.1em; }
+  .pp h3 { font-size: 15px; margin: 6px 0 6px; line-height: 1.3; }
+  .pp p { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+  .pp::after { content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--faint); font-size: 14px; z-index: 1; }
+  .pp:last-child::after { display: none; }
+  .dims { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+  .dm { padding: 18px 20px; }
+  .dm h3 { font-size: 16px; margin-bottom: 6px; }
+  .dm p { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+  .dm .no { font-family: var(--mono); font-size: 10.5px; color: var(--faint); margin-top: 8px; display: block; }
+  .mix { display: flex; height: 44px; border-radius: 10px; overflow: hidden; margin-top: 30px; font-family: var(--mono); font-size: 11px; color: #fff; }
+  .mix i { display: flex; align-items: center; justify-content: center; }
+  .mix-l { display: grid; grid-template-columns: 6fr 3fr 1fr; gap: 12px; margin-top: 10px; font-size: 12.5px; color: var(--ink-2); }
+  .mix-l b { display: block; font-weight: 500; color: var(--ink); }
+  .human { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+  .human .panel { padding: 22px; }
+  .human h3 { font-size: 17px; margin-bottom: 6px; }
+  .human p { font-size: 13px; line-height: 1.55; }
+  .validity { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .vt { margin-top: 20px; }
+  .vt .r { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
+  .vt .r b { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.06em; padding-top: 3px; }
+  .vt .r p { color: var(--ink-2); line-height: 1.5; }
+</style></head>
+<body class="site">
+  <div class="nav">
+    <div class="wordmark" style="font-size:20px;"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="links"><span>Product</span><span>Scenarios</span><span class="on">How scoring works</span><span>Pricing</span><span>For candidates</span></div>
+    <div class="cta"><span class="btn ghost">Sign in</span><span class="btn primary">Book a demo →</span></div>
+  </div>
+
+  <section class="section wash">
+    <span class="eyebrow">How scoring works</span>
+    <h1 class="display" style="font-size:52px;">A score you can trace to the moment it came from.</h1>
+    <p class="lede">Every number in a Dayone report points to evidence in the session replay. Here is how a two-hour session becomes eight dimension scores, a recommendation, and the questions worth asking in the debrief.</p>
+    <div class="pipe">
+      <div class="panel pp"><span class="n">1 · TRACE</span><h3>Everything the candidate does is an event</h3><p>Edits as diffs, commands and output, test runs, metrics queries, prompts, agent tool calls, apply and reject clicks. No video.</p></div>
+      <div class="panel pp"><span class="n">2 · SIGNALS</span><h3>Deterministic process signals</h3><p>"Reproduced before first edit" is a timestamp comparison. Attribution tags every final line as human, AI, or AI then edited.</p></div>
+      <div class="panel pp"><span class="n">3 · GRADERS</span><h3>Five independent rubric agents</h3><p>Per rubric item, each sees the anchors, the hidden truth and the trace, and must cite the events behind its score. Two model families.</p></div>
+      <div class="panel pp"><span class="n">4 · RECONCILE</span><h3>Median, spread, roll-up</h3><p>Median score per item; the spread becomes grader agreement. Items with wide disagreement go to a human.</p></div>
+      <div class="panel pp"><span class="n">5 · HUMAN</span><h3>Calibration queue</h3><p>A random sample, every flagged item, every dispute. Reviewed blind to the automated score. Overrides are shown.</p></div>
+      <div class="panel pp"><span class="n">6 · REPORT</span><h3>Written from evidence only</h3><p>Rationale, key moments and debrief questions are composed from cited events and verified against them. The writer cannot change a number.</p></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <span class="eyebrow">Eight dimensions</span>
+    <h2 class="title">Each defined by what we look for, and by what we ignore.</h2>
+    <div class="dims">
+      <div class="panel dm"><h3>Debugging</h3><p>Reproduce-first behaviour, hypothesis quality, use of telemetry, decoys rejected, cause found.</p><span class="no">Ignored: speed alone, files opened</span></div>
+      <div class="panel dm"><h3>Code quality</h3><p>Convention adherence, diff coherence, error handling, size proportional to task.</p><span class="no">Ignored: formatting, personal style</span></div>
+      <div class="panel dm"><h3>System design</h3><p>Trade-offs written down, proposals grounded in measurement, smallest sufficient change, what breaks next.</p><span class="no">Ignored: buzzwords, diagrams</span></div>
+      <div class="panel dm"><h3>Testing</h3><p>Regression test that fails before and passes after, mutation score, edge cases named.</p><span class="no">Ignored: line coverage</span></div>
+      <div class="panel dm"><h3>Performance</h3><p>Measured before and after, correct bottleneck, benchmark used.</p><span class="no">Ignored: unmeasured micro-optimisation</span></div>
+      <div class="panel dm"><h3>Security</h3><p>Authorisation, input handling, secrets, atomicity, prioritisation by exploitability.</p><span class="no">Ignored: scanner output pasted uncritically</span></div>
+      <div class="panel dm"><h3>AI collaboration</h3><p>Specific prompts, claims verified, wrong suggestions rejected with reasons, boilerplate delegated, bad changes reverted.</p><span class="no">Ignored: number of prompts, either way</span></div>
+      <div class="panel dm"><h3>Engineering judgment</h3><p>Triage order, mitigate before fix, saying "I don't know yet", pushing back on a bad requirement.</p><span class="no">Ignored: confidence of tone</span></div>
+    </div>
+
+    <h3 class="sub" style="margin-top:44px;">How a dimension score is mixed</h3>
+    <div class="mix"><i style="flex:6;background:var(--accent);">Rubric items · ~60%</i><i style="flex:3;background:#8A6BB0;">Process signals · ~30%</i><i style="flex:1;background:#C9B8DB;color:var(--ink);">Outcome · ~10%</i></div>
+    <div class="mix-l">
+      <div><b>Rubric items</b>Four to eight observable behaviours per dimension per scenario, anchored at 9 / 6 / 3, graded from the trace with cited evidence.</div>
+      <div><b>Process signals</b>Computed, normalised against other candidates at the same level on the same scenario.</div>
+      <div><b>Outcome</b>Weighted low on purpose. A correct diagnosis that ran out of time beats a lucky fix.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="eyebrow">Humans in the loop</span>
+    <h2 class="title" style="font-size:34px;">Automation earns trust by being checked, not by being confident.</h2>
+    <div class="human">
+      <div class="panel"><h3>Sampled</h3><p>10% of sessions in the first months, falling to 3% once agreement is stable. Senior engineers grade blind, with the same rubric and replay. Their scores are kept forever beside the automated ones.</p></div>
+      <div class="panel"><h3>Flagged</h3><p>Low grader agreement, a score near a band boundary, an outcome that disagrees with the process, or an integrity flag. Integrity flags route to review; they never change a score by themselves.</p></div>
+      <div class="panel"><h3>Disputed</h3><p>Companies and candidates can dispute any item. A reviewer with no prior contact with the session grades it blind. Response within three business days, outcome visible to both sides.</p></div>
+    </div>
+    <div class="shot" style="margin-top:36px;"><div class="bar"><i></i><i></i><i></i><span class="mono" style="font-size:10.5px;color:var(--muted);margin-left:8px;">replay · evidence panel for one key moment · five grader scores shown</span></div><img src="png/17-session-replay.png" alt=""></div>
+  </section>
+
+  <section class="section alt">
+    <div class="validity">
+      <div>
+        <span class="eyebrow">Validity</span>
+        <h2 class="title" style="font-size:32px;">A score that can't be shown to predict job performance is a vibe.</h2>
+        <p class="body" style="margin-top:14px;">Nobody in this category has published evidence that their AI-era assessment predicts on-the-job performance. We are collecting it from the first design partner onward, and we say in every report footer what we can and cannot yet claim.</p>
+      </div>
+      <div class="vt">
+        <div class="r"><b>CONTENT · NOW</b><p>Every rubric reviewed by at least three senior engineers outside Dayone. Job analysis rationale documented per scenario.</p></div>
+        <div class="r"><b>CONCURRENT · MO 3–9</b><p>Dimension scores compared with partners' own panel scores, and with manager ratings of current employees who volunteer to run scenarios.</p></div>
+        <div class="r"><b>PREDICTIVE · MO 9–24</b><p>Structured six-item manager ratings at 3 and 6 months for hires. Published once n ≥ 150 hires across ≥ 5 companies. We expect r ≈ 0.3 to 0.5, in line with structured work samples, and will not promise more.</p></div>
+        <div class="r"><b>FAIRNESS · ALWAYS</b><p>Score distributions by voluntarily self-reported group, stored separately, four-fifths rule as the first screen, scenarios revised when it triggers. Reported to customers on request.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="col"><div class="wordmark" style="font-size:18px;margin-bottom:12px;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div><span style="color:var(--muted);max-width:300px;line-height:1.5;">Interviews that feel like the job.</span></div>
+    <div class="col"><b>Product</b><span>Scenario library</span><span>How scoring works</span><span>Pricing</span></div>
+    <div class="col"><b>Candidates</b><span>Practice scenarios</span><span>What to expect</span><span>Your data and rights</span></div>
+    <div class="col"><b>Company</b><span>About</span><span>Research</span><span>Fairness and compliance</span><span>Contact</span></div>
+  </div>
+</body></html>

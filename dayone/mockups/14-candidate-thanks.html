@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-rows: 56px 1fr; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .co { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+  .co .logo { width: 26px; height: 26px; border-radius: 7px; background: #1F3A5F; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .page { display: grid; grid-template-columns: 1fr 440px; gap: 48px; padding: 60px 140px; align-content: start; }
+  h1 { font-size: 36px; line-height: 1.2; margin: 14px 0 12px; }
+  .lede { font-size: 15px; color: var(--ink-2); line-height: 1.6; max-width: 600px; }
+  .tl { margin-top: 30px; }
+  .ev { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding: 10px 0; position: relative; }
+  .ev .c { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-strong); display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; background: var(--surface); z-index: 1; }
+  .ev.done .c { background: var(--green); border-color: var(--green); color: #fff; }
+  .ev.now .c { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .ev::before { content: ''; position: absolute; left: 12.5px; top: 38px; bottom: -8px; width: 1px; background: var(--line-strong); }
+  .ev:last-child::before { display: none; }
+  .ev b { font-weight: 500; display: block; font-size: 14px; }
+  .ev span { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .card { padding: 22px 24px; }
+  .card h2 { font-size: 18px; margin-bottom: 6px; }
+  .scale { display: flex; gap: 6px; margin: 10px 0 4px; }
+  .scale i { flex: 1; height: 38px; border: 1px solid var(--line-strong); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+  .scale i.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .lbl { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--faint); }
+  .ta { border: 1px solid var(--line-strong); border-radius: var(--r-md); padding: 10px 12px; font-size: 12.5px; color: var(--faint); min-height: 64px; margin-top: 12px; }
+  .locked { margin-top: 16px; padding: 18px 20px; border: 1px dashed var(--line-strong); border-radius: var(--r-lg); display: flex; gap: 14px; align-items: center; background: var(--surface-2); }
+  .locked .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; color: var(--muted); }
+  .locked b { display: block; font-weight: 500; font-size: 13px; }
+  .locked span { font-size: 12px; color: var(--muted); line-height: 1.5; }
+</style></head>
+<body>
+  <div class="top">
+    <div class="co"><span class="logo">NB</span><span><b style="color:var(--ink);font-weight:500">Northbeam</b> · Senior Backend Engineer</span></div>
+    <div class="wordmark" style="font-size:15px;"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+  </div>
+
+  <div class="page">
+    <div>
+      <span class="chip green">Submitted · Sun 14 Sep, 16:04</span>
+      <h1>That's a wrap, Sarah. Thank you.</h1>
+      <p class="lede">You spent 1 h 58 m on the Payments team: a latency regression, a pull request you blocked for good reason, and a SEV-2 you mitigated in under five minutes. That's a real day's work, and the panel will see all of it.</p>
+
+      <div class="tl">
+        <div class="ev done"><span class="c">✓</span><div><b>Assessment submitted</b><span>Your sandbox has been destroyed. Your work, notes and prompts are stored for review.</span></div></div>
+        <div class="ev now"><span class="c">2</span><div><b>Scoring and human review · by Tue 16 Sep</b><span>Independent graders score against the rubric; a Dayone engineer reviews the session. You are never shown a score before the company is.</span></div></div>
+        <div class="ev"><span class="c">3</span><div><b>Northbeam decides · they said within 5 business days</b><span>The panel uses the report in their debrief. If you move forward, the next step is a conversation with the team, not another test.</span></div></div>
+        <div class="ev"><span class="c">4</span><div><b>Your report unlocks</b><span>Once Northbeam has told you their decision, you'll get your own breakdown here: the eight dimensions, the key moments, and what to work on.</span></div></div>
+      </div>
+
+      <div class="locked">
+        <span class="ic">◔</span>
+        <div><b>Your Engineering Score report · locked until Northbeam's decision</b><span>We'll email you at sarah.marshall@example.com. You can also request your raw data, or ask for it to be deleted, any time from this page.</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel card">
+        <h2>Two quick questions</h2>
+        <div style="font-size:12.5px;color:var(--muted);">Optional. Anonymous to Northbeam. Takes 30 seconds and directly shapes how we build scenarios.</div>
+        <div style="margin-top:18px;font-size:13.5px;">How much did this feel like real engineering work?</div>
+        <div class="scale"><i>1</i><i>2</i><i>3</i><i class="on">4</i><i>5</i></div>
+        <div class="lbl"><span>Like a quiz</span><span>Like a day on the job</span></div>
+        <div style="margin-top:18px;font-size:13.5px;">Did you feel trusted during the assessment?</div>
+        <div class="scale"><i>1</i><i>2</i><i>3</i><i>4</i><i class="on">5</i></div>
+        <div class="lbl"><span>Surveilled</span><span>Trusted</span></div>
+        <div class="ta">Anything that felt unfair, unrealistic, or broken? (optional)</div>
+        <div style="display:flex;gap:10px;margin-top:14px;"><span class="btn primary">Send</span><span class="btn ghost">Skip</span></div>
+      </div>
+      <div class="note" style="margin-top:14px;font-size:12.5px;border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--surface);color:var(--ink-2);line-height:1.5;">Want to keep practising? The same scenario families are available in practice mode with the full answer key after each session. <span style="color:var(--accent)">Open practice →</span></div>
+    </div>
+  </div>
+</body></html>

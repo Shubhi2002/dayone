@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="simple.css">
+<style>
+  .co { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); }
+  .co .logo { width: 28px; height: 28px; border-radius: 8px; background: #1F3A5F; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; width: 1080px; }
+  .side .card { margin-bottom: 12px; }
+  .side .card .row { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; border-bottom: 1px dashed var(--line); color: var(--ink-2); }
+  .side .card .row:last-child { border-bottom: 0; }
+  .side .card .row b { font-weight: 500; color: var(--ink); }
+</style></head>
+<body>
+<div class="s-page">
+  <div class="s-top">
+    <div class="co"><span class="logo">NB</span><span><b style="color:var(--ink);font-weight:500">Northbeam</b> · Software Engineer, early career</span></div>
+    <div class="time" style="gap:8px;font-size:13px;">Powered by <div class="wordmark" style="font-size:16px;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div></div>
+  </div>
+  <div class="s-center">
+    <div class="grid">
+      <div>
+        <span class="chip soft">Working with AI · one round · about 45 minutes</span>
+        <h1 style="font-size:40px;line-height:1.15;letter-spacing:-0.02em;margin-top:14px;">Hi Priya. This round is one small, real engineering task, done with an AI assistant.</h1>
+        <p class="lede" style="font-size:17px;line-height:1.6;color:var(--ink-2);margin-top:14px;">You'll get a small codebase, a bug report, and an AI assistant that can read the code and suggest changes. We're not testing whether you can write everything from scratch. We're looking at how you understand a problem, how you use the assistant, and whether you check its work.</p>
+
+        <div class="plain-list" style="margin-top:28px;">
+          <div><i>1</i><div><b>Understand the problem.</b> Read the bug report. Ask the assistant to explain the code. Say what you think is wrong before changing anything.</div></div>
+          <div><i>2</i><div><b>Reproduce it.</b> Run the tests. See the failure with your own eyes.</div></div>
+          <div><i>3</i><div><b>Fix it with the assistant.</b> Ask for a fix. Read it before you apply it. It's fine to disagree with the assistant. It will sometimes be wrong on purpose.</div></div>
+          <div><i>4</i><div><b>Check it works.</b> Run the tests again. Try the example request.</div></div>
+          <div><i>5</i><div><b>Explain in your own words.</b> Three short questions. Plain language is perfect.</div></div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-top:30px;">
+          <span class="big-btn">Start the 3-minute warm-up →</span>
+          <span class="big-btn secondary">Skip warm-up, start the task</span>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.5;">The warm-up is a tiny practice task that shows you where everything is. We recommend it if this is your first time.</p>
+      </div>
+
+      <div class="side">
+        <div class="card">
+          <h3>Good to know</h3>
+          <div class="row"><span>Time</span><b>45 min, timer is a guide</b></div>
+          <div class="row"><span>Rounds</span><b>Just this one</b></div>
+          <div class="row"><span>AI assistant</span><b>Included and expected</b></div>
+          <div class="row"><span>Internet search</span><b>Not needed</b></div>
+          <div class="row"><span>Webcam or screen recording</span><b>None</b></div>
+          <div class="row"><span>Your setup</span><b>Nothing to install</b></div>
+        </div>
+        <div class="card soft">
+          <h3>What we record</h3>
+          <p>Your edits, the tests you run, and your conversation with the assistant inside this page. That's it. You'll get your own feedback after Northbeam shares their decision.</p>
+        </div>
+        <div class="card">
+          <h3>Need anything?</h3>
+          <p>Extra time, a larger font, a dark theme, or a screen-reader mode: <span style="color:var(--accent)">choose it here</span>. No reason needed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

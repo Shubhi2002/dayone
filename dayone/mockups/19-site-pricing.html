@@ -1,0 +1,92 @@
+<!doctype html>
+<html data-size="1440x2450"><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="site.css">
+<style>
+  .plans { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+  .plan { padding: 26px 26px 22px; display: flex; flex-direction: column; gap: 12px; position: relative; }
+  .plan.hot { border-color: var(--accent); box-shadow: 0 20px 50px rgba(70,32,111,0.10); }
+  .plan .nm { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .plan .pr { font-family: var(--serif); font-size: 40px; letter-spacing: -0.02em; line-height: 1; }
+  .plan .pr small { font-size: 14px; color: var(--muted); font-family: var(--sans); letter-spacing: 0; }
+  .plan .inc { font-size: 13px; color: var(--ink-2); }
+  .plan .for { font-size: 12.5px; color: var(--muted); line-height: 1.5; min-height: 38px; }
+  .plan ul { margin-top: 4px; flex: 1; }
+  .plan .badge { position: absolute; top: -12px; left: 26px; }
+  .unit { margin-top: 36px; padding: 22px 26px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .unit .v { font-family: var(--serif); font-size: 22px; }
+  .unit p { font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-top: 4px; }
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 40px; font-size: 13.5px; }
+  table.cmp th { text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 12px 14px; border-bottom: 1px solid var(--line-strong); }
+  table.cmp td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  table.cmp td:first-child { color: var(--ink); }
+  table.cmp td.c { text-align: center; }
+  .y { color: var(--green); font-weight: 600; } .n { color: var(--faint); }
+  .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; margin-top: 36px; }
+  .faq h3 { font-size: 16px; margin-bottom: 6px; }
+  .faq p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+</style></head>
+<body class="site">
+  <div class="nav">
+    <div class="wordmark" style="font-size:20px;"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <div class="links"><span>Product</span><span>Scenarios</span><span>How scoring works</span><span class="on">Pricing</span><span>For candidates</span></div>
+    <div class="cta"><span class="btn ghost">Sign in</span><span class="btn primary">Book a demo →</span></div>
+  </div>
+
+  <section class="section wash" style="padding-bottom:40px;">
+    <span class="eyebrow">Pricing</span>
+    <h1 class="display" style="font-size:52px;">Less than one hour of a senior engineer's time. Per candidate.</h1>
+    <p class="lede">Plans are a monthly platform fee plus included assessments. An assessment is one candidate through one loop of up to four 30-minute rounds. Cancel any month. Two months free on annual plans.</p>
+
+    <div class="plans">
+      <div class="panel plan"><span class="nm">Team</span><div class="pr">$490<small> / month</small></div><div class="inc">6 assessments included · $95 each after</div><div class="for">For teams hiring one to three engineers a month.</div>
+        <ul class="check-list"><li>Full scenario library, all eight modes</li><li>Engineering Score report and replay</li><li>Three role-profile presets</li><li>Candidate practice scenario</li><li>Email support</li></ul><span class="btn" style="justify-content:center;">Start with Team</span></div>
+      <div class="panel plan hot"><span class="chip accent badge">Most teams start here</span><span class="nm">Growth</span><div class="pr">$1,490<small> / month</small></div><div class="inc">20 assessments included · $85 each after</div><div class="for">For teams hiring three to eight engineers a month.</div>
+        <ul class="check-list"><li>Everything in Team</li><li>Fork scenarios onto your own repos</li><li>Greenhouse, Lever, Ashby integrations</li><li>Custom role-profile weights and bands</li><li>Human calibration review on request</li></ul><span class="btn primary" style="justify-content:center;">Start with Growth</span></div>
+      <div class="panel plan"><span class="nm">Scale</span><div class="pr">$3,900<small> / month</small></div><div class="inc">60 assessments included · $75 each after</div><div class="for">For larger engineering orgs with several open roles.</div>
+        <ul class="check-list"><li>Everything in Growth</li><li>SSO and team roles</li><li>Custom scenarios authored for you</li><li>Quarterly validity and fairness report</li><li>Dedicated calibration engineer</li></ul><span class="btn" style="justify-content:center;">Talk to us</span></div>
+      <div class="panel plan"><span class="nm">Enterprise</span><div class="pr" style="font-size:30px;">Custom<small> · annual</small></div><div class="inc">Volume pricing</div><div class="for">For procurement-led buyers with compliance requirements.</div>
+        <ul class="check-list"><li>Everything in Scale</li><li>SOC 2 report, DPA, security review</li><li>Data residency options</li><li>Adverse-impact reporting for your loops</li><li>Custom SLAs</li></ul><span class="btn" style="justify-content:center;">Book a call</span></div>
+    </div>
+
+    <div class="panel unit">
+      <div><div class="v">1 assessment = up to 4 round-units</div><p>A round-unit is 30 minutes of candidate time. A 30-minute Review screen uses one unit; a two-hour senior loop uses four. Unused units within an assessment don't roll over.</p></div>
+      <div><div class="v">$5 of agent budget included</div><p>Each round includes a generous coding-agent token budget. Running out is not a failure and is not charged to you or the candidate.</p></div>
+      <div><div class="v">60-day pilot, free</div><p>Ten assessments, two scenarios matched to your stack, every report hand-reviewed, weekly call. Converts to Team or Growth at list price.</p></div>
+    </div>
+  </section>
+
+  <section class="section alt tight">
+    <span class="eyebrow">Compare</span>
+    <h2 class="title" style="font-size:30px;">What's in each plan</h2>
+    <table class="cmp">
+      <tr><th style="width:38%">Feature</th><th class="c">Team</th><th class="c">Growth</th><th class="c">Scale</th><th class="c">Enterprise</th></tr>
+      <tr><td>Scenario library · all modes, all stacks</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Engineering Score report, key moments, replay</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Multi-round scenarios with injected events</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Fork scenarios onto your repositories</td><td class="c n">—</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>ATS integrations</td><td class="c n">—</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Custom role-profile weights and recommendation bands</td><td class="c">3 presets</td><td class="c y">✓</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Human calibration review</td><td class="c">Sampled + disputes</td><td class="c">On request · $60</td><td class="c y">Included quota</td><td class="c y">Dedicated</td></tr>
+      <tr><td>SSO, roles, audit log</td><td class="c n">—</td><td class="c n">—</td><td class="c y">✓</td><td class="c y">✓</td></tr>
+      <tr><td>Custom-authored scenarios</td><td class="c n">—</td><td class="c">$4k to $8k each</td><td class="c y">2 / year included</td><td class="c y">Negotiated</td></tr>
+      <tr><td>Validity and adverse-impact reporting</td><td class="c n">—</td><td class="c n">—</td><td class="c y">Quarterly</td><td class="c y">Quarterly + per loop</td></tr>
+      <tr><td>SOC 2 report, DPA, data residency</td><td class="c">DPA</td><td class="c">DPA</td><td class="c">DPA + SOC 2</td><td class="c y">All</td></tr>
+    </table>
+  </section>
+
+  <section class="section tight">
+    <span class="eyebrow">Questions</span>
+    <div class="faq">
+      <div><h3>Why not price per seat?</h3><p>Usage tracks value delivered and hiring is lumpy. The platform fee keeps the library maintained; assessments are what you actually consume.</p></div>
+      <div><h3>How is this cheaper than Saffron's $199?</h3><p>It isn't, and it isn't trying to be. Their assessment is a feature-building task. Ours is a multi-round simulation with telemetry, events and human calibration, replacing a 60 to 90 minute engineer-led round.</p></div>
+      <div><h3>What happens to candidate data?</h3><p>We process it on your behalf under a DPA. Default retention is 12 months, configurable. Candidates can request access or deletion at any time, and receive their own report after your decision.</p></div>
+      <div><h3>Can we bring our own codebase?</h3><p>On Growth and above. We fork a scenario onto your repo, adapt the rubric to your conventions, and build the sandbox from your Dockerfile. Your code never leaves your isolated tenancy and is never used for training.</p></div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="col"><div class="wordmark" style="font-size:18px;margin-bottom:12px;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div><span style="color:var(--muted);max-width:300px;line-height:1.5;">Interviews that feel like the job.</span></div>
+    <div class="col"><b>Product</b><span>Scenario library</span><span>How scoring works</span><span>Integrations</span><span>Security</span></div>
+    <div class="col"><b>Candidates</b><span>Practice scenarios</span><span>What to expect</span><span>Your data and rights</span></div>
+    <div class="col"><b>Company</b><span>About</span><span>Research</span><span>Fairness and compliance</span><span>Contact</span></div>
+  </div>
+</body></html>

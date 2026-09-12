@@ -1,0 +1,148 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css">
+<style>
+  body { display: grid; grid-template-rows: 52px 1fr 30px; }
+  .main { display: grid; grid-template-columns: 1fr 400px; min-height: 0; }
+  .diffwrap { display: flex; flex-direction: column; min-height: 0; }
+  .prhead { padding: 16px 24px 12px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .prhead h1 { font-size: 20px; }
+  .prhead .meta { display: flex; gap: 14px; align-items: center; margin-top: 6px; font-size: 12px; color: var(--muted); }
+  .prhead .meta .mono { font-size: 11.5px; }
+  .files { display: flex; gap: 14px; padding: 0 24px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .file { padding: 9px 0; font-family: var(--mono); font-size: 11.5px; color: var(--muted); border-bottom: 2px solid transparent; }
+  .file.on { color: var(--ink); border-bottom-color: var(--accent); }
+  .file .n { color: var(--faint); margin-left: 6px; }
+
+  .diff { background: var(--code-bg); overflow: hidden; flex: 1; padding: 10px 0; display: flex; flex-direction: column; }
+  .l { display: grid; grid-template-columns: 44px 44px 22px 1fr; font-family: var(--mono); font-size: 12px; line-height: 1.7; }
+  .l .no { color: var(--faint); text-align: right; padding-right: 8px; font-size: 11px; }
+  .l .sg { color: var(--faint); text-align: center; }
+  .l.add { background: rgba(31,138,99,0.08); } .l.add .sg { color: var(--green); }
+  .l.del { background: rgba(179,67,47,0.08); } .l.del .sg { color: var(--red); }
+  .l.hunk { color: var(--muted); background: var(--surface-2); font-size: 11px; }
+  .l.hunk div:last-child { padding-left: 4px; }
+  .l.mark { box-shadow: inset 3px 0 0 var(--accent); }
+
+  .cmt { margin: 6px 24px 8px 110px; padding: 10px 14px; border: 1px solid var(--accent-mid); border-left: 3px solid var(--accent); border-radius: var(--r-md); background: var(--surface); }
+  .cmt .who { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .cmt .who b { font-weight: 600; font-size: 12px; }
+  .cmt p { font-size: 12.5px; color: var(--ink-2); font-family: var(--sans); line-height: 1.5; }
+
+  .side { border-left: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; min-height: 0; }
+  .side .sec { padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .side h2 { font-size: 17px; line-height: 1.3; }
+  .opt { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--r-md); margin-top: 8px; font-size: 13px; }
+  .opt .rd { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line-strong); flex: none; }
+  .opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+  .opt.sel .rd { border-color: var(--accent); background: radial-gradient(circle, var(--accent) 45%, transparent 50%); }
+  .opt .d { margin-left: auto; font-size: 11.5px; color: var(--muted); }
+
+  .finding { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+  .finding:last-child { border-bottom: 0; }
+  .finding .tt { font-size: 12.5px; }
+  .finding .ln { font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+  .sev { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+  .sev.crit { background: var(--red-soft); color: var(--red); }
+  .sev.high { background: var(--amber-soft); color: var(--amber); }
+  .sev.med { background: var(--accent-soft); color: var(--accent); }
+
+  textarea, .ta { width: 100%; border: 1px solid var(--line-strong); border-radius: var(--r-md); padding: 10px 12px; font-family: var(--sans); font-size: 12.5px; line-height: 1.5; color: var(--ink); background: var(--surface); min-height: 96px; }
+  .status { display: flex; align-items: center; gap: 18px; padding: 0 16px; border-top: 1px solid var(--line); background: var(--surface); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .ok { color: var(--green); }
+</style></head>
+<body>
+  <div class="topbar">
+    <div class="wordmark"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="chip soft">Review</span>
+    <div style="font-family:var(--serif);font-size:14px;">ledger-api · Would you ship this pull request?</div>
+    <div style="flex:1"></div>
+    <div class="mono" style="font-size:13px;">00:21:40 <span class="muted" style="font-size:11px">/ 45:00</span></div>
+    <span class="btn sm ghost">Open in sandbox</span>
+    <span class="btn sm ghost">Ask agent</span>
+    <span class="btn sm primary">Submit review →</span>
+  </div>
+
+  <div class="main">
+    <div class="diffwrap">
+      <div class="prhead">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <h1>Add <span class="mono" style="font-size:17px">POST /transfers</span> for account-to-account money movement</h1>
+          <span class="chip green">Checks passing · 31/31</span>
+        </div>
+        <div class="meta">
+          <span>#412 opened by <b style="color:var(--ink);font-weight:500">coding-agent</b> <span class="chip" style="font-size:9.5px;padding:1px 6px">AI-generated</span></span>
+          <span class="mono">+184 −12</span><span class="mono">4 files</span>
+          <span>Linked: LEDG-88 “Users can move money between their own accounts”</span>
+        </div>
+      </div>
+      <div class="files">
+        <span class="file on">ledger/transfers.py<span class="n">+96</span></span>
+        <span class="file">ledger/api.py<span class="n">+41</span></span>
+        <span class="file">ledger/models.py<span class="n">+9 −12</span></span>
+        <span class="file">tests/test_transfers.py<span class="n">+38</span></span>
+      </div>
+
+      <div class="diff">
+        <div class="l hunk"><div></div><div></div><div></div><div>@@ -0,0 +1,96 @@ ledger/transfers.py</div></div>
+        <div class="l add"><div class="no"></div><div class="no">12</div><div class="sg">+</div><div><span class="k">def</span> <span class="f">transfer_money</span>(from_id: <span class="k">str</span>, to_id: <span class="k">str</span>, amount: <span class="k">float</span>) -&gt; Transfer:</div></div>
+        <div class="l add"><div class="no"></div><div class="no">13</div><div class="sg">+</div><div>    <span class="s">"""Move `amount` from one account to another."""</span></div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">14</div><div class="sg">+</div><div>    src = Account.<span class="f">get</span>(from_id)</div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">15</div><div class="sg">+</div><div>    dst = Account.<span class="f">get</span>(to_id)</div></div>
+        <div class="cmt">
+          <div class="who"><span class="avatar" style="width:20px;height:20px;font-size:8px">DO</span><b>You</b><span class="sev crit">Critical</span><span class="mono faint" style="font-size:10.5px">00:06</span></div>
+          <p>No authorization check that the caller owns <span class="mono">from_id</span>. The ticket says "their own accounts". As written, any authenticated user can drain any account they can guess the id of.</p>
+        </div>
+        <div class="l add mark"><div class="no"></div><div class="no">16</div><div class="sg">+</div><div>    src.balance -= amount</div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">17</div><div class="sg">+</div><div>    dst.balance += amount</div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">18</div><div class="sg">+</div><div>    src.<span class="f">save</span>()</div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">19</div><div class="sg">+</div><div>    dst.<span class="f">save</span>()</div></div>
+        <div class="cmt">
+          <div class="who"><span class="avatar" style="width:20px;height:20px;font-size:8px">DO</span><b>You</b><span class="sev crit">Critical</span><span class="mono faint" style="font-size:10.5px">00:09</span></div>
+          <p>Two separate writes with no transaction. If <span class="mono">dst.save()</span> fails, money disappears. Also a read-modify-write race: two concurrent transfers from the same account both read the old balance. Needs <span class="mono">SELECT … FOR UPDATE</span> or an atomic <span class="mono">UPDATE … WHERE balance &gt;= amount</span>.</p>
+        </div>
+        <div class="l add"><div class="no"></div><div class="no">20</div><div class="sg">+</div><div>    <span class="k">return</span> Transfer.<span class="f">create</span>(from_id=from_id, to_id=to_id, amount=amount)</div></div>
+        <div class="l"><div class="no"></div><div class="no">21</div><div class="sg"></div><div></div></div>
+        <div class="l hunk"><div></div><div></div><div></div><div>@@ ledger/api.py @@</div></div>
+        <div class="l add"><div class="no"></div><div class="no">58</div><div class="sg">+</div><div><span class="k">@app</span>.post(<span class="s">"/transfers"</span>)</div></div>
+        <div class="l add"><div class="no"></div><div class="no">59</div><div class="sg">+</div><div><span class="k">def</span> <span class="f">create_transfer</span>(body: TransferRequest, user=Depends(current_user)):</div></div>
+        <div class="l add mark"><div class="no"></div><div class="no">60</div><div class="sg">+</div><div>    <span class="k">return</span> <span class="f">transfer_money</span>(body.from_id, body.to_id, body.amount)</div></div>
+        <div class="cmt">
+          <div class="who"><span class="avatar" style="width:20px;height:20px;font-size:8px">DO</span><b>You</b><span class="sev high">High</span><span class="mono faint" style="font-size:10.5px">00:17</span></div>
+          <p>Not idempotent. A client retry after a timeout double-transfers. Accept an <span class="mono">Idempotency-Key</span> header and store it on the Transfer row with a unique constraint.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="sec">
+        <div class="label" style="margin-bottom:6px;">Your verdict</div>
+        <h2>Would you ship this?</h2>
+        <div class="opt"><span class="rd"></span>Ship it<span class="d">merge as-is</span></div>
+        <div class="opt"><span class="rd"></span>Request changes<span class="d">minor fixes, then merge</span></div>
+        <div class="opt sel"><span class="rd"></span>Block<span class="d">unsafe to merge</span></div>
+      </div>
+      <div class="sec" style="flex:1;overflow:hidden;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span class="label">Findings logged · 5</span>
+          <span class="mono muted" style="font-size:10.5px">drag to rank by severity</span>
+        </div>
+        <div class="finding"><span class="sev crit">Crit</span><div><div class="tt">Missing ownership / authorization check on source account</div><div class="ln">transfers.py:14</div></div><span class="faint">⋮</span></div>
+        <div class="finding"><span class="sev crit">Crit</span><div><div class="tt">Non-atomic double write; race on balance read-modify-write</div><div class="ln">transfers.py:16–19</div></div><span class="faint">⋮</span></div>
+        <div class="finding"><span class="sev high">High</span><div><div class="tt">No insufficient-balance guard; negative balances possible</div><div class="ln">transfers.py:16</div></div><span class="faint">⋮</span></div>
+        <div class="finding"><span class="sev high">High</span><div><div class="tt">Endpoint is not idempotent under client retries</div><div class="ln">api.py:60</div></div><span class="faint">⋮</span></div>
+        <div class="finding"><span class="sev med">Med</span><div><div class="tt"><span class="mono">float</span> for currency; use integer minor units or Decimal</div><div class="ln">transfers.py:12</div></div><span class="faint">⋮</span></div>
+        <div style="margin-top:10px;padding:9px 12px;border:1px dashed var(--line-strong);border-radius:var(--r-md);font-size:12px;color:var(--muted);text-align:center;">+ Add finding</div>
+        <div class="muted" style="font-size:11.5px;margin-top:10px;line-height:1.5;">Tests pass, which is part of the exercise: the AI wrote tests for the code it wrote, not for the requirement. You may also submit a fixed version from the sandbox for extra signal.</div>
+      </div>
+      <div class="sec" style="border-bottom:0;">
+        <div class="label" style="margin-bottom:8px;">Summary for the author</div>
+        <div class="ta">Blocking. The happy path works but the PR treats a money movement like a CRUD update. Wrap both balance changes in one transaction with row locks, reject transfers the caller doesn't own, guard against overdraft, and add idempotency keys. I'd also switch to integer cents. Happy to pair on the locking approach.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status">
+    <span>reviewing 1 of 4 files</span><span>3 inline comments</span><span class="ok">✓ sandbox ready · 31/31 tests</span>
+    <div style="flex:1"></div><span>Agent used 2× · both for reading Postgres locking docs</span>
+  </div>
+</body></html>

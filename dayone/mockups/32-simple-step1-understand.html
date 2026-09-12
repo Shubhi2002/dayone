@@ -1,0 +1,75 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="simple.css">
+<style>
+  .ticket { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2); }
+  .ticket .from { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+  .ticket p { font-size: 14px; line-height: 1.6; color: var(--ink); }
+  .ticket .ex { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; line-height: 1.6; }
+  .ta { margin-top: 6px; border: 1.5px solid var(--line-strong); border-radius: 12px; padding: 10px 12px; font-size: 13.5px; line-height: 1.5; color: var(--ink); background: var(--surface); }
+</style></head>
+<body>
+<div class="s-shell">
+  <div class="s-top">
+    <div class="wordmark" style="font-size:16px;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 16 A8 8 0 0 1 20 16 Z" fill="#46206F"/><rect x="2" y="17.5" width="20" height="2.5" rx="1.25" fill="#46206F"/></svg>dayone</div>
+    <span class="title">Working with AI · Cart total is wrong with a discount code</span>
+    <div class="steps"><span class="s now"><i>1</i>Understand</span><span class="sep"></span><span class="s"><i>2</i>Reproduce</span><span class="sep"></span><span class="s"><i>3</i>Fix</span><span class="sep"></span><span class="s"><i>4</i>Check</span><span class="sep"></span><span class="s"><i>5</i>Explain</span></div>
+    <div class="time">About <b>45:00</b> · <b style="color:var(--muted)">06:12</b> used</div>
+  </div>
+  <div class="s-main">
+    <div class="guide">
+      <div><div class="stepno">STEP 1 OF 5</div><h2>Understand the problem before touching code.</h2></div>
+      <div class="ticket">
+        <div class="from">Bug report from Support · yesterday</div>
+        <p>"Customers using the code <b>SAVE10</b> are being charged less than they should. The 10% seems to come off shipping too, not just the items."</p>
+        <div class="ex">2 items at $20 + $5 shipping · expected $41.00 · charged $40.50</div>
+      </div>
+      <div class="todo">
+        <div class="on"><i>✓</i><span>Read the bug report</span></div>
+        <div class="on"><i>✓</i><span>Ask the assistant to explain where the total is calculated</span></div>
+        <div><i></i><span>Write down what you think is wrong, in one or two sentences</span></div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">My guess at what's wrong</div>
+        <div class="ta">I think the discount is applied after shipping is added, so it takes 10% off the shipping cost as well as the items.</div>
+      </div>
+      <div class="hint"><b>Stuck?</b> Ask: "Which line adds shipping to the total?" and compare it with where the discount happens.</div>
+      <div class="next"><span class="big-btn" style="padding:12px 22px;font-size:14px;">Next: reproduce it →</span></div>
+    </div>
+
+    <div class="work">
+      <div class="files"><span class="f on">cart.js <small>48 lines</small></span><span class="f">discounts.js <small>22 lines</small></span><span class="f">cart.test.js <small>6 tests</small></span></div>
+      <div class="code"><pre><span class="row"><span class="ln">12</span><span class="k">function</span> <span class="f">calculateTotal</span>(cart, discountCode) {</span>
+<span class="row"><span class="ln">13</span>  <span class="k">let</span> total = <span class="n">0</span>;</span>
+<span class="row"><span class="ln">14</span>  <span class="k">for</span> (<span class="k">const</span> item <span class="k">of</span> cart.items) {</span>
+<span class="row"><span class="ln">15</span>    total += item.price * item.quantity;</span>
+<span class="row"><span class="ln">16</span>  }</span>
+<span class="row"><span class="ln">17</span></span>
+<span class="row mark"><span class="ln">18</span>  total += <span class="f">shippingFor</span>(cart);            <span class="c">// shipping added here</span></span>
+<span class="row"><span class="ln">19</span></span>
+<span class="row mark"><span class="ln">20</span>  <span class="k">if</span> (discountCode) {</span>
+<span class="row mark"><span class="ln">21</span>    <span class="k">const</span> pct = <span class="f">discountPercent</span>(discountCode);</span>
+<span class="row mark"><span class="ln">22</span>    total = total * (<span class="n">1</span> - pct / <span class="n">100</span>);        <span class="c">// discount applied to everything</span></span>
+<span class="row"><span class="ln">23</span>  }</span>
+<span class="row"><span class="ln">24</span></span>
+<span class="row"><span class="ln">25</span>  <span class="k">return</span> <span class="f">roundToCents</span>(total);</span>
+<span class="row"><span class="ln">26</span>}</span></pre></div>
+      <div class="runbar">
+        <div class="act"><span class="big">▶ Run tests</span><span class="big secondary">Try an example</span></div>
+        <div class="res"><div class="h"><span>You haven't run the tests yet. That's step 2.</span></div></div>
+      </div>
+    </div>
+
+    <div class="assist">
+      <div class="head"><span class="avatar" style="width:30px;height:30px;font-size:11px;background:var(--ink);color:#fff;">◆</span><div><h3>AI assistant</h3><span>Reads your files · suggests changes · sometimes wrong</span></div></div>
+      <div class="conv">
+        <div class="bub me"><div class="who">You · 03:10</div><div class="txt">Where is the cart total calculated, and where does the discount get applied?</div></div>
+        <div class="bub ai"><div class="who">Assistant · 03:11 · read cart.js, discounts.js</div><div class="txt">The total is built in <b>calculateTotal</b> in cart.js. Lines 14 to 16 add up the items, line 18 adds shipping, and lines 20 to 22 apply the discount percentage to <b>total</b>. So by the time the discount runs, shipping is already inside the number it multiplies. I've highlighted those lines for you.</div></div>
+        <div class="bub me"><div class="who">You · 04:02</div><div class="txt">So the bug is the order: shipping goes in before the discount. Is that right, or is there anything else that could cause it?</div></div>
+        <div class="bub ai"><div class="who">Assistant · 04:02</div><div class="txt">That's the most likely cause and it matches the example in the report exactly (10% of $45 is $4.50, giving $40.50). I don't see a second cause in these files, but the tests in cart.test.js will tell you for sure.</div></div>
+        <div class="chips"><span class="pillbtn">Show me the test for discounts</span><span class="pillbtn">Explain roundToCents</span></div>
+      </div>
+      <div class="compose"><div class="box">Which test checks the discount<span class="cursor"></span></div><div class="note">Tip: asking "why" and "is that right?" counts in your favour. Copying the first answer without checking does not.</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

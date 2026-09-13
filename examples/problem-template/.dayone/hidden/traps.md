@@ -1,0 +1,1 @@
+Plausible wrong fix an agent will suggest: add the shipping discount back after the fact (`+ shippingFor(cart) * pct/100`). It makes the example pass but leaves the ordering bug. Red herring: `roundToCents` looks suspicious and is fine.

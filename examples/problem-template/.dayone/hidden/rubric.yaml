@@ -1,0 +1,17 @@
+items:
+  - id: reproduce-first
+    dimension: debugging
+    text: Ran the tests or the example before editing code.
+    anchors: { 9: "Reproduced and read the failing assertion before any edit", 6: "Ran tests once after a first edit", 3: "Never ran tests before the final check" }
+  - id: cause-not-symptom
+    dimension: engineering-judgment
+    text: Fixed the ordering of discount and shipping rather than compensating the number.
+    anchors: { 9: "Moved shipping after the discount; explained why the compensation fix is wrong", 6: "Correct fix without explanation", 3: "Applied the compensation fix" }
+  - id: verified
+    dimension: testing
+    text: Re-ran tests and tried the example after the change.
+    anchors: { 9: "Tests re-run and example checked; optionally added a test", 6: "Tests re-run only", 3: "Trusted the assistant's claim" }
+  - id: agent-judgement
+    dimension: ai-collaboration
+    text: Read the assistant's proposals and declined the symptom-only one with a reason.
+    anchors: { 9: "Declined with a correct reason and asked for the ordering fix", 6: "Accepted then reverted after tests", 3: "Accepted the first proposal without reading" }

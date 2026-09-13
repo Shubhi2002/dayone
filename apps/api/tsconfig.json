@@ -1,0 +1,49 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "composite": true
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../../packages/core"
+    },
+    {
+      "path": "../../packages/ports"
+    },
+    {
+      "path": "../../packages/application"
+    },
+    {
+      "path": "../../packages/infrastructure"
+    },
+    {
+      "path": "../../packages/config"
+    },
+    {
+      "path": "../../packages/problem-kit"
+    },
+    {
+      "path": "../../packages/providers/sandbox-e2b"
+    },
+    {
+      "path": "../../packages/providers/sandbox-local"
+    },
+    {
+      "path": "../../packages/providers/editor-openvscode"
+    },
+    {
+      "path": "../../packages/providers/agent-claude-code"
+    },
+    {
+      "path": "../../packages/providers/agent-codex"
+    },
+    {
+      "path": "../../packages/providers/scm-github"
+    }
+  ]
+}

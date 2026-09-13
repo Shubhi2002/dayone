@@ -1,0 +1,137 @@
+<!doctype html>
+<html data-size="1800x1240"><head><meta charset="utf-8"><link rel="stylesheet" href="diagram.css">
+<style>
+  html, body { width: 1800px; height: 1240px; }
+  .page { padding-right: 52px; padding-left: 52px; }
+  .arch { padding: 0 34px 0 26px; }
+  .arch { position: relative; flex: 1; display: grid; grid-template-rows: auto auto auto auto auto; gap: 34px; }
+  .tier { position: relative; border: 1px solid var(--line); border-radius: 18px; padding: 20px 18px 16px; background: rgba(255,255,255,0.55); }
+  .tier > .t { position: absolute; top: -10px; left: 18px; background: var(--bg); padding: 0 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .tier > .t b { color: var(--ink); font-family: var(--sans); text-transform: none; letter-spacing: 0; font-weight: 500; margin-right: 8px; }
+  .row { display: grid; gap: 14px; }
+  .clients { grid-template-columns: 1fr 1fr 1fr; }
+  .plane { grid-template-columns: repeat(6, 1fr); }
+  .trace { grid-template-columns: repeat(6, 1fr); }
+  .ext-row { grid-template-columns: repeat(5, 1fr); }
+  .sandbox-wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
+  .vm { border: 1.5px solid var(--accent-mid); border-radius: 14px; padding: 18px 14px 14px; background: var(--surface); position: relative; }
+  .vm > .t { position: absolute; top: -10px; left: 14px; background: var(--surface); padding: 0 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .vm .row { grid-template-columns: repeat(3, 1fr); }
+  .vm .row + .row { margin-top: 12px; }
+  .side { display: grid; grid-template-rows: 1fr 1fr; gap: 14px; }
+  .node.small p { font-size: 11px; }
+  .iface { font-family: var(--mono); font-size: 10px; color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-top: 4px; }
+</style></head>
+<body>
+<div class="page">
+  <div class="head">
+    <div><h1>Dayone · system architecture (V0)</h1><p>Two thin clients, a session control plane, a per-session Firecracker microVM we rent, a trace and scoring plane, and a few external services. Purple arrows carry the trace, which is the product.</p></div>
+    <div style="display:flex;gap:8px;"><span class="chip soft">Build first</span><span class="chip">Provider-swappable</span><span class="chip">No video, no biometrics</span></div>
+  </div>
+
+  <div class="arch">
+    <svg class="edges"></svg>
+
+    <!-- Tier A: clients -->
+    <div class="tier"><span class="t"><b>Clients</b>browser</span>
+      <div class="row clients">
+        <div class="node" id="cl1"><span class="k">Company console · mockups 03, 16, 02, 17</span><b>Marketplace · loop builder · candidates · reports · replay</b><p>Web app. Auth by email, SSO later. Talks only to the control plane.</p></div>
+        <div class="node build" id="cl2"><span class="k">Candidate shell · mockups 01, 10, 30 to 36</span><b>Ticket · guided steps · timer · agent choice · wrap-up</b><p>Frames the IDE in an iframe on a per-session subdomain. The agent chat is the extension's own panel inside VS Code. Reconnect-safe.</p></div>
+        <div class="node" id="cl3"><span class="k">Candidate report · mockups 14, 36</span><b>Post-decision feedback, data access, deletion</b><p>Same report service, candidate-facing view.</p></div>
+      </div>
+    </div>
+
+    <!-- Tier B: session control plane -->
+    <div class="tier"><span class="t"><b>Session control plane</b>we build · Postgres + object storage + queue</span>
+      <div class="row plane">
+        <div class="node" id="p2"><span class="k">Scenario service</span><b>Marketplace, families, variants, rubrics</b><p>Scenario packages versioned; variant generator; template image references. Hidden truths encrypted, access logged.</p></div>
+        <div class="node" id="p1"><span class="k">API gateway</span><b>Auth, link tokens, rate limits</b><p>Single-use signed links → session cookies. Company users, candidate sessions and sandbox event tokens are three separate principals.</p></div>
+        <div class="node" id="p3"><span class="k">Sessions service</span><b>Lifecycle state machine</b><p>created → provisioning → live → paused → submitted → graded → reported. Heartbeats, expiry, resume.</p></div>
+        <div class="node" id="p6"><span class="k">IDE proxy</span><b>Auth-terminating reverse proxy</b><p>Maps &lt;session&gt;.ide.dayone… to the VM's IDE port with the connection token. Blocks marketplace and settings sync.</p></div>
+        <div class="node" id="p4"><span class="k">Orchestrator</span><b>Warm pool + provisioning</b><p>2 to 3 warm VMs per scenario; apply variant; start IDE + agent host; return proxied URLs; destroy on submit.<span class="iface">SandboxProvider: create · url · snapshot · pause · destroy</span></p></div>
+        <div class="node" id="p12"><span class="k">Agent gateway</span><b>Model proxy with per-session virtual keys</b><p>Agent extensions talk to vendors only through here. Logs prompts and completions as trace events, meters cost, enforces the session budget.<span class="iface">AgentProvider: install · configure · transcripts</span></p></div>
+      </div>
+    </div>
+
+    <!-- Tier C: sandbox -->
+    <div class="tier"><span class="t"><b>Per-session sandbox</b>rented Firecracker microVM · E2B or Daytona in V0 · 2 vCPU / 4 GB · destroyed after submit</span>
+      <div class="sandbox-wrap">
+        <div class="vm" id="vm"><span class="t">one VM per candidate session · egress allow-list: control plane, model API, optional package registries</span>
+          <div class="row">
+            <div class="node small" id="v1"><span class="k">Scenario workspace</span><b>Repo (variant applied) · deps · tests · services</b><p>From the scenario template image. Graded test set outside the writable tree.</p></div>
+            <div class="node small" id="v2"><span class="k">OpenVSCode Server</span><b>Upstream VS Code over HTTP</b><p>Connection token. Dayone extension pre-installed; marketplace disabled; themed.</p></div>
+            <div class="node small build" id="v4"><span class="k">Chosen agent extension</span><b>Claude Code or Codex, picked by the candidate from the company's allowed set</b><p>Installed by its AgentProvider; pointed at the agent gateway via base-URL settings. Transcripts shipped at session end.</p></div>
+          </div>
+          <div class="row">
+            <div class="node small" id="v6"><span class="k">Snapshotter + telemetry</span><b>git commit every 30 s · CPU, memory, egress attempts</b><p>Backstop for anything the hooks miss; integrity signals.</p></div>
+            <div class="node small" id="v5"><span class="k">Shell wrapper + test shim</span><b>Commands, exit codes, structured test results</b><p>Shell integration + PROMPT_COMMAND; wrapped npm test / pytest.</p></div>
+            <div class="node small" id="v3"><span class="k">Dayone extension</span><b>Source-tagged edits, saves, terminal, test runs</b><p>Human vs. agent-applied changes for line attribution.</p></div>
+          </div>
+        </div>
+        <div class="side">
+          <div class="node ext" id="x1"><span class="k">Sandbox provider</span><b>E2B or Daytona (V0) · Fly Machines / self-hosted (later)</b><p>Template build, per-second billing, pause and resume, public host per port, network policy. Open source with a self-host path.</p></div>
+        <div class="node ext" id="x2"><span class="k">Model vendors</span><b>Anthropic · OpenAI, reached only via the agent gateway</b><p>Per-agent default models, pinned per problem version and disclosed to the candidate. Graders use claude-opus-5.</p></div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Tier D: trace and scoring plane -->
+    <div class="tier"><span class="t"><b>Trace and scoring plane</b>we build · async · doc 07</span>
+      <div class="row trace">
+        <div class="node auto" id="p5"><span class="k">Event ingest</span><b>Append-only trace store</b><p>Validates the sandbox token; every event typed and timestamped; Postgres + object storage for replay. Treated as untrusted input.</p></div>
+        <div class="node auto" id="p7"><span class="k">Snapshot store</span><b>Repo snapshots + final diff</b><p>Hidden-branch commits every 30 s and on apply; final diff and written answers on submit.</p></div>
+        <div class="node auto" id="p8"><span class="k">Scoring pipeline</span><b>Normaliser → signals → rubric agents → reconciler → composer</b><p>Five grader runs per item, evidence citations, grader agreement. Anchor sets per scenario.</p></div>
+        <div class="node auto" id="p9"><span class="k">Calibration queue</span><b>Sampled · flagged · disputed</b><p>Human review UI on top of replay. Blind to automated score. Overrides recorded forever.</p></div>
+        <div class="node auto" id="p11"><span class="k">Monitoring</span><b>Drift, leakage, fairness</b><p>Score drift per scenario, integrity flag rates, adverse-impact screens. Flags route to humans, never to scores.</p></div>
+      <div class="node auto" id="p10"><span class="k">Report service</span><b>Engineering Score, key moments, debrief Qs</b><p>Company view first; candidate view unlocked on decision. Share links, PDF later.</p></div>
+        </div>
+    </div>
+
+    <!-- Tier E: external -->
+    <div class="tier"><span class="t"><b>Other external services</b></span>
+      <div class="row ext-row">
+        <div class="node ext small" id="e4"><span class="k">Container registry</span><b>Scenario template images</b><p>One image per scenario version; variants applied at start.</p></div>
+        <div class="node ext small" id="e2"><span class="k">ATS · later</span><b>Greenhouse, Lever, Ashby</b><p>Invite and status sync; not in V0.</p></div>
+        <div class="node ext small" id="e3"><span class="k">Identity · optional</span><b>SSO for companies · ID verification for final rounds</b></div>
+        <div class="node ext small" id="e5"><span class="k">Observability</span><b>Logs, metrics, alerts</b><p>Sandbox events are data, not logs; keep them separate.</p></div>
+        <div class="node ext small" id="e1"><span class="k">Email</span><b>Invitations, reminders, report notifications</b></div>
+      </div>
+    </div>
+
+    <!-- edges: clients → control plane -->
+    <div class="edge" data-from="cl1" data-to="p1" data-label="HTTPS · console API" data-route="ortho" data-sx="0.55" data-ex="0.5" data-chan="0.4"></div>
+    <div class="edge" data-from="cl2" data-to="p6" data-label="iframe → IDE" data-route="ortho" data-sx="0.35" data-ex="0.5" data-chan="0.3"></div>
+    <div class="edge" data-from="cl2" data-to="p12" data-label="agent choice · heartbeats" data-route="ortho" data-sx="0.75" data-ex="0.5" data-chan="0.6"></div>
+    <!-- control plane → sandbox -->
+    <div class="edge" data-from="p6" data-to="v2" data-label="proxied IDE traffic" data-route="ortho" data-sx="0.5" data-ex="0.5" data-chan="0.3"></div>
+    <div class="edge" data-from="p12" data-to="v4" data-label="allowed agents · chosen agent · virtual key" data-route="ortho" data-sx="0.5" data-ex="0.5" data-chan="0.18"></div>
+    <div class="edge" data-from="p4" data-to="x1" data-label="create · pause · destroy" data-class="dashed" data-route="ortho" data-sx="0.5" data-ex="0.5" data-chan="0.42"></div>
+    <div class="edge" data-from="v4" data-to="x2" data-label="vendor API via gateway" data-d="M{v4.r} {v4.cy} H{vm.r+8} V{x2.cy} H{x2.x}" data-t="0.55"></div>
+    <!-- sandbox → trace plane -->
+    <div class="edge" data-from="vm" data-to="p5" data-label="edits · commands · tests · prompts · tool calls · apply / decline" data-class="accent" data-route="ortho" data-sx="0.12" data-ex="0.5" data-chan="0.5"></div>
+    <div class="edge" data-from="vm" data-to="p7" data-label="snapshots · telemetry" data-class="accent" data-route="ortho" data-sx="0.6" data-ex="0.5" data-chan="0.72"></div>
+    <div class="edge" data-from="p8" data-to="x2" data-label="grader calls" data-class="dashed" data-route="ortho" data-sx="0.7" data-ex="0.5" data-chan="0.5"></div>
+    <!-- trace plane internal -->
+    <div class="edge" data-from="p5" data-to="p8" data-route="curve" data-sy="0.85" data-ey="0.85" data-class="accent"></div>
+    <div class="edge" data-from="p8" data-to="p9"></div>
+    <div class="edge" data-from="p9" data-to="p10" data-d="M{p9.r} {p9.cy} H{p10.x}" data-label="" ></div>
+    <!-- reports → clients via right gutter -->
+    <div class="edge" data-from="p10" data-to="cl3" data-label="reports · company first, candidate after decision" data-route="gutter-right" data-gx="10" data-sy="0.5" data-ey="0.5"></div>
+    <!-- external -->
+    <div class="edge" data-from="p2" data-to="e4" data-label="template images" data-class="dashed" data-route="gutter-left" data-gx="8" data-sy="0.6" data-ey="0.5"></div>
+    <div class="edge" data-from="p10" data-to="e1" data-label="notify" data-class="dashed" data-route="ortho" data-sx="0.5" data-ex="0.5"></div>
+  </div>
+
+  <div class="legend">
+    <span><i></i>We build</span>
+    <span><i class="auto"></i>We build, runs in the background</span>
+    <span><i class="build"></i>Core signal surface</span>
+    <span><i class="ext"></i>Bought or external</span>
+    <span><span class="ln"></span>Request</span>
+    <span><span class="ln dashed"></span>Provisioning / async</span>
+    <span><span class="ln accent"></span>Trace</span>
+    <span style="margin-left:auto;color:var(--muted);">Debug mode adds a telemetry synthesiser and multi-service compose inside the VM; Review mode needs only a diff viewer and a lighter VM.</span>
+  </div>
+</div>
+<script src="edges.js"></script>
+</body></html>

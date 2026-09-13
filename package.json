@@ -1,0 +1,27 @@
+{
+  "name": "dayone",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "packages/providers/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc -b tsconfig.json",
+    "build": "tsc -b tsconfig.json",
+    "test": "vitest run",
+    "dev:api": "npm run build && node apps/api/dist/main.js",
+    "dev:worker": "npm run build && node apps/worker/dist/main.js",
+    "clean": "find . -name dist -type d -prune -exec rm -rf {} + ; find . -name '*.tsbuildinfo' -delete"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.7.0"
+  }
+}

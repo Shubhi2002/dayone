@@ -1,0 +1,95 @@
+<!doctype html>
+<html data-size="1800x1280"><head><meta charset="utf-8"><link rel="stylesheet" href="diagram.css">
+<style>
+  html, body { width: 1800px; height: 1280px; }
+  .lanes { position: relative; flex: 1; display: grid; grid-template-columns: 120px repeat(9, 1fr); grid-template-rows: auto repeat(5, 1fr); gap: 30px 16px; padding-right: 30px; }
+  .lane-l { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; padding-right: 8px; border-right: 1px solid var(--line-strong); }
+  .lane-l b { font-family: var(--sans); font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--ink); display: block; font-weight: 500; }
+  .phase { grid-column: 2 / -1; display: grid; grid-template-columns: repeat(9, 1fr); gap: 16px; }
+  .phase span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 2px solid var(--accent-mid); padding-top: 6px; }
+  .phase span.m { grid-column: span 2; }
+  .phase span.w { grid-column: span 3; }
+</style></head>
+<body>
+<div class="page">
+  <div class="head">
+    <div><h1>Dayone · end-to-end flow (V0, Build mode)</h1><p>From a company picking a problem to both sides receiving a report. Solid arrows are user actions or synchronous calls; dashed arrows are automatic background steps; purple arrows carry the trace.</p></div>
+    <div style="display:flex;gap:8px;"><span class="chip soft">Build · one round · 60 to 90 min</span><span class="chip">13 Sep 2026</span></div>
+  </div>
+
+  <div class="lanes">
+    <svg class="edges"></svg>
+
+    <div style="grid-row:1;grid-column:1;"></div>
+    <div class="phase" style="grid-row:1;">
+      <span class="m">1 · Set up</span><span class="m">2 · Start</span><span class="w">3 · Work</span><span>4 · Submit</span><span>5 · Decide</span>
+    </div>
+
+    <!-- Lane 2: Company -->
+    <div class="lane-l" style="grid-row:2;grid-column:1;"><div><b>Company</b>hiring manager · recruiter</div></div>
+    <div class="node" id="c1" style="grid-row:2;grid-column:2;"><span class="n">1</span><span class="k">Console</span><b>Browse the problem marketplace</b><p>Filter by mode, level, stack. Preview as a candidate.</p></div>
+    <div class="node" id="c2" style="grid-row:2;grid-column:3;"><span class="n">2</span><span class="k">Console</span><b>Pick a problem, choose allowed agents, generate a link</b><p>Role profile, time budget, expiry. Link is single-use and signed.</p></div>
+    <div class="node" id="c3" style="grid-row:2;grid-column:4;"><span class="n">3</span><span class="k">Email / ATS</span><b>Send the link to the candidate</b><p>Candidate notice included: what is recorded, accommodations.</p></div>
+    <div class="node good" id="c4" style="grid-row:2;grid-column:10;"><span class="n">13</span><span class="k">Console</span><b>Read report, watch replay, decide</b><p>Score, key moments, debrief questions. Dispute path open.</p></div>
+
+    <!-- Lane 3: Candidate -->
+    <div class="lane-l" style="grid-row:3;grid-column:1;"><div><b>Candidate</b>browser only</div></div>
+    <div class="node" id="k1" style="grid-row:3;grid-column:4;"><span class="n">4</span><span class="k">Invitation page</span><b>Open link, choose an agent, try the warm-up</b><p>One of the allowed agents. No account, no install.</p></div>
+    <div class="node build" id="k2" style="grid-row:3;grid-column:6 / span 2;"><span class="n">6</span><span class="k">Dayone shell · mockups 01, 10, 30 to 35</span><b>Work the task: understand → reproduce → fix with the assistant → verify → explain</b><p>Ticket, guided steps, embedded IDE, tests, AI assistant. Every assistant change passes a Read it first → Apply / Decline gate.</p></div>
+    <div class="node" id="k3" style="grid-row:3;grid-column:8;"><span class="n">9</span><span class="k">Wrap-up</span><b>Answer three written questions, submit</b><p>What was wrong, what you changed, what you'd do next.</p></div>
+    <div class="node good" id="k4" style="grid-row:3;grid-column:10;"><span class="n">14</span><span class="k">Candidate report</span><b>Receive own feedback</b><p>Dimensions, key moments, what to work on. Data access and deletion.</p></div>
+
+    <!-- Lane 4: Sandbox -->
+    <div class="lane-l" style="grid-row:4;grid-column:1;"><div><b>Sandbox</b>per-session microVM</div></div>
+    <div class="node" id="s1" style="grid-row:4;grid-column:5;"><span class="n">5</span><span class="k">Firecracker VM</span><b>Repo + deps + tests + IDE + agent host</b><p>E2B. OpenVSCode Server, Dayone extension, shell wrapper, git snapshotter. Egress allow-list.</p></div>
+    <div class="node" id="s2" style="grid-row:4;grid-column:6;"><span class="n">7</span><span class="k">Agent extension</span><b>Claude Code or Codex inside VS Code</b><p>Talks to vendors only via our agent gateway (logged, metered, budgeted). Transcripts shipped at end.</p></div>
+    <div class="node" id="s3" style="grid-row:4;grid-column:7;"><span class="n">8</span><span class="k">Capture</span><b>Emit events, snapshot every 30 s</b><p>Source-tagged edits, commands, test results, prompts, apply / decline.</p></div>
+
+    <!-- Lane 5: Dayone platform -->
+    <div class="lane-l" style="grid-row:5;grid-column:1;"><div><b>Dayone platform</b>control plane</div></div>
+    <div class="node auto" id="d1" style="grid-row:5;grid-column:3;"><span class="k">Sessions API</span><b>Create session record</b><p>scenario · variant · candidate · expiry · role weights</p></div>
+    <div class="node auto" id="d2" style="grid-row:5;grid-column:5;"><span class="k">Orchestrator</span><b>Provision sandbox from template</b><p>Warm microVM, apply variant, start IDE + agent host. Target &lt; 10 s.</p></div>
+    <div class="node auto" id="d3" style="grid-row:5;grid-column:7;"><span class="k">Event ingest</span><b>Store the trace</b><p>Edits, commands, tests, prompts, tool calls, apply / decline. Append-only.</p></div>
+    <div class="node auto" id="d4" style="grid-row:5;grid-column:9;"><span class="k">Snapshots</span><b>Final snapshot, destroy sandbox</b><p>Repo diff, written summary, trace retained. VM gone.</p></div>
+    <div class="node auto" id="d5" style="grid-row:5;grid-column:10;"><span class="n">12</span><span class="k">Reports</span><b>Compose report, notify</b><p>Company first. Candidate report unlocks after the decision.</p></div>
+
+    <!-- Lane 6: Scoring -->
+    <div class="lane-l" style="grid-row:6;grid-column:1;"><div><b>Scoring & review</b>pipeline + humans</div></div>
+    <div class="node auto" id="g1" style="grid-row:6;grid-column:8;"><span class="k">Signals</span><b>Extract process signals</b><p>Reproduced before edit, rejections with reason, blind accepts, attribution.</p></div>
+    <div class="node auto" id="g2" style="grid-row:6;grid-column:9;"><span class="n">10</span><span class="k">Graders</span><b>5 rubric agents per item, reconcile</b><p>Median, spread → grader agreement. Outcome weighted low.</p></div>
+    <div class="node" id="g3" style="grid-row:6;grid-column:10;"><span class="n">11</span><span class="k">Calibration queue</span><b>Human review if sampled, flagged, or disputed</b><p>Blind to the automated score. Overrides shown on the report.</p></div>
+
+    <!-- edges -->
+    <div class="edge" data-from="c1" data-to="c2"></div>
+    <div class="edge" data-from="c2" data-to="c3"></div>
+    <div class="edge" data-from="c2" data-to="d1" data-label="POST /sessions" data-route="ortho" data-sx="0.3" data-ex="0.3"></div>
+    <div class="edge" data-from="c3" data-to="k1" data-label="signed link" data-route="ortho"></div>
+    <div class="edge" data-from="k1" data-to="d2" data-label="open link → session token" data-class="dashed" data-route="ortho" data-sx="0.7" data-chan="0.95"></div>
+    <div class="edge" data-from="d2" data-to="s1" data-label="create from template" data-class="dashed" data-route="ortho"></div>
+    <div class="edge" data-from="s1" data-to="k2" data-label="proxied IDE" data-route="ortho" data-ex="0.12" data-chan="0.5"></div>
+    <div class="edge" data-from="k2" data-to="s2" data-label="prompts in the agent panel" data-route="ortho" data-sx="0.42" data-ex="0.5" data-chan="0.5" data-anchor="start"></div>
+    <div class="edge" data-from="s2" data-to="s3"></div>
+    <div class="edge" data-from="s3" data-to="d3" data-label="events · outbound HTTPS" data-class="accent" data-route="ortho"></div>
+    <div class="edge" data-from="k2" data-to="k3"></div>
+    <div class="edge" data-from="k3" data-to="d4" data-label="submit" data-route="ortho" data-sx="0.5" data-ex="0.5" data-chan="0.9"></div>
+    <div class="edge" data-from="d3" data-to="g1" data-label="trace" data-class="accent" data-route="ortho" data-chan="0.5"></div>
+    <div class="edge" data-from="d4" data-to="g2" data-label="final diff + summary" data-class="accent" data-route="ortho" data-anchor="end"></div>
+    <div class="edge" data-from="g1" data-to="g2"></div>
+    <div class="edge" data-from="g2" data-to="g3"></div>
+    <div class="edge" data-from="g3" data-to="d5" data-label="scores + evidence" data-route="ortho" data-sx="0.7" data-ex="0.7" data-anchor="end"></div>
+    <div class="edge" data-from="d5" data-to="c4" data-label="report ready → company" data-route="gutter-right" data-gx="6" data-sy="0.5" data-ey="0.5"></div>
+    <div class="edge" data-from="c4" data-to="k4" data-label="decision shared → report unlocks" data-class="green" data-route="ortho" data-sx="0.5" data-ex="0.5" data-anchor="end"></div>
+  </div>
+
+  <div class="legend">
+    <span><i></i>User action or synchronous step</span>
+    <span><i class="auto"></i>Automatic background step</span>
+    <span><i class="build"></i>Where the candidate spends most of the time</span>
+    <span><span class="ln"></span>Action / call</span>
+    <span><span class="ln dashed"></span>Provisioning</span>
+    <span><span class="ln accent"></span>Trace</span>
+    <span style="margin-left:auto;color:var(--muted);">Disputes and re-review run between 11 and 13 when triggered.</span>
+  </div>
+</div>
+<script src="edges.js"></script>
+</body></html>

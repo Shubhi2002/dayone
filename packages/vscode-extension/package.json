@@ -1,0 +1,39 @@
+{
+  "name": "@dayone/vscode-extension",
+  "displayName": "Dayone Trace",
+  "publisher": "dayone",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "configuration": {
+      "properties": {
+        "dayone.sessionId": {
+          "type": "string",
+          "description": "Session id injected by the orchestrator"
+        },
+        "dayone.apiUrl": {
+          "type": "string",
+          "description": "Control plane base URL"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "package": "echo 'TODO: vsce package' "
+  },
+  "dependencies": {
+    "@dayone/core": "*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0"
+  }
+}

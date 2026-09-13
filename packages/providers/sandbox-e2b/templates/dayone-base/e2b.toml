@@ -1,0 +1,3 @@
+template_name = "dayone-base"
+dockerfile = "e2b.Dockerfile"
+# The runtime bootstrap is started by the orchestrator via exec, not as start_cmd, so per-session env is available.

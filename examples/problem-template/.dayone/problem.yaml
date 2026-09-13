@@ -1,0 +1,28 @@
+schemaVersion: 1
+id: cart-discount-bug
+title: Cart total is wrong with a discount code
+mode: build
+level: junior
+stack: [node, javascript]
+timeBudgetMinutes: 45
+summary: >
+  Customers using SAVE10 are charged less than they should be: the discount is applied to shipping too.
+  Understand the cause, fix it, verify with the tests, and explain what you changed.
+sandbox:
+  template: dayone-base
+  size: { vcpu: 1, memoryMb: 2048 }
+  ports: []
+  setup: .dayone/setup.sh
+  egress: []
+tests:
+  visible: "npm test"
+  graded: .dayone/hidden/tests
+agents:
+  allowedDefault: [claude-code, codex]
+  budgetUsd: 3
+variants:
+  strategy: none
+  pool: []
+dimensions:
+  primary: [debugging, testing, ai-collaboration, engineering-judgment]
+  secondary: [code-quality]
